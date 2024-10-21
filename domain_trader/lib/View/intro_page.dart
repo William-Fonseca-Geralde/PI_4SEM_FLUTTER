@@ -28,8 +28,23 @@ class _IntroPageState extends State<IntroPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
-      ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              width: 100,
+              height: 100,
+              child: CircularProgressIndicator(),
+            ),
+            Text(
+              'Bem-Vindo ao DomainTrader',
+              style: TextStyle(
+                fontSize: 24,
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }
