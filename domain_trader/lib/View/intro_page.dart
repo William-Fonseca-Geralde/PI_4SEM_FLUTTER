@@ -1,4 +1,6 @@
+import 'package:domain_trader/View/home_page.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -9,27 +11,24 @@ class IntroPage extends StatefulWidget {
 
 class _IntroPageState extends State<IntroPage> {
   @override
-  Widget build(BuildContext context) {
-    double altura = MediaQuery.of(context).size.height;
-    double largura = MediaQuery.of(context).size.width;
+  void initState() {
+    super.initState();
+    loadData();
+  }
 
-    return Scaffold(
-      body: SizedBox(
-        height: altura,
-        width: largura,
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              'Hello World', 
-              style: TextStyle(
-                fontSize: 24,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-              ),
-            )
-          ],
-        ),
+  void loadData() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
