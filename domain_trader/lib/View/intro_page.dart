@@ -19,9 +19,7 @@ class _IntroPageState extends State<IntroPage> {
   void loadData() async {
     await Future.delayed(const Duration(seconds: 3));
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
+    Navigator.of(context).pushNamed('/home');
   }
 
   @override
