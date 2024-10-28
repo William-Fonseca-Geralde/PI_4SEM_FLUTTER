@@ -1,4 +1,4 @@
-import 'package:domain_trader/pages/widgets/popup_menu.dart';
+import 'package:domain_trader/pages/widgets/home_page/popup_menu.dart';
 import 'package:flutter/material.dart';
 
 class Navbar extends StatelessWidget {
