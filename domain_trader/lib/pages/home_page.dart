@@ -1,3 +1,4 @@
+import 'package:domain_trader/pages/widgets/popup_menu.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,22 +20,19 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: Container(
                 color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Domain Trader',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold
                         ),
                       ),
-                      OutlinedButton(
-                        onPressed: () {},
-                        child: const Icon(Icons.person),
-                      )
+                      PopupMenu(),
                     ],
                   ),
                 ),
