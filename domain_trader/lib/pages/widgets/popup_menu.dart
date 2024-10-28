@@ -16,18 +16,8 @@ class _PopupMenuState extends State<PopupMenu> {
   void _toggleMenu() {
     setState(() {
       _isMenuOpen = !_isMenuOpen;
-    });
-  }
-
-  void _onPressed() {
-    setState(() {
       _isPressed = !_isPressed;
     });
-    // Future.delayed(const Duration(milliseconds: 200), () {
-    //   setState(() {
-    //     _isPressed = false;
-    //   });
-    // });
   }
 
   @override
@@ -50,7 +40,6 @@ class _PopupMenuState extends State<PopupMenu> {
           offset: const Offset(0, 50),
           onSelected: (value) {
             _toggleMenu();
-            _onPressed();
             if (value == 1) {
               
             } else if (value == 2) {
@@ -61,7 +50,6 @@ class _PopupMenuState extends State<PopupMenu> {
           },
           onCanceled: () {
             _toggleMenu();
-            _onPressed();
           },
           itemBuilder: (context) => [
             const PopupMenuItem(
@@ -80,7 +68,6 @@ class _PopupMenuState extends State<PopupMenu> {
           ],
           onOpened: () {
             _toggleMenu();
-            _onPressed();
           },
           child: Padding(
             padding: const EdgeInsets.all(9),

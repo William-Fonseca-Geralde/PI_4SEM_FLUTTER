@@ -46,21 +46,38 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Card.outlined(
-                          margin: EdgeInsets.all(20),
+                          margin: const EdgeInsets.all(20),
                           color: Colors.blueGrey,
                           child: SizedBox(
                             width: 450,
                             height: 100,
                             child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              padding: const EdgeInsets.all(12),
+                              child: Column(
                                 children: [
-                                  Text('Valor'),
+                                  const Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Valor',
+                                        style: TextStyle(
+                                          fontSize: 24
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      FilledButton.tonal(
+                                        onPressed: () {},
+                                        child: const Text('Meus domínios')
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             )
@@ -78,52 +95,31 @@ class _HomePageState extends State<HomePage> {
                             child: SizedBox(
                               width: 450,
                               height: 65,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Card.outlined(
-                                    clipBehavior: Clip.hardEdge,
-                                    margin: const EdgeInsets.all(12),
-                                    color: Colors.white,
-                                    child: InkWell(
-                                      splashColor: Colors.grey,
-                                      onTap: () {
-                                        
-                                      },
-                                      child: const SizedBox(
-                                        width: 120,
-                                        height: 45,
-                                        child: Text(
-                                          'Leilões',
-                                          textAlign: TextAlign.center,
-                                        ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: FilledButton.tonal(
+                                        onPressed: () {}, 
+                                        child: const Text('Leilões')
                                       ),
                                     ),
-                                  ),
-                                  Card.outlined(
-                                    clipBehavior: Clip.hardEdge,
-                                    margin: const EdgeInsets.all(12),
-                                    color: Colors.white,
-                                    child: InkWell(
-                                      splashColor: Colors.grey,
-                                      onTap: () {
-                                        
-                                      },
-                                      child: const SizedBox(
-                                        width: 120,
-                                        height: 45,
-                                        child: Text(
-                                          'Meus Investimentos',
-                                          textAlign: TextAlign.center,
-                                        ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: FilledButton.tonal(
+                                        onPressed: () {}, 
+                                        child: const Text('Meus Investimentos')
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ]
                     ),
                     Row(
@@ -165,9 +161,9 @@ class _HomePageState extends State<HomePage> {
                       ],
                     )
                   ],
-                ),
-              )
-            ),
+                )
+              ),
+            )
           ],
         )
       ),
