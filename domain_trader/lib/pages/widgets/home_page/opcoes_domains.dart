@@ -9,15 +9,13 @@ class OpcoesDomains extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Card.outlined(
-          margin: const EdgeInsets.all(12),
+          margin: const EdgeInsets.symmetric(vertical: 16),
           color: Colors.blueGrey,
           child: Expanded(
             child: SizedBox(
-              width: 450,
-              height: 65,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
+              width: MediaQuery.of(context).size.width - 40,
+              height: (MediaQuery.of(context).size.height) / 10,
+              child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
@@ -39,7 +37,6 @@ class OpcoesDomains extends StatelessWidget {
               ),
             ),
           ),
-        ),
       ]
     );
   }

@@ -9,34 +9,31 @@ class ValorInvest extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Card.outlined(
-          margin: const EdgeInsets.all(20),
+          margin: const EdgeInsets.symmetric(vertical: 16),
           color: Colors.blueGrey,
           child: SizedBox(
-            width: 450,
-            height: 100,
+            width: MediaQuery.of(context).size.width - 40,
+            height: MediaQuery.of(context).size.height / 9,
             child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(18),
               child: Column(
                 children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Valor',
                         style: TextStyle(
-                          fontSize: 24
+                          fontSize: 28
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    children: [
                       FilledButton.tonal(
                         onPressed: () {},
                         child: const Text('Meus domínios')
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             )

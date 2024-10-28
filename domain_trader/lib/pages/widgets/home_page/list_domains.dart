@@ -12,16 +12,16 @@ class ListDomains extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Card.outlined(
-          margin: const EdgeInsets.all(12),
+          margin: const EdgeInsets.symmetric(vertical: 16),
           child: SizedBox(
-            width: 450,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 300,
+            width: MediaQuery.of(context).size.width - 40,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
                       child: ListView.builder(
                         itemCount: dominios.length,
                         itemBuilder: (context, index) {
@@ -37,10 +37,10 @@ class ListDomains extends StatelessWidget {
                           );
                         },
                       ),
-                    )
-                  ],
-                ),
-              )
+                    ),
+                  )
+                ],
+              ),
             )
           )
         )
