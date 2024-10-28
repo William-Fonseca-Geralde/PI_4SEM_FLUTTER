@@ -1,5 +1,5 @@
-import 'package:domain_trader/View/home_page.dart';
-import 'package:domain_trader/View/intro_page.dart';
+import 'package:domain_trader/pages/home_page.dart';
+import 'package:domain_trader/pages/intro_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
