@@ -43,20 +43,31 @@ class _MyDomainsPageState extends State<MyDomainsPage> {
                       )
                     ),
                     const ValorMyDomains(),
+                    const ListDomains(),
                     Padding(
                       padding: const EdgeInsets.only(right: paddingPadrao),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          FloatingActionButton(
+                          FilledButton(
+                            style: const ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll(Colors.red)
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Voltar à Página')
+                          ),
+                          FilledButton(
+                            style: const ButtonStyle(
+                              fixedSize: WidgetStatePropertyAll(Size(100, 50))
+                            ),
                             onPressed: () {},
-                            elevation: 8,
                             child: const Text('Novo')
                           ),
                         ],
                       ),
                     ),
-                    const ListDomains(),
                   ],
                 ),
               )
