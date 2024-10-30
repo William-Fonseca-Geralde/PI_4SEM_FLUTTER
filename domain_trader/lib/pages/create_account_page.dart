@@ -15,64 +15,73 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(paddingPadrao),
-              child: Text(
-                'Login',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 24
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Image.asset(
+                logo_login,
+                width: 200,
+                height: 200,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(paddingPadrao),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 24
+                  ),
                 ),
               ),
-            ),
-            const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome'),
-            const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail'), 
-            const InputPassword(hintText: 'Digite sua senha'),
-            const InputPassword(hintText: 'Digite a senha novamente',),
-            const Padding(
-              padding: EdgeInsets.all(paddingPadrao),
-              child: Expanded(
-                child: Divider(
-                  color: corPrimariaClara,
-                  thickness: 2,
-                )
+              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome'),
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail'), 
+              const InputPassword(hintText: 'Digite sua senha'),
+              const InputPassword(hintText: 'Digite a senha novamente',),
+              const Padding(
+                padding: EdgeInsets.all(paddingPadrao),
+                child: Expanded(
+                  child: Divider(
+                    color: corPrimariaClara,
+                    thickness: 2,
+                  )
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(paddingPadrao),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FilledButton(
-                    onPressed: () {},
-                    child: const Text('Cadatrar Conta'),
-                  ),
-                  FilledButton(
-                    onPressed: () {},
-                    style: const ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.red)
+              Padding(
+                padding: const EdgeInsets.all(paddingPadrao),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FilledButton(
+                      onPressed: () {},
+                      child: const Text('Cadatrar Conta'),
                     ),
-                    child: const Text('Voltar à Página'),
-                  )
-                ],
+                    FilledButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/home');
+                      },
+                      style: const ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(Colors.red)
+                      ),
+                      child: const Text('Voltar à Página'),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(paddingPadrao),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Já tem conta cadastrada?'),
-                  FilledButton.tonal(
-                    onPressed: () {},
-                    child: const Text('Entrar na conta')
-                  )
-                ],
-              ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(paddingPadrao),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Já tem conta cadastrada?'),
+                    FilledButton.tonal(
+                      onPressed: () {},
+                      child: const Text('Entrar na conta')
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         )
       )
     );

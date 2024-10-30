@@ -60,6 +60,7 @@ flutter:
 
   assets:
     - 'assets/imgs/logo_domaintrader.png'
+    - 'assets/imgs/logo_domaintrader_login.png'
 
   # To add assets to your application, add an assets section, like this:
   # assets:
