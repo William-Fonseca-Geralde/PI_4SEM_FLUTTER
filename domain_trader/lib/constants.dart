@@ -5,6 +5,6 @@ const corPrimariaClara = Color(0xFFC5EDFF);
 const corSecundaria = Color(0x1F000000);
 const corFundo = Color(0x42000000);
 
-const logo = AssetImage('assets/imgs/logo_domaintrader.png');
+const logo = 'assets/imgs/logo_domaintrader.png';
 
 const paddingPadrao = 16.0;

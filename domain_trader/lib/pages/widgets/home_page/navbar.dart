@@ -1,3 +1,4 @@
+import 'package:domain_trader/constants.dart';
 import 'package:domain_trader/pages/widgets/home_page/popup_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -9,19 +10,32 @@ class Navbar extends StatelessWidget {
     return Expanded(
       child: Container(
         color: Colors.white,
-        child: const Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Domain Trader',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: paddingPadrao),
+                    child: SizedBox(
+                      width: 45,
+                      height: 45,
+                      child: Image.asset(logo),
+                    ),
+                  ),
+                  const Text(
+                    'Domain Trader',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
               ),
-              PopupMenu(),
+              const PopupMenu(),
             ],
           ),
         ),
