@@ -1,8 +1,18 @@
 import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/pages/widgets/domain_details.dart';
 import 'package:flutter/material.dart';
 
 class ListDomains extends StatelessWidget {
   const ListDomains({super.key});
+
+  void _showDomainDetails(BuildContext context, String domain) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return DomainDetails(domain: domain);
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +41,7 @@ class ListDomains extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  
+                                  _showDomainDetails(context, dominios[index]);
                                 },
                                 child: Row(
                                   children: [
