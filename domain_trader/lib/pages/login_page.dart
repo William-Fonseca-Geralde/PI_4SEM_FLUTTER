@@ -1,3 +1,6 @@
+import 'package:domain_trader/components/input_password.dart';
+import 'package:domain_trader/components/input_text.dart';
+import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +13,76 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Image.asset(
+                logo_login,
+                width: 200,
+                height: 200,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(paddingPadrao),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 24
+                  ),
+                ),
+              ),
+              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome'),
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail'), 
+              const InputPassword(hintText: 'Digite sua senha'),
+              const Padding(
+                padding: EdgeInsets.all(paddingPadrao),
+                child: Expanded(
+                  child: Divider(
+                    color: corPrimariaClara,
+                    thickness: 2,
+                  )
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(paddingPadrao),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FilledButton(
+                      onPressed: () {},
+                      child: const Text('Entrar na Conta'),
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/home');
+                      },
+                      style: const ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(Colors.red)
+                      ),
+                      child: const Text('Voltar à Página'),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(paddingPadrao),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Ainda não possui conta?'),
+                    FilledButton.tonal(
+                      onPressed: () {},
+                      child: const Text('Cadastrar')
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
+      )
+    );
   }
 }
