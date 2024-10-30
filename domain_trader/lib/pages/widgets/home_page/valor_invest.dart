@@ -33,7 +33,9 @@ class ValorInvest extends StatelessWidget {
                   Row(
                     children: [
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/my_domains');
+                        },
                         style: ButtonStyle(
                           minimumSize: WidgetStateProperty.all(const Size(35, 35)),
                           padding: const WidgetStatePropertyAll(EdgeInsets.all(10)),
