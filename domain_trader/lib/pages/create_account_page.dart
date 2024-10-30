@@ -14,41 +14,61 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: const SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
-            InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome'),
-            InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'digite seu e-mail'), 
-            InputPassword(),
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(paddingPadrao),
+              child: Text(
+                'Login',
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 24
+                ),
+              ),
+            ),
+            const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome'),
+            const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail'), 
+            const InputPassword(hintText: 'Digite sua senha'),
+            const InputPassword(hintText: 'Digite a senha novamente',),
+            const Padding(
+              padding: EdgeInsets.all(paddingPadrao),
+              child: Expanded(
+                child: Divider(
+                  color: corPrimariaClara,
+                  thickness: 2,
+                )
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(paddingPadrao),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    child: Divider(
-                      color: corPrimariaClara,
-                      thickness: 2,
-                    )
+                  FilledButton(
+                    onPressed: () {},
+                    child: const Text('Cadatrar Conta'),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: paddingPadrao),
-                    child: Text(
-                      'ou',
-                      style: TextStyle(
-                        color: corPrimariaClara,
-                        fontWeight: FontWeight.w500
-                      ),
+                  FilledButton(
+                    onPressed: () {},
+                    style: const ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(Colors.red)
                     ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: corPrimariaClara,
-                      thickness: 2,
-                    )
-                  ),
+                    child: const Text('Voltar à Página'),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(paddingPadrao),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Já tem conta cadastrada?'),
+                  FilledButton.tonal(
+                    onPressed: () {},
+                    child: const Text('Entrar na conta')
+                  )
                 ],
               ),
             )

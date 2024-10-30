@@ -29,7 +29,7 @@ class _IntroPageState extends State<IntroPage> with SingleTickerProviderStateMix
   }
 
   void loadData() async {
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 3));
 
     Navigator.of(context).pushNamed('/home');
   }

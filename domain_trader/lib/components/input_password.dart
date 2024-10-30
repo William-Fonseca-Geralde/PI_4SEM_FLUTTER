@@ -2,7 +2,12 @@ import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
 class InputPassword extends StatefulWidget {
-  const InputPassword({super.key});
+  final String hintText;
+
+  const InputPassword({
+    super.key,
+    required this.hintText
+  });
 
   @override
   State<InputPassword> createState() => _InputPasswordState();
@@ -29,7 +34,8 @@ class _InputPasswordState extends State<InputPassword> {
             borderSide: BorderSide(
               color: corPrimaria,
               width: 3
-            )),
+            )
+          ),
           filled: true,
           fillColor: corPrimariaClara,
           suffixIcon: GestureDetector(
@@ -40,7 +46,7 @@ class _InputPasswordState extends State<InputPassword> {
               });
             },
           ),
-          hintText: 'Digite sua senha',
+          hintText: widget.hintText,
           prefixIcon: const Icon(Icons.lock)
         ),
         obscureText: !_showPassword,
