@@ -1,3 +1,4 @@
+import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
 class ValorInvest extends StatelessWidget {
@@ -9,28 +10,40 @@ class ValorInvest extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Card.outlined(
-          margin: const EdgeInsets.symmetric(vertical: 16),
-          color: Colors.blueGrey,
+          margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
+          color: corSecundaria,
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 40,
-            height: MediaQuery.of(context).size.height / 9,
+            height: MediaQuery.of(context).size.height / 7,
             child: Padding(
-              padding: const EdgeInsets.all(18),
+              padding: const EdgeInsets.all(paddingPadrao),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  const Row(
                     children: [
-                      const Text(
-                        'Valor',
+                      Text(
+                        'R\$ Valor',
                         style: TextStyle(
-                          fontSize: 28
+                          fontSize: 24
                         ),
                       ),
-                      FilledButton.tonal(
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      OutlinedButton(
                         onPressed: () {},
-                        child: const Text('Meus domínios')
+                        style: ButtonStyle(
+                          minimumSize: WidgetStateProperty.all(const Size(35, 35)),
+                          padding: const WidgetStatePropertyAll(EdgeInsets.all(10)),
+                        ),
+                        child: const Text(
+                          'Meus domínios',
+                          style: TextStyle(
+                            fontSize: 10
+                          ),
+                        )
                       ),
                     ],
                   ),

@@ -43,9 +43,9 @@ class _PopupMenuState extends State<PopupMenu> {
             if (value == 1) {
               
             } else if (value == 2) {
-              
+
             } else if (value == 3) {
-        
+              Navigator.of(context).pushNamed('/cadastro');
             }
           },
           onCanceled: () {
@@ -62,7 +62,7 @@ class _PopupMenuState extends State<PopupMenu> {
             ),
             const PopupMenuDivider(),
             const PopupMenuItem(
-              value: 1,
+              value: 3,
               child: Text('Entrar')
             ),
           ],

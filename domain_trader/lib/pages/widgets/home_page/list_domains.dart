@@ -1,3 +1,4 @@
+import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
 class ListDomains extends StatelessWidget {
@@ -12,7 +13,8 @@ class ListDomains extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Card.outlined(
-          margin: const EdgeInsets.symmetric(vertical: 16),
+          color: corSecundaria,
+          margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 40,
             child: SingleChildScrollView(

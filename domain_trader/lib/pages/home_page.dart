@@ -1,3 +1,4 @@
+import 'package:domain_trader/constants.dart';
 import 'package:domain_trader/pages/widgets/home_page/list_domains.dart';
 import 'package:domain_trader/pages/widgets/home_page/navbar.dart';
 import 'package:domain_trader/pages/widgets/home_page/opcoes_domains.dart';
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               flex: 8,
               child: Container(
-                color: Colors.grey,
+                color: corFundo,
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,

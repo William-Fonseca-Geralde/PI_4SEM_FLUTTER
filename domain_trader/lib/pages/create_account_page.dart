@@ -1,3 +1,4 @@
+import 'package:domain_trader/components/input_text.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -11,11 +12,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox()
-        ],
+      appBar: AppBar(
+        title: const Text('Login'),
       ),
+      body: const SafeArea(
+        child: Column(
+          children: [
+            InputText(suffixIcon: Icon(Icons.person))
+          ],
+        )
+      )
     );
   }
 }
