@@ -29,10 +29,15 @@ class ListDomains extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Column(
                             children: [
-                              Row(
-                                children: [
-                                  Text(dominios[index]),
-                                ],
+                              InkWell(
+                                onTap: () {
+                                  
+                                },
+                                child: Row(
+                                  children: [
+                                    Text(dominios[index]),
+                                  ],
+                                ),
                               ),
                               const Divider()
                             ],
