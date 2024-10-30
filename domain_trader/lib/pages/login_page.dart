@@ -73,7 +73,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const Text('Ainda não possui conta?'),
                     FilledButton.tonal(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/cadastro');
+                      },
                       child: const Text('Cadastrar')
                     )
                   ],

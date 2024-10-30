@@ -26,7 +26,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Text(
-                  'Login',
+                  'Cadastro',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 24

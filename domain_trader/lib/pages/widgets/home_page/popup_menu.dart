@@ -45,7 +45,7 @@ class _PopupMenuState extends State<PopupMenu> {
             } else if (value == 2) {
 
             } else if (value == 3) {
-              Navigator.of(context).pushNamed('/cadastro');
+              Navigator.of(context).pushNamed('/login');
             }
           },
           onCanceled: () {
