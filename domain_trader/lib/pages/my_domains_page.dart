@@ -23,13 +23,40 @@ class _MyDomainsPageState extends State<MyDomainsPage> {
               flex: 8,
               child: Container(
                 color: corFundo,
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ValorMyDomains(),
-                    ListDomains(),
-                    
+                    const Padding(
+                      padding: EdgeInsets.all(paddingPadrao),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Meus Domínios',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800
+                            ),
+                          ),
+                        ],
+                      )
+                    ),
+                    const ValorMyDomains(),
+                    Padding(
+                      padding: const EdgeInsets.only(right: paddingPadrao),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FloatingActionButton(
+                            onPressed: () {},
+                            elevation: 8,
+                            child: const Text('Novo')
+                          ),
+                        ],
+                      ),
+                    ),
+                    const ListDomains(),
                   ],
                 ),
               )
