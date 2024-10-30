@@ -1,15 +1,15 @@
 import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
-class InputText extends StatelessWidget {
-  final Icon prefixIcon;
-  final String hintText;
+class InputPassword extends StatefulWidget {
+  const InputPassword({super.key});
 
-  const InputText({
-    super.key,
-    required this.prefixIcon,
-    required this.hintText,
-  });
+  @override
+  State<InputPassword> createState() => _InputPasswordState();
+}
+
+class _InputPasswordState extends State<InputPassword> {
+  bool _showPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +29,21 @@ class InputText extends StatelessWidget {
             borderSide: BorderSide(
               color: corPrimaria,
               width: 3
-            ),
-          ),
+            )),
           filled: true,
           fillColor: corPrimariaClara,
-          hintText: hintText,
-          prefixIcon: prefixIcon
+          suffixIcon: GestureDetector(
+            child: Icon(_showPassword == false ? Icons.visibility_off : Icons.visibility),
+            onTap: () {
+              setState(() {
+                _showPassword = !_showPassword;
+              });
+            },
+          ),
+          hintText: 'Digite sua senha',
+          prefixIcon: const Icon(Icons.lock)
         ),
+        obscureText: !_showPassword,
       ),
     );
   }
