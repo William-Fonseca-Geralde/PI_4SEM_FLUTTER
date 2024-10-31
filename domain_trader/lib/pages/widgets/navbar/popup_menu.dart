@@ -41,7 +41,7 @@ class _PopupMenuState extends State<PopupMenu> {
           onSelected: (value) {
             _toggleMenu();
             if (value == 1) {
-              
+              Navigator.of(context).pushNamed('/my_domains');
             } else if (value == 2) {
 
             } else if (value == 3) {
@@ -58,7 +58,7 @@ class _PopupMenuState extends State<PopupMenu> {
             ),
             const PopupMenuItem(
               value: 2,
-              child: Text('Opções')
+              child: Text('Configurações')
             ),
             const PopupMenuDivider(),
             const PopupMenuItem(
