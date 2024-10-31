@@ -18,23 +18,24 @@ class InputText extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(
-              color: corPrimaria,
-              width: 3
+              color: Colors.blueGrey,
+              width: 2
             )
           ),
           focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(
-              color: corPrimaria,
-              width: 3
+              color: Colors.blueGrey,
+              width: 2
             ),
           ),
           filled: true,
-          fillColor: corPrimariaClara,
+          fillColor: const Color(0xFFECEBEB),
           hintText: hintText,
-          prefixIcon: prefixIcon
+          prefixIcon: prefixIcon,
+          
         ),
       ),
     );

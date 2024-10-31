@@ -34,7 +34,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
               ),
               const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome'),
-              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail'), 
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail'),
+              const InputText(prefixIcon: Icon(Icons.phone), hintText: 'Digite seu Telefone Ex: (19) 97524-5417'),
               const InputPassword(hintText: 'Digite sua senha'),
               const InputPassword(hintText: 'Digite a senha novamente',),
               const Padding(

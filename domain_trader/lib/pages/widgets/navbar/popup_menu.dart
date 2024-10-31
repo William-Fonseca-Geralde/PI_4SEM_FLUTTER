@@ -43,7 +43,7 @@ class _PopupMenuState extends State<PopupMenu> {
             if (value == 1) {
               Navigator.of(context).pushNamed('/my_domains');
             } else if (value == 2) {
-
+              Navigator.of(context).pushNamed('/settings');
             } else if (value == 3) {
               Navigator.of(context).pushNamed('/login');
             }
