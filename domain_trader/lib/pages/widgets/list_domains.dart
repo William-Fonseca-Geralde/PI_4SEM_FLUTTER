@@ -6,8 +6,9 @@ class ListDomains extends StatelessWidget {
   const ListDomains({super.key});
 
   void _showDomainDetails(BuildContext context, String domain) {
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return DomainDetails(domain: domain);
       }

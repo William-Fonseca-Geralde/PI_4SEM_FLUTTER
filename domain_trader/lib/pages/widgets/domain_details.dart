@@ -1,3 +1,4 @@
+import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
 class DomainDetails extends StatelessWidget {
@@ -10,17 +11,30 @@ class DomainDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Detalhes do Leilão'),
-      content: Text(domain),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Fechar')
-        )
-      ],
+    return FractionallySizedBox(
+      heightFactor: 0.9,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(paddingPadrao),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Text(
+                'Detalhes do Leilão',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800
+                ),
+              ),
+              Row(
+                children: [
+                  Text(domain),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
