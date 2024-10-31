@@ -33,8 +33,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome'),
-              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail'), 
+              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome', typeText: 'nome'),
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail', typeText: 'email'), 
               const InputPassword(hintText: 'Digite sua senha'),
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),

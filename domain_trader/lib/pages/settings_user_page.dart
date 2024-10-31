@@ -23,7 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 'Configurações do Usuário',
                 style: Theme.of(context).textTheme.titleLarge
               ),
-              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Nome do usuário')
+              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Nome do usuário', typeText: 'nome')
             ],
           ),
         ),
