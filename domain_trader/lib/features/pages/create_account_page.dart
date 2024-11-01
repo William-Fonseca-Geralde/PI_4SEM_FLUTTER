@@ -1,16 +1,16 @@
-import 'package:domain_trader/pages/widgets/login_create_pages/input_password.dart';
-import 'package:domain_trader/pages/widgets/login_create_pages/input_text.dart';
+import 'package:domain_trader/features/pages/widgets/login_create_pages/input_password.dart';
+import 'package:domain_trader/features/pages/widgets/login_create_pages/input_text.dart';
 import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class CreateAccountPage extends StatefulWidget {
+  const CreateAccountPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<CreateAccountPage> createState() => _CreateAccountPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Text(
-                  'Login',
+                  'Cadastro',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 24
@@ -34,8 +34,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome', typeText: 'nome'),
-              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail', typeText: 'email'), 
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail', typeText: 'email'),
+              const InputText(prefixIcon: Icon(Icons.phone), hintText: 'Digite seu Telefone Ex: +55 (19) 97524-5417', typeText: 'tell'),
               const InputPassword(hintText: 'Digite sua senha'),
+              const InputPassword(hintText: 'Digite a senha novamente',),
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Expanded(
@@ -52,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     FilledButton(
                       onPressed: () {},
-                      child: const Text('Entrar na Conta'),
+                      child: const Text('Cadatrar Conta'),
                     ),
                     FilledButton(
                       onPressed: () {
@@ -71,12 +73,10 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Ainda não possui conta?'),
+                    const Text('Já tem conta cadastrada?'),
                     FilledButton.tonal(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/cadastro');
-                      },
-                      child: const Text('Cadastrar')
+                      onPressed: () {},
+                      child: const Text('Entrar na conta')
                     )
                   ],
                 ),

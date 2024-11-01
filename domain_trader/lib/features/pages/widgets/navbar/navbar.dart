@@ -1,5 +1,5 @@
 import 'package:domain_trader/constants.dart';
-import 'package:domain_trader/pages/widgets/navbar/popup_menu.dart';
+import 'package:domain_trader/features/pages/widgets/navbar/popup_menu.dart';
 import 'package:flutter/material.dart';
 
 class Navbar extends StatelessWidget {
