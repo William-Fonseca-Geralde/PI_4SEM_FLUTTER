@@ -13,6 +13,7 @@ class DomainDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return FractionallySizedBox(
       heightFactor: 0.9,
+      widthFactor: 1,
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(paddingPadrao),
@@ -26,10 +27,13 @@ class DomainDetails extends StatelessWidget {
                   fontWeight: FontWeight.w800
                 ),
               ),
-              Row(
-                children: [
-                  Text(domain),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(paddingPadrao),
+                child: Container(
+                  height: 100,
+                  color: Colors.grey,
+                  child: const Text('gráfico'),
+                ),
               )
             ],
           ),

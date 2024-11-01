@@ -1,5 +1,4 @@
 import 'package:domain_trader/constants.dart';
-import 'package:domain_trader/pages/widgets/login_create_pages/input_text.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -20,10 +19,9 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Configurações do Usuário',
+                'Configurações do Aplicativo',
                 style: Theme.of(context).textTheme.titleLarge
-              ),
-              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Nome do usuário', typeText: 'nome')
+              )
             ],
           ),
         ),

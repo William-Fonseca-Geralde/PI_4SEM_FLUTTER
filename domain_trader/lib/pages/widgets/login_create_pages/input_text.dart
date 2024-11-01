@@ -15,6 +15,8 @@ class InputText extends StatelessWidget {
       return TextInputType.emailAddress;
     } else if (typeText == 'tell') {
       return TextInputType.phone;
+    } else {
+      return null;
     }
   }
 
