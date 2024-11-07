@@ -1,5 +1,5 @@
-import 'package:domain_trader/features/pages/widgets/login_create_pages/input_password.dart';
-import 'package:domain_trader/features/pages/widgets/login_create_pages/input_text.dart';
+import 'package:domain_trader/features/login_create/presentation/widgets/input_password.dart';
+import 'package:domain_trader/features/login_create/presentation/widgets/input_text.dart';
 import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
