@@ -1,7 +1,7 @@
 import 'package:domain_trader/constants.dart';
-import 'package:domain_trader/features/my_domain/presentation/widgets/list_domains.dart';
-import 'package:domain_trader/features/my_domain/presentation/widgets/valor_my_domains.dart';
-import 'package:domain_trader/features/principal/presentation/widgets/navbar/navbar.dart';
+import 'package:domain_trader/features/pages/widgets/list_domains.dart';
+import 'package:domain_trader/features/pages/widgets/valor_my_domains.dart';
+import 'package:domain_trader/features/pages/widgets/navbar/navbar.dart';
 import 'package:flutter/material.dart';
 
 class MyDomainsPage extends StatefulWidget {

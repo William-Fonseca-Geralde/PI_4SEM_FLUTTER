@@ -1,8 +1,8 @@
 import 'package:domain_trader/constants.dart';
-import 'package:domain_trader/features/principal/presentation/widgets/list_domains.dart';
-import 'package:domain_trader/features/principal/presentation/widgets/navbar/navbar.dart';
-import 'package:domain_trader/features/principal/presentation/widgets/opcoes_domains.dart';
-import 'package:domain_trader/features/principal/presentation/widgets/valor_invest.dart';
+import 'package:domain_trader/features/pages/widgets/list_domains.dart';
+import 'package:domain_trader/features/pages/widgets/navbar/navbar.dart';
+import 'package:domain_trader/features/pages/widgets/opcoes_domains.dart';
+import 'package:domain_trader/features/pages/widgets/valor_invest.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
