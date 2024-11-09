@@ -1,47 +1,39 @@
-import 'package:domain_trader/constants.dart';
 import 'package:flutter/material.dart';
 
-class OpcoesDomains extends StatelessWidget {
+class OpcoesDomains extends StatefulWidget {
   const OpcoesDomains({super.key});
+
+  @override
+  State<OpcoesDomains> createState() => _OpcoesDomainsState();
+}
+
+class _OpcoesDomainsState extends State<OpcoesDomains> {
+  static final Set<String> _opcoesDomains = {'leiloes', 'investimento'};
+  Set<String> _opcoesDomainsSegmented = {_opcoesDomains.first};
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Card.outlined(
-          margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
-          color: corSecundaria,
-          child: Expanded(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width - 40,
-              height: (MediaQuery.of(context).size.height) / 10,
-              child: Padding(
-                padding: const EdgeInsets.all(paddingPadrao),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: FilledButton.tonal(
-                          onPressed: () {}, 
-                          child: const Text('Leilões')
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: FilledButton.tonal(
-                          onPressed: () {}, 
-                          child: const Text('Meus Investimentos')
-                        ),
-                      ),
-                    ],
-                  ),
-              ),
-              ),
-            ),
+        SegmentedButton(
+          showSelectedIcon: false,
+          style: ButtonStyle(
+            minimumSize: WidgetStatePropertyAll(Size(MediaQuery.of(context).size.width, 50)),
+            textStyle: WidgetStatePropertyAll(TextStyle(fontSize: 26))
           ),
-      ]
+          segments: [
+            ButtonSegment(value: _opcoesDomains.elementAt(0), label: const Text('Leilões')),
+            ButtonSegment(value: _opcoesDomains.elementAt(1), label: const Text('Meus Investimentos'))
+          ],
+          selected: _opcoesDomainsSegmented,
+          onSelectionChanged: (opcao) {
+            setState(() {
+              _opcoesDomainsSegmented = opcao;
+            });
+          },
+        )
+      ],
     );
   }
 }
