@@ -12,15 +12,23 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Configurações'),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(paddingPadrao),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Configurações do Aplicativo',
-                style: Theme.of(context).textTheme.titleLarge
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Perfil',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  )
+                ],
               )
             ],
           ),

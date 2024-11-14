@@ -1,7 +1,5 @@
 import 'package:domain_trader/constants.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/list_domains.dart';
-import 'package:domain_trader/features/domains_lists/presentation/widgets/navbar.dart';
-import 'package:domain_trader/features/domains_lists/presentation/widgets/popup_menu.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/valor_my_domains.dart';
 import 'package:flutter/material.dart';
 
