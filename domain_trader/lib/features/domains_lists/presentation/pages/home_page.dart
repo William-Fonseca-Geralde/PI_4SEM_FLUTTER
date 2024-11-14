@@ -1,12 +1,10 @@
-import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/domains_lists/presentation/pages/domains_page.dart';
 import 'package:domain_trader/features/domains_lists/presentation/pages/my_domains_page.dart';
-import 'package:domain_trader/features/domains_lists/presentation/widgets/list_domains.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/navbar.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/popup_menu.dart';
-import 'package:domain_trader/features/domains_lists/presentation/widgets/opcoes_domains.dart';
-import 'package:domain_trader/features/domains_lists/presentation/widgets/valor_invest.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,27 +27,7 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
       ),
       body: [
-        SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                flex: 8,
-                child: Container(
-                  color: corFundo,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ValorInvest(),
-                      OpcoesDomains(),
-                      ListDomains(),
-                    ],
-                  )
-                ),
-              )
-            ],
-          )
-        ),
+        const DomainsPage(),
         const MyDomainsPage(),
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
@@ -62,8 +40,8 @@ class _HomePageState extends State<HomePage> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget> [
           NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Principal'
+            icon: Icon(FontAwesomeIcons.gavel),
+            label: 'Leilões'
           ),
           NavigationDestination(
             icon: Icon(CupertinoIcons.globe),
