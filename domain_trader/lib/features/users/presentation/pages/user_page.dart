@@ -1,4 +1,6 @@
 import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/users/presentation/widgets/settings.dart';
+import 'package:domain_trader/features/users/presentation/widgets/user_settings.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
@@ -20,67 +22,8 @@ class UserPage extends StatelessWidget {
                 )
               ],
             ),
-            Card.filled(
-              margin: const EdgeInsets.all(paddingPadrao),
-              child: Padding(
-                padding: const EdgeInsets.all(paddingPadrao),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 150,
-                      height: 150,
-                      child: Icon(Icons.person),
-                    ),
-                    FilledButton(
-                      onPressed: () {
-                                    
-                      },
-                      child: const Text('Editar Conta')
-                    ),
-                    const SizedBox(
-                      height: paddingPadrao,
-                    ),
-                    FilledButton(
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Colors.red)
-                      ),
-                      onPressed: () {
-                      
-                      },
-                      child: const Text('Sair da Conta')
-                    ),
-                    const SizedBox(
-                      height: paddingPadrao,
-                    ),
-                    FilledButton.tonal(
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Colors.redAccent)
-                      ),
-                      onPressed: () {
-                        
-                      },
-                      child: const Text('Deletar Conta')
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Card.filled(
-              margin: EdgeInsets.all(paddingPadrao),
-              child: Column(
-                children: <Widget> [
-                  ListTile(
-                    leading: const CircleAvatar(child: Icon(Icons.settings)),
-                    title: const Text('Configurações'),
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/settings');
-                    },
-                  ),
-                ],
-              ),
-            ),
+            const UserSettings(),
+            const Settings(),
           ],
         ),
       ),
