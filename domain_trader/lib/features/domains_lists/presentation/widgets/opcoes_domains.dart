@@ -16,22 +16,21 @@ class _OpcoesDomainsState extends State<OpcoesDomains> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SegmentedButton(
-          showSelectedIcon: false,
-          style: ButtonStyle(
-            minimumSize: WidgetStatePropertyAll(Size(MediaQuery.of(context).size.width, 50)),
-            textStyle: WidgetStatePropertyAll(TextStyle(fontSize: 26))
+        SizedBox(
+          width: MediaQuery.of(context).size.width - 40,
+          child: SegmentedButton(
+            showSelectedIcon: false,
+            segments: [
+              ButtonSegment(value: _opcoesDomains.elementAt(0), label: const Text('Leilões')),
+              ButtonSegment(value: _opcoesDomains.elementAt(1), label: const Text('Meus Investimentos'))
+            ],
+            selected: _opcoesDomainsSegmented,
+            onSelectionChanged: (opcao) {
+              setState(() {
+                _opcoesDomainsSegmented = opcao;
+              });
+            },
           ),
-          segments: [
-            ButtonSegment(value: _opcoesDomains.elementAt(0), label: const Text('Leilões')),
-            ButtonSegment(value: _opcoesDomains.elementAt(1), label: const Text('Meus Investimentos'))
-          ],
-          selected: _opcoesDomainsSegmented,
-          onSelectionChanged: (opcao) {
-            setState(() {
-              _opcoesDomainsSegmented = opcao;
-            });
-          },
         )
       ],
     );

@@ -24,7 +24,6 @@ class ListDomains extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Card.outlined(
-          color: corSecundaria,
           margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 40,
@@ -33,28 +32,21 @@ class ListDomains extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ListView.builder(
-                        itemCount: dominios.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  _showDomainDetails(context, dominios[index]);
-                                },
-                                child: Row(
-                                  children: [
-                                    Text(dominios[index]),
-                                  ],
-                                ),
-                              ),
-                              const Divider()
-                            ],
-                          );
-                        },
-                      ),
+                    child: ListView.builder(
+                      itemCount: dominios.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            ListTile(
+                              title: Text(dominios[index]),
+                              onTap: () {
+                                _showDomainDetails(context, dominios[index]);
+                              },
+                            ),
+                            const Divider(height: 0)
+                          ],
+                        );
+                      },
                     ),
                   )
                 ],
