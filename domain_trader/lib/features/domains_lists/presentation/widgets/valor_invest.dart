@@ -14,38 +14,19 @@ class ValorInvest extends StatelessWidget {
           color: corSecundaria,
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 40,
-            height: MediaQuery.of(context).size.height / 7,
-            child: Padding(
-              padding: const EdgeInsets.all(paddingPadrao),
+            height: MediaQuery.of(context).size.height / 10,
+            child: const Padding(
+              padding: EdgeInsets.all(paddingPadrao),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       Text(
                         'R\$ Valor',
                         style: TextStyle(
                           fontSize: 24
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/my_domains');
-                        },
-                        style: ButtonStyle(
-                          minimumSize: WidgetStateProperty.all(const Size(35, 35)),
-                          padding: const WidgetStatePropertyAll(EdgeInsets.all(10)),
-                        ),
-                        child: const Text(
-                          'Meus domínios',
-                          style: TextStyle(
-                            fontSize: 10
-                          ),
-                        )
                       ),
                     ],
                   ),

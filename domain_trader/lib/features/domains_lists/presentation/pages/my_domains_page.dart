@@ -16,13 +16,6 @@ class _MyDomainsPageState extends State<MyDomainsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Navbar(),
-        actions: const [
-          PopupMenu()
-        ],
-        automaticallyImplyLeading: false,
-      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -30,57 +23,25 @@ class _MyDomainsPageState extends State<MyDomainsPage> {
               flex: 8,
               child: Container(
                 color: corFundo,
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(paddingPadrao),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Meus Domínios',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800
-                            ),
-                          ),
-                        ],
-                      )
-                    ),
-                    const ValorMyDomains(),
-                    const ListDomains(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: paddingPadrao),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          FilledButton(
-                            style: const ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll(Colors.red)
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Voltar à Página')
-                          ),
-                          FilledButton(
-                            style: const ButtonStyle(
-                              fixedSize: WidgetStatePropertyAll(Size(100, 50))
-                            ),
-                            onPressed: () {},
-                            child: const Text('Novo')
-                          ),
-                        ],
-                      ),
-                    ),
+                    ValorMyDomains(),
+                    ListDomains(),
                   ],
                 ),
               )
             )
           ],
         )
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: const Text('Adicionar'),
+        icon: const Icon(Icons.add),
+        onPressed: () {
+          
+        },
       ),
     );
   }
