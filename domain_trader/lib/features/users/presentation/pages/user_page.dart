@@ -1,4 +1,3 @@
-import 'package:domain_trader/constants.dart';
 import 'package:domain_trader/features/users/presentation/widgets/settings.dart';
 import 'package:domain_trader/features/users/presentation/widgets/user_settings.dart';
 import 'package:flutter/material.dart';

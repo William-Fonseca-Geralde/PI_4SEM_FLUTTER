@@ -11,7 +11,6 @@ class ValorMyDomains extends StatelessWidget {
       children: [
         Card.outlined(
           margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
-          color: corSecundaria,
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 40,
             height: MediaQuery.of(context).size.height / 10,
