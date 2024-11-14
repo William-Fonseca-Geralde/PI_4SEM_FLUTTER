@@ -1,8 +1,21 @@
 import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/users/presentation/widgets/help.dart';
 import 'package:flutter/material.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  void _helpBottonSheets() {
+    showModalBottomSheet(
+      context: context, 
+      builder: (context) => const Help(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +43,7 @@ class Settings extends StatelessWidget {
             leading: const CircleAvatar(child: Icon(Icons.help)),
             title: const Text('Ajuda'),
             onTap: () {
-              
+              _helpBottonSheets();
             },
           )
         ],
