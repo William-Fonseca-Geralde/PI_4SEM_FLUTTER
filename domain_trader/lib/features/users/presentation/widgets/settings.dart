@@ -35,7 +35,7 @@ class _SettingsState extends State<Settings> {
             leading: const CircleAvatar(child: Icon(Icons.notifications)),
             title: const Text('Personalização'),
             onTap: () {
-              
+              Navigator.of(context).pushNamed('/settings/customization');
             },
           ),
           const Divider(height: 0),
