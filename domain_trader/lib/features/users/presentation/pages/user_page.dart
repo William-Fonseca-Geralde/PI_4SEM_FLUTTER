@@ -7,22 +7,21 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Perfil',
-                  style: Theme.of(context).textTheme.titleLarge,
-                )
-              ],
-            ),
-            const UserSettings(),
-          ],
-        ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Perfil',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const UserSettings(),
+            ],
+          ),
+        ],
       ),
     );
   }

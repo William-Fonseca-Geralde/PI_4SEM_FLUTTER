@@ -19,10 +19,19 @@ class _UserSettingsState extends State<UserSettings> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Padding(
+              padding: EdgeInsets.all(paddingPadrao),
+              child: CircleAvatar(
+                radius: 50,
+                child: Icon(Icons.person),
+              ),
+            ),
+            Text(
+              'Nome do Usuário',
+              style: Theme.of(context).textTheme.bodyLarge
+            ),
             const SizedBox(
-              width: 150,
-              height: 150,
-              child: Icon(Icons.person),
+              height: paddingPadrao,
             ),
             FilledButton(
               onPressed: () {
@@ -42,18 +51,6 @@ class _UserSettingsState extends State<UserSettings> {
               },
               child: const Text('Sair da Conta')
             ),
-            const SizedBox(
-              height: paddingPadrao,
-            ),
-            FilledButton.tonal(
-              style: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(Colors.redAccent)
-              ),
-              onPressed: () {
-                
-              },
-              child: const Text('Deletar Conta')
-            )
           ],
         ),
       ),
