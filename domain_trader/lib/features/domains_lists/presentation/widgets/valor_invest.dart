@@ -14,8 +14,8 @@ class ValorInvest extends StatelessWidget {
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 40,
             height: MediaQuery.of(context).size.height / 10,
-            child: const Padding(
-              padding: EdgeInsets.all(paddingPadrao),
+            child: Padding(
+              padding: const EdgeInsets.all(paddingPadrao),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -23,9 +23,7 @@ class ValorInvest extends StatelessWidget {
                     children: [
                       Text(
                         'R\$ Valor',
-                        style: TextStyle(
-                          fontSize: 24
-                        ),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ],
                   ),
