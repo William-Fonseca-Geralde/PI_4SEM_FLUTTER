@@ -26,7 +26,7 @@ class _MyDomainsPageState extends State<MyDomainsPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ValorMyDomains(),
-                    ListDomains(),
+                    ListDomains(selectedOption: 'mydomains'),
                   ],
                 ),
               )

@@ -12,6 +12,9 @@ class DomainsPage extends StatefulWidget {
 }
 
 class _DomainsPageState extends State<DomainsPage> {
+  static final Set<String> _opcoesDomains = {'leiloes', 'investimento'};
+  Set<String> _opcoesDomainsSegmented = {_opcoesDomains.first};
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,17 +24,37 @@ class _DomainsPageState extends State<DomainsPage> {
             flex: 8,
             child: Container(
               color: corFundo,
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ValorInvest(),
-                  OpcoesDomains(),
-                  ListDomains(),
+                  const ValorInvest(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 40,
+                        child: SegmentedButton(
+                          showSelectedIcon: false,
+                          segments: [
+                            ButtonSegment(value: _opcoesDomains.elementAt(0), label: const Text('Leilões')),
+                            ButtonSegment(value: _opcoesDomains.elementAt(1), label: const Text('Meus Investimentos'))
+                          ],
+                          selected: _opcoesDomainsSegmented,
+                          onSelectionChanged: (opcao) {
+                            setState(() {
+                              _opcoesDomainsSegmented = opcao;
+                            });
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  ListDomains(selectedOption: _opcoesDomainsSegmented.first),
                 ],
               )
             ),
-          )
+          ),
         ],
       )
     );

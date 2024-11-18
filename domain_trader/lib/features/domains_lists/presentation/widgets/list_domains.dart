@@ -3,7 +3,9 @@ import 'package:domain_trader/features/domains_lists/presentation/widgets/domain
 import 'package:flutter/material.dart';
 
 class ListDomains extends StatelessWidget {
-  const ListDomains({super.key});
+  final String selectedOption;
+
+  const ListDomains({super.key, required this.selectedOption});
 
   void _showDomainDetails(BuildContext context, String domain) {
     showModalBottomSheet(
@@ -17,6 +19,15 @@ class ListDomains extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final Map<String, List<String>> _dados = {
+      'leiloes': ['www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com'
+      ],
+      'investimento': ['www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com'
+      ],
+      'mydomains': ['www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com'
+      ]
+    };
 
     final List<String> dominios = ['www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', ];
 
@@ -33,14 +44,15 @@ class ListDomains extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 2,
                     child: ListView.builder(
-                      itemCount: dominios.length,
+                      itemCount: _dados[selectedOption]?.length ?? 0,
                       itemBuilder: (context, index) {
+                        final item = _dados[selectedOption]?[index] ?? '';
                         return Column(
                           children: [
                             ListTile(
-                              title: Text(dominios[index]),
+                              title: Text(item),
                               onTap: () {
-                                _showDomainDetails(context, dominios[index]);
+                                _showDomainDetails(context, _dados[selectedOption]?[index] ?? '');
                               },
                             ),
                             const Divider(height: 0)
