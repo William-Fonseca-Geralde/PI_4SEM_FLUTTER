@@ -1,4 +1,5 @@
 import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/domains_lists/presentation/widgets/add_domain.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/list_domains.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/valor_my_domains.dart';
 import 'package:flutter/material.dart';
@@ -14,21 +15,18 @@ class _MyDomainsPageState extends State<MyDomainsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: const SafeArea(
         child: Column(
           children: [
             Expanded(
               flex: 8,
-              child: Container(
-                color: corFundo,
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ValorMyDomains(),
-                    ListDomains(selectedOption: 'mydomains'),
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ValorMyDomains(),
+                  ListDomains(selectedOption: 'mydomains'),
+                ],
               )
             )
           ],
@@ -38,7 +36,10 @@ class _MyDomainsPageState extends State<MyDomainsPage> {
         label: const Text('Adicionar'),
         icon: const Icon(Icons.add),
         onPressed: () {
-          
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => const AddDomain(),
+          );
         },
       ),
     );

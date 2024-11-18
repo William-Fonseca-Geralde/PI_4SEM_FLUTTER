@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-const corPrimaria = Color(0xFF7CC6FE);
+const corPrimaria = Color(0xFF083982);
 const corPrimariaClara = Color(0xFFC5EDFF);
-const corSecundaria = Color(0x1F000000);
-const corFundo = Color(0x42000000);
+const corPrimariaEscura = Color(0xFF90CFFF);
 
 const logo = 'assets/imgs/logo_domaintrader.png';
 const logo_login = 'assets/imgs/logo_domaintrader_login.png';

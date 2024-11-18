@@ -9,7 +9,7 @@ class ValorInvest extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Card.outlined(
+        Card.filled(
           margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 40,

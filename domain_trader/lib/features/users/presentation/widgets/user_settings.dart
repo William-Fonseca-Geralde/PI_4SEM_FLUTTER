@@ -51,6 +51,24 @@ class _UserSettingsState extends State<UserSettings> {
               },
               child: const Text('Sair da Conta')
             ),
+            const SizedBox(
+              height: paddingPadrao,
+            ),
+            Card.filled(
+              child: Padding(
+                padding: const EdgeInsets.all(paddingPadrao),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'Tema: ',
+                      style: Theme.of(context).textTheme.bodyLarge
+                    ),
+                    Icon(Icons.light_mode)
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

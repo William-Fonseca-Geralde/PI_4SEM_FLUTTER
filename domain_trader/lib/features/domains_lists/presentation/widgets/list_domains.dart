@@ -29,12 +29,10 @@ class ListDomains extends StatelessWidget {
       ]
     };
 
-    final List<String> dominios = ['www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', 'www.teste.com', ];
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Card.outlined(
+        Card.filled(
           margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 40,

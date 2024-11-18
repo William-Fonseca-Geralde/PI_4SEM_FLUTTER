@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:domain_trader/features/domains_lists/presentation/pages/domains_page.dart';
 import 'package:domain_trader/features/domains_lists/presentation/pages/my_domains_page.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/navbar.dart';
@@ -27,11 +28,21 @@ class _HomePageState extends State<HomePage> {
         ],
         automaticallyImplyLeading: false,
       ),
-      body: [
-        const DomainsPage(),
-        const MyDomainsPage(),
-        const UserPage(),
-      ][currentPageIndex],
+      body: PageTransitionSwitcher(
+        transitionBuilder: (child, animation, secondaryAnimation) {
+          return SharedAxisTransition(
+            animation: animation,
+            secondaryAnimation: secondaryAnimation,
+            transitionType: SharedAxisTransitionType.horizontal,
+            child: child,
+          );
+        },
+        child: [
+          const DomainsPage(),
+          const MyDomainsPage(),
+          const UserPage(),
+        ][currentPageIndex],
+      ),
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         onDestinationSelected: (int index) {
