@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     FilledButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/home');
+                        voltarIgnorando(context, ['/login', '/cadastro'], navigatorObserver);
                       },
                       style: const ButtonStyle(
                         backgroundColor: WidgetStatePropertyAll(Colors.red)

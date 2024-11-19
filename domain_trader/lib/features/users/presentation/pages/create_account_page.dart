@@ -58,7 +58,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     ),
                     FilledButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/home');
+                        voltarIgnorando(context, ['/login', '/cadastro'], navigatorObserver);
                       },
                       style: const ButtonStyle(
                         backgroundColor: WidgetStatePropertyAll(Colors.red)
@@ -75,7 +75,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   children: [
                     const Text('Já tem conta cadastrada?'),
                     FilledButton.tonal(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/login');
+                      },
                       child: const Text('Entrar na conta')
                     )
                   ],

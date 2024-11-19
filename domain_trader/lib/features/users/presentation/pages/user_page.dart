@@ -1,5 +1,4 @@
 import 'package:domain_trader/features/users/presentation/widgets/user_login.dart';
-import 'package:domain_trader/features/users/presentation/widgets/user_settings.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
@@ -20,7 +19,7 @@ class UserPage extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width - 80,
-                    child: const UserSettings(),
+                    child: const UserLogin(),
                   )
                 ],
               ),
