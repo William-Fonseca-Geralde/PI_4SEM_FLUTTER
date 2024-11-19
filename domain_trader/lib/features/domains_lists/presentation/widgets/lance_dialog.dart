@@ -33,7 +33,7 @@ class _LanceDialogState extends State<LanceDialog> {
         ),
         OutlinedButton(
           onPressed: () {
-            
+            Navigator.of(context).pop();
           },
           child: const Text('Cancelar')
         )

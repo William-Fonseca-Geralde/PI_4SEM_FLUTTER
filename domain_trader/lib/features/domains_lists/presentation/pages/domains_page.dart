@@ -16,53 +16,49 @@ class _DomainsPageState extends State<DomainsPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: [
-          Expanded(
-            flex: 8,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      child: Expanded(
+        flex: 8,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const ValorInvest(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const ValorInvest(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width - 40,
-                      child: SegmentedButton(
-                        showSelectedIcon: false,
-                        segments: [
-                          ButtonSegment(
-                            value: _opcoesDomains.elementAt(0),
-                            label: Text(
-                              'Leilões',
-                              style: Theme.of(context).textTheme.bodyMedium
-                            )
-                          ),
-                          ButtonSegment(
-                            value: _opcoesDomains.elementAt(1),
-                            label: Text(
-                              'Meus Investimentos',
-                              style: Theme.of(context).textTheme.bodyMedium
-                            )
-                          )
-                        ],
-                        selected: _opcoesDomainsSegmented,
-                        onSelectionChanged: (opcao) {
-                          setState(() {
-                            _opcoesDomainsSegmented = opcao;
-                          });
-                        },
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 40,
+                  child: SegmentedButton(
+                    showSelectedIcon: false,
+                    segments: [
+                      ButtonSegment(
+                        value: _opcoesDomains.elementAt(0),
+                        label: Text(
+                          'Leilões',
+                          style: Theme.of(context).textTheme.bodyMedium
+                        )
                       ),
-                    )
-                  ],
-                ),
-                ListDomains(selectedOption: _opcoesDomainsSegmented.first),
+                      ButtonSegment(
+                        value: _opcoesDomains.elementAt(1),
+                        label: Text(
+                          'Meus Investimentos',
+                          style: Theme.of(context).textTheme.bodyMedium
+                        )
+                      )
+                    ],
+                    selected: _opcoesDomainsSegmented,
+                    onSelectionChanged: (opcao) {
+                      setState(() {
+                        _opcoesDomainsSegmented = opcao;
+                      });
+                    },
+                  ),
+                )
               ],
             ),
-          ),
-        ],
+            ListDomains(selectedOption: _opcoesDomainsSegmented.first),
+          ],
+        ),
       )
     );
   }

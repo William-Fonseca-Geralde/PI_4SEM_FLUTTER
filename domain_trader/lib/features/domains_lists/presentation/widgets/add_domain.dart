@@ -1,4 +1,5 @@
 import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/domains_lists/presentation/widgets/category_input.dart';
 import 'package:domain_trader/features/users/presentation/widgets/input_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,14 @@ class AddDomain extends StatefulWidget {
 }
 
 class _AddDomainState extends State<AddDomain> {
+  final List<DropdownMenuEntry> listaCategory = [
+    const DropdownMenuEntry(value: 'tecnol', label: 'Tecnologia'),
+    const DropdownMenuEntry(value: 'nature', label: 'Natureza'),
+    const DropdownMenuEntry(value: 'comerc', label: 'Comércio'),
+    const DropdownMenuEntry(value: 'aprese', label: 'Apresentação'),
+    const DropdownMenuEntry(value: 'viagem', label: 'Viagem'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Dialog.fullscreen(
@@ -32,24 +41,16 @@ class _AddDomainState extends State<AddDomain> {
             ),
           ],
         ),
-        body: const SafeArea(
+        body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(paddingPadrao),
+            padding: const EdgeInsets.all(paddingPadrao),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                InputText(prefixIcon: Icon(CupertinoIcons.globe), hintText: 'Ex: www.teste.com', typeText: 'domain', labelText: 'Domínio'),
-                SizedBox(height: paddingPadrao),
-                DropdownMenu(
-                  dropdownMenuEntries: [
-                    DropdownMenuEntry(value: 'tecnol', label: 'Tecnologia'),
-                    DropdownMenuEntry(value: 'nature', label: 'Natureza'),
-                    DropdownMenuEntry(value: 'comerc', label: 'Comércio'),
-                    DropdownMenuEntry(value: 'aprese', label: 'Apresentação'),
-                    DropdownMenuEntry(value: 'viagem', label: 'Viagem'),
-                  ]
-                ),
-                Row(
+                const InputText(prefixIcon: Icon(CupertinoIcons.globe), hintText: 'Ex: www.teste.com', typeText: 'domain', labelText: 'Domínio'),
+                const SizedBox(height: paddingPadrao),
+                CategoryInput(dropdownMenuEntries: listaCategory),
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     

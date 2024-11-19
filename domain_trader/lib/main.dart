@@ -11,15 +11,31 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final isLightTheme = MediaQuery.platformBrightnessOf(context) == Brightness.light;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(brightnessProvider.notifier).state = isLightTheme;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isLightTheme = ref.watch(brightnessProvider);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ref.watch(brightnessProvider)
+      theme: isLightTheme
       ? ThemeData(
         brightness: Brightness.light,
         colorSchemeSeed: corPrimaria,
