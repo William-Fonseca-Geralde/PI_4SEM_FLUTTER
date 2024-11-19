@@ -58,7 +58,6 @@ class InputText extends StatelessWidget {
             ),
           ),
           filled: true,
-          fillColor: const Color(0xFFECEBEB),
           hintText: hintText,
           prefixIcon: prefixIcon,
           

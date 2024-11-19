@@ -1,4 +1,3 @@
-import 'package:domain_trader/constants.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/list_domains.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/valor_invest.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +33,20 @@ class _DomainsPageState extends State<DomainsPage> {
                       child: SegmentedButton(
                         showSelectedIcon: false,
                         segments: [
-                          ButtonSegment(value: _opcoesDomains.elementAt(0), label: const Text('Leilões')),
-                          ButtonSegment(value: _opcoesDomains.elementAt(1), label: const Text('Meus Investimentos'))
+                          ButtonSegment(
+                            value: _opcoesDomains.elementAt(0),
+                            label: Text(
+                              'Leilões',
+                              style: Theme.of(context).textTheme.bodyMedium
+                            )
+                          ),
+                          ButtonSegment(
+                            value: _opcoesDomains.elementAt(1),
+                            label: Text(
+                              'Meus Investimentos',
+                              style: Theme.of(context).textTheme.bodyMedium
+                            )
+                          )
                         ],
                         selected: _opcoesDomainsSegmented,
                         onSelectionChanged: (opcao) {

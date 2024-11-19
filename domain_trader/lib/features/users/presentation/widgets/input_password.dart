@@ -37,7 +37,6 @@ class _InputPasswordState extends State<InputPassword> {
             )
           ),
           filled: true,
-          fillColor: const Color(0xFFECEBEB),
           suffixIcon: GestureDetector(
             child: Icon(_showPassword == false ? Icons.visibility_off : Icons.visibility),
             onTap: () {

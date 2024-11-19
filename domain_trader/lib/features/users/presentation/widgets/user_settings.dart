@@ -1,16 +1,13 @@
 import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/core/providers/app_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserSettings extends StatefulWidget {
+class UserSettings extends ConsumerWidget {
   const UserSettings({super.key});
 
   @override
-  State<UserSettings> createState() => _UserSettingsState();
-}
-
-class _UserSettingsState extends State<UserSettings> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card.outlined(
       margin: const EdgeInsets.all(paddingPadrao),
       child: Padding(
@@ -54,7 +51,7 @@ class _UserSettingsState extends State<UserSettings> {
             const SizedBox(
               height: paddingPadrao,
             ),
-            Card.filled(
+            Card.outlined(
               child: Padding(
                 padding: const EdgeInsets.all(paddingPadrao),
                 child: Row(
@@ -64,7 +61,16 @@ class _UserSettingsState extends State<UserSettings> {
                       'Tema: ',
                       style: Theme.of(context).textTheme.bodyLarge
                     ),
-                    Icon(Icons.light_mode)
+                    IconButton(
+                      onPressed: () {
+                        ref.read(brightnessProvider.notifier).update((state) => !state);
+                      },
+                      icon: Icon(
+                        ref.watch(brightnessProvider)
+                        ? Icons.dark_mode
+                        : Icons.light_mode
+                      )
+                    ),
                   ],
                 ),
               ),

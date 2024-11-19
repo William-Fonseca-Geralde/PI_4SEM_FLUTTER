@@ -48,7 +48,10 @@ class ListDomains extends StatelessWidget {
                         return Column(
                           children: [
                             ListTile(
-                              title: Text(item),
+                              title: Text(
+                                item,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
                               onTap: () {
                                 _showDomainDetails(context, _dados[selectedOption]?[index] ?? '');
                               },
