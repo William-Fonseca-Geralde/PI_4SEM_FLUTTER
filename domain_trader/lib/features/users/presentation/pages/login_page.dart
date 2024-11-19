@@ -33,9 +33,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome', typeText: 'nome'),
-              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail', typeText: 'email'), 
-              const InputPassword(hintText: 'Digite sua senha'),
+              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'), 
+              const InputPassword(hintText: ''),
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Expanded(

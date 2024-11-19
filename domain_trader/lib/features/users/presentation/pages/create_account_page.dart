@@ -33,11 +33,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   ),
                 ),
               ),
-              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Digite seu nome', typeText: 'nome'),
-              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Digite seu e-mail', typeText: 'email'),
-              const InputText(prefixIcon: Icon(Icons.phone), hintText: 'Digite seu Telefone Ex: +55 (19) 97524-5417', typeText: 'tell'),
-              const InputPassword(hintText: 'Digite sua senha'),
-              const InputPassword(hintText: 'Digite a senha novamente',),
+              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'),
+              const InputText(prefixIcon: Icon(Icons.phone), hintText: 'Ex: +55 (19) 97524-5417', typeText: 'tell', labelText: 'Telefone',),
+              const InputPassword(hintText: ''),
+              const InputPassword(hintText: '',),
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Expanded(

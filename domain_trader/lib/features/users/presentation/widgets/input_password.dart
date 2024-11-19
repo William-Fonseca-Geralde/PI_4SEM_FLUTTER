@@ -46,7 +46,8 @@ class _InputPasswordState extends State<InputPassword> {
             },
           ),
           hintText: widget.hintText,
-          prefixIcon: const Icon(Icons.lock)
+          prefixIcon: const Icon(Icons.lock),
+          labelText: 'Senha'
         ),
         obscureText: !_showPassword,
       ),

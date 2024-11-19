@@ -7,6 +7,7 @@ class InputText extends StatelessWidget {
   final Icon prefixIcon;
   final String hintText;
   final String typeText;
+  final String labelText;
 
   TextInputType? _TypeText() {
     if (typeText == 'nome') {
@@ -33,6 +34,7 @@ class InputText extends StatelessWidget {
     required this.prefixIcon,
     required this.hintText,
     required this.typeText,
+    required this.labelText,
   });
 
   @override
@@ -60,7 +62,7 @@ class InputText extends StatelessWidget {
           filled: true,
           hintText: hintText,
           prefixIcon: prefixIcon,
-          
+          labelText: labelText,
         ),
       ),
     );
