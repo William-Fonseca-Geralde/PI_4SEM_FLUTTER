@@ -1,8 +1,8 @@
 import 'package:animations/animations.dart';
+import 'package:domain_trader/constants.dart';
 import 'package:domain_trader/features/domains_lists/presentation/pages/domains_page.dart';
 import 'package:domain_trader/features/domains_lists/presentation/pages/my_domains_page.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/navbar.dart';
-import 'package:domain_trader/features/domains_lists/presentation/widgets/popup_menu.dart';
 import 'package:domain_trader/features/users/presentation/pages/user_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Navbar(),
         actions: const [
-          PopupMenu()
+          Padding(
+            padding: EdgeInsets.only(right: paddingPadrao),
+            child: CircleAvatar(
+              child: Icon(Icons.person)
+            ),
+          )
         ],
         automaticallyImplyLeading: false,
       ),
