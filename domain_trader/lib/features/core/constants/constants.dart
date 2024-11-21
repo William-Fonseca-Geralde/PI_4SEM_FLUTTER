@@ -7,6 +7,7 @@ const corPrimariaEscura = Color(0xFF90CFFF);
 
 const logo = 'assets/imgs/logo_domaintrader.png';
 const logo_login = 'assets/imgs/logo_domaintrader_login.png';
+const logo_domain = 'assets/imgs/logo_domaintrader_domain.png';
 
 const paddingPadrao = 16.0;
 

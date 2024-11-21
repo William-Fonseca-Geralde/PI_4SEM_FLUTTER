@@ -1,4 +1,4 @@
-import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
@@ -16,6 +16,8 @@ class InputText extends StatelessWidget {
       return TextInputType.emailAddress;
     } else if (typeText == 'tell') {
       return TextInputType.phone;
+    } else if (typeText == 'price'){
+      return const TextInputType.numberWithOptions(decimal: true);
     } else {
       return null;
     }
@@ -24,6 +26,11 @@ class InputText extends StatelessWidget {
   List<TextInputFormatter>? _InputFomatter() {
     if (typeText == 'tell') {
       return [PhoneInputFormatter()];
+    } else if (typeText == 'price'){
+      return [CurrencyInputFormatter(
+              leadingSymbol: 'R\$',
+              useSymbolPadding: true
+            )];
     } else {
       return null;
     }

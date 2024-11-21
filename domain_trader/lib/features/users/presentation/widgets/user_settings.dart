@@ -1,4 +1,4 @@
-import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/core/constants/constants.dart';
 import 'package:domain_trader/features/core/providers/app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,7 +15,7 @@ class UserSettings extends ConsumerWidget {
           style: Theme.of(context).textTheme.headlineLarge,
         ),
         Card.outlined(
-          margin: const EdgeInsets.all(paddingPadrao),
+          margin: const EdgeInsets.symmetric(horizontal: paddingPadrao*4),
           child: Padding(
             padding: const EdgeInsets.all(paddingPadrao),
             child: Column(

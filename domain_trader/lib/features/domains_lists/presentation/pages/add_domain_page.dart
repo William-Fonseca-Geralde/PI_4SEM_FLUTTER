@@ -1,17 +1,19 @@
-import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/core/constants/constants.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/category_input.dart';
+import 'package:domain_trader/features/domains_lists/presentation/widgets/daterange_input.dart';
+import 'package:domain_trader/features/domains_lists/presentation/widgets/status_input.dart';
 import 'package:domain_trader/features/users/presentation/widgets/input_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AddDomain extends StatefulWidget {
-  const AddDomain({super.key});
+class AddDomainPage extends StatefulWidget {
+  const AddDomainPage({super.key});
 
   @override
-  State<AddDomain> createState() => _AddDomainState();
+  State<AddDomainPage> createState() => _AddDomainPageState();
 }
 
-class _AddDomainState extends State<AddDomain> {
+class _AddDomainPageState extends State<AddDomainPage> {
   final List<DropdownMenuEntry> listaCategory = [
     const DropdownMenuEntry(value: 'tecnol', label: 'Tecnologia'),
     const DropdownMenuEntry(value: 'nature', label: 'Natureza'),
@@ -32,31 +34,39 @@ class _AddDomainState extends State<AddDomain> {
             },
             icon: const Icon(Icons.close)
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Salvar')
-            ),
-          ],
         ),
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(paddingPadrao),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const InputText(prefixIcon: Icon(CupertinoIcons.globe), hintText: 'Ex: www.teste.com', typeText: 'domain', labelText: 'Domínio'),
-                const SizedBox(height: paddingPadrao),
-                CategoryInput(dropdownMenuEntries: listaCategory),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    
-                  ],
-                )
-              ],
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(paddingPadrao),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    logo_domain,
+                    width: 200,
+                    height: 200,
+                  ),
+                  const InputText(prefixIcon: Icon(CupertinoIcons.globe), hintText: 'Ex: www.teste.com', typeText: 'domain', labelText: 'Domínio'),
+                  const DaterangeInput(),
+                  const InputText(prefixIcon: Icon(Icons.attach_money), hintText: 'Ex: R\$ 99.99', typeText: 'price', labelText: 'Preço'),
+                  const StatusInput(),
+                  CategoryInput(dropdownMenuEntries: listaCategory),
+                  const SizedBox(height: paddingPadrao),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FloatingActionButton.extended(
+                        label: const Text('Salvar'),
+                        icon: const Icon(Icons.save),
+                        onPressed: () {
+                          
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           )
         ),

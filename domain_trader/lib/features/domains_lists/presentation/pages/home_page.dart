@@ -1,5 +1,5 @@
 import 'package:animations/animations.dart';
-import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/core/constants/constants.dart';
 import 'package:domain_trader/features/domains_lists/presentation/pages/domains_page.dart';
 import 'package:domain_trader/features/domains_lists/presentation/pages/my_domains_page.dart';
 import 'package:domain_trader/features/domains_lists/presentation/widgets/navbar.dart';

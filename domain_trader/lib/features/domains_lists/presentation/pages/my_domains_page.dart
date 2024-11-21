@@ -33,7 +33,7 @@ class _MyDomainsPageState extends State<MyDomainsPage> {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (BuildContext context) => const AddDomain(),
+            builder: (BuildContext context) => const AddDomainPage(),
           );
         },
       ),

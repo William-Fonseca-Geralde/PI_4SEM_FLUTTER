@@ -1,6 +1,6 @@
 import 'package:domain_trader/features/users/presentation/widgets/input_password.dart';
 import 'package:domain_trader/features/users/presentation/widgets/input_text.dart';
-import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccountPage extends StatefulWidget {

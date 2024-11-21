@@ -43,6 +43,7 @@ dependencies:
   dio: ^5.4.1
   font_awesome_flutter: ^10.8.0
   animations: ^2.0.11
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - 'assets/imgs/logo_domaintrader_domain.png'
     - 'assets/imgs/logo_domaintrader.png'
     - 'assets/imgs/logo_domaintrader_login.png'
 

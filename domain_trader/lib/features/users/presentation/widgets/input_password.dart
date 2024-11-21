@@ -1,4 +1,4 @@
-import 'package:domain_trader/constants.dart';
+import 'package:domain_trader/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class InputPassword extends StatefulWidget {
@@ -38,12 +38,14 @@ class _InputPasswordState extends State<InputPassword> {
           ),
           filled: true,
           suffixIcon: GestureDetector(
-            child: Icon(_showPassword == false ? Icons.visibility_off : Icons.visibility),
-            onTap: () {
-              setState(() {
-                _showPassword = !_showPassword;
-              });
-            },
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                 _showPassword = !_showPassword;
+                });
+              },
+              icon: Icon(_showPassword == false ? Icons.visibility_off : Icons.visibility)
+            ),
           ),
           hintText: widget.hintText,
           prefixIcon: const Icon(Icons.lock),
