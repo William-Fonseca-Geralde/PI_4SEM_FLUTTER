@@ -13,6 +13,8 @@ const paddingPadrao = 16.0;
 
 final navigatorObserver = CustomNavigatorObserver();
 
+dynamic cancelColor = Colors.red;
+
 void voltarIgnorando(BuildContext context, List<String> ignorar, CustomNavigatorObserver observer) {
   while (observer.routeStack.isNotEmpty) {
     final route = observer.routeStack.last;

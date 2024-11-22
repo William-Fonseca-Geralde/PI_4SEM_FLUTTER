@@ -46,8 +46,8 @@ class UserSettings extends ConsumerWidget {
                   height: paddingPadrao,
                 ),
                 FilledButton(
-                  style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(Colors.red)
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(cancelColor),
                   ),
                   onPressed: () {
                   

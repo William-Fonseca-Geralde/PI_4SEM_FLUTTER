@@ -22,6 +22,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(brightnessProvider.notifier).state = isLightTheme;
     });
+    isLightTheme ? cancelColor = Colors.red : cancelColor = Colors.redAccent;
   }
 
   @override

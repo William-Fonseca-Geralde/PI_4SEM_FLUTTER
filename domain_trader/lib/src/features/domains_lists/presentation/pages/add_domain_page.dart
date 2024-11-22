@@ -59,9 +59,9 @@ class _AddDomainPageState extends State<AddDomainPage> {
                       FloatingActionButton.extended(
                         label: const Text('Cancelar'),
                         icon: const Icon(Icons.cancel_outlined),
-                        backgroundColor: Colors.redAccent,
+                        backgroundColor: cancelColor,
                         onPressed: () {
-                          
+                          Navigator.of(context).pop();
                         },
                       ),
                       FloatingActionButton.extended(

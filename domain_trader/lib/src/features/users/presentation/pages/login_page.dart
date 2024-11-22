@@ -59,8 +59,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       onPressed: () {
                         voltarIgnorando(context, ['/login', '/cadastro'], navigatorObserver);
                       },
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Colors.redAccent)
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(cancelColor)
                       ),
                       child: const Text('Voltar à Página'),
                     )
