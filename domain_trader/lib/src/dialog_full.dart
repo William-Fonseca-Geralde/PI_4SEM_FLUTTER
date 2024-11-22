@@ -2,10 +2,11 @@ import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class DialogFull extends StatelessWidget {
-  const DialogFull({super.key, required this.nomeDialog, required this.forms});
+  const DialogFull({super.key, required this.nomeDialog, required this.forms, required this.image});
 
   final String nomeDialog;
   final List<Widget> forms;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class DialogFull extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    logo_domain,
+                    image,
                     width: 200,
                     height: 200,
                   ),

@@ -1,5 +1,6 @@
+import 'package:domain_trader/src/dialog_alert.dart';
+import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class LanceDialog extends StatefulWidget {
   const LanceDialog({super.key});
@@ -11,19 +12,9 @@ class LanceDialog extends StatefulWidget {
 class _LanceDialogState extends State<LanceDialog> {
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Valor do Lance'),
-      content: TextField(
-        inputFormatters: [
-          CurrencyInputFormatter(
-            leadingSymbol: 'R\$',
-            useSymbolPadding: true
-          )
-        ],
-        decoration: const InputDecoration(
-          hintText: 'R\$ Valor Mínimo'
-        ),
-      ),
+    return DialogAlert(
+      title: 'Valor do Lance',
+      content: const InputText(prefixIcon: Icon(Icons.attach_money), hintText: 'R\$ Valor Mínino', typeText: 'price', labelText: 'Valor a Investir'),
       actions: [
         FilledButton(
           onPressed: () {
@@ -36,8 +27,8 @@ class _LanceDialogState extends State<LanceDialog> {
             Navigator.of(context).pop();
           },
           child: const Text('Cancelar')
-        )
-      ],
+        ),
+      ]
     );
   }
 }

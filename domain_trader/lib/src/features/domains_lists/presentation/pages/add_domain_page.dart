@@ -1,4 +1,5 @@
 import 'package:domain_trader/src/dialog_full.dart';
+import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/category_input.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/daterange_input.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/status_input.dart';
@@ -26,6 +27,7 @@ class _AddDomainPageState extends State<AddDomainPage> {
   Widget build(BuildContext context) {
     return DialogFull(
       nomeDialog: 'Novo Domínio',
+      image: logo_domain,
       forms: [
         const InputText(prefixIcon: Icon(CupertinoIcons.globe), hintText: 'Ex: www.teste.com', typeText: 'domain', labelText: 'Domínio'),
         const DaterangeInput(),
