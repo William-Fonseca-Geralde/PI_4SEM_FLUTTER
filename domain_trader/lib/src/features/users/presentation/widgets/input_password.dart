@@ -15,14 +15,12 @@ class InputPassword extends StatefulWidget {
 
 class _InputPasswordState extends State<InputPassword> {
   bool _showPassword = false;
-  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
       child: TextField(
-        controller: _controller,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
