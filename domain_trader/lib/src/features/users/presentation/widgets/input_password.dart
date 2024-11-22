@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class InputPassword extends StatefulWidget {
   final String hintText;
   final String labelText;
+  final String? helpText;
 
   const InputPassword({
     super.key,
     required this.hintText,
-    required this.labelText
+    required this.labelText,
+    required this.helpText
   });
 
   @override
@@ -52,6 +54,7 @@ class _InputPasswordState extends State<InputPassword> {
           hintText: widget.hintText,
           prefixIcon: const Icon(Icons.lock),
           labelText: widget.labelText,
+          helperText: widget.helpText
         ),
         obscureText: !_showPassword,
       ),

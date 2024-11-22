@@ -36,7 +36,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               ),
               const InputText(prefixIcon: Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
               const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'), 
-              const InputPassword(hintText: '', labelText: 'Senha'),
+              const InputPassword(hintText: '', labelText: 'Senha', helpText: null),
+              TextButton(
+                onPressed: () {
+                  
+                },
+                child: const Text('Esqueceu a Senha?')
+              ),
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Expanded(

@@ -36,8 +36,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               const InputText(prefixIcon: Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
               const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'),
               const InputText(prefixIcon: Icon(Icons.phone), hintText: 'Ex: +55 (19) 97524-5417', typeText: 'tell', labelText: 'Telefone',),
-              const InputPassword(hintText: '', labelText: 'Senha'),
-              const InputPassword(hintText: '', labelText: 'Digite novamente'),
+              const InputPassword(hintText: '', labelText: 'Senha', helpText: 'A senha deve conter:\n - no mínimo 8 caracteres;\n - no mínimo 1 caracter especial (@ , - , _ , #);\n - ter números e letras;\n - ter letra maiúscula e minúscula.'),
+              const InputPassword(hintText: '', labelText: 'Senha', helpText: 'A senha ter que ser igual acima'),
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Expanded(
