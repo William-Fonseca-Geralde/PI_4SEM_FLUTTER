@@ -54,8 +54,16 @@ class _AddDomainPageState extends State<AddDomainPage> {
                   CategoryInput(dropdownMenuEntries: listaCategory),
                   const SizedBox(height: paddingPadrao),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      FloatingActionButton.extended(
+                        label: const Text('Cancelar'),
+                        icon: const Icon(Icons.cancel_outlined),
+                        backgroundColor: Colors.redAccent,
+                        onPressed: () {
+                          
+                        },
+                      ),
                       FloatingActionButton.extended(
                         label: const Text('Salvar'),
                         icon: const Icon(Icons.save),

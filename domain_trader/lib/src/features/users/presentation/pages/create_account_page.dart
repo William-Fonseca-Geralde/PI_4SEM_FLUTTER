@@ -61,7 +61,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         voltarIgnorando(context, ['/login', '/cadastro'], navigatorObserver);
                       },
                       style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Colors.red)
+                        backgroundColor: WidgetStatePropertyAll(Colors.redAccent)
                       ),
                       child: const Text('Voltar à Página'),
                     )
