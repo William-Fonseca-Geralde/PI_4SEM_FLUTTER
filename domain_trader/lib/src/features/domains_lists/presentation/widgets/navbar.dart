@@ -9,19 +9,16 @@ class Navbar extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.all(paddingPadrao),
+          padding: const EdgeInsets.symmetric(horizontal: paddingPadrao),
           child: SizedBox(
             width: 45,
             height: 45,
             child: Image.asset(logo),
           ),
         ),
-        const Text(
+        Text(
           'Domain Trader',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold
-          ),
+          style: Theme.of(context).textTheme.titleMedium
         ),
       ],
     );

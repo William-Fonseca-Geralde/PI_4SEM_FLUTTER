@@ -23,11 +23,28 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Navbar(),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: paddingPadrao),
-            child: CircleAvatar(
-              child: Icon(Icons.person)
+            padding: const EdgeInsets.only(right: paddingPadrao),
+            child: Card.filled(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/login');
+                    },
+                    child: const Text('Entrar')
+                  ),
+                  const SizedBox(width: 5),
+                  const CircleAvatar(
+                    child: Icon(Icons.person)
+                  ),
+                ],
+              ),
             ),
           )
         ],
