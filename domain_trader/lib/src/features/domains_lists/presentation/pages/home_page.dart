@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
-import 'package:domain_trader/features/core/constants/constants.dart';
-import 'package:domain_trader/features/domains_lists/presentation/pages/domains_page.dart';
-import 'package:domain_trader/features/domains_lists/presentation/pages/my_domains_page.dart';
-import 'package:domain_trader/features/domains_lists/presentation/widgets/navbar.dart';
-import 'package:domain_trader/features/users/presentation/pages/user_page.dart';
+import 'package:domain_trader/src/features/core/constants/constants.dart';
+import 'package:domain_trader/src/features/domains_lists/presentation/pages/domains_page.dart';
+import 'package:domain_trader/src/features/domains_lists/presentation/pages/my_domains_page.dart';
+import 'package:domain_trader/src/features/domains_lists/presentation/widgets/navbar.dart';
+import 'package:domain_trader/src/features/users/presentation/pages/user_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

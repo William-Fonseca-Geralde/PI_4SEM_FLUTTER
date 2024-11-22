@@ -1,4 +1,4 @@
-import 'package:domain_trader/utils/navigation_observer.dart';
+import 'package:domain_trader/src/utils/navigation_observer.dart';
 import 'package:flutter/material.dart';
 
 const corPrimaria = Color(0xFF266BD2);

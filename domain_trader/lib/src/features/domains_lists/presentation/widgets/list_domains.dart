@@ -1,5 +1,5 @@
-import 'package:domain_trader/features/core/constants/constants.dart';
-import 'package:domain_trader/features/domains_lists/presentation/widgets/domain_details.dart';
+import 'package:domain_trader/src/features/core/constants/constants.dart';
+import 'package:domain_trader/src/features/domains_lists/presentation/widgets/domain_details.dart';
 import 'package:flutter/material.dart';
 
 class ListDomains extends StatelessWidget {

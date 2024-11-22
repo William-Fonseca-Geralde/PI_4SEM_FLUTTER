@@ -1,16 +1,16 @@
-import 'package:domain_trader/features/users/presentation/widgets/input_password.dart';
-import 'package:domain_trader/features/users/presentation/widgets/input_text.dart';
-import 'package:domain_trader/features/core/constants/constants.dart';
+import 'package:domain_trader/src/features/users/presentation/widgets/input_password.dart';
+import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
+import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class CreateAccountPage extends StatefulWidget {
+  const CreateAccountPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<CreateAccountPage> createState() => _CreateAccountPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Text(
-                  'Login',
+                  'Cadastro',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 24
@@ -34,8 +34,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const InputText(prefixIcon: Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
-              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'), 
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'),
+              const InputText(prefixIcon: Icon(Icons.phone), hintText: 'Ex: +55 (19) 97524-5417', typeText: 'tell', labelText: 'Telefone',),
               const InputPassword(hintText: ''),
+              const InputPassword(hintText: '',),
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Expanded(
@@ -52,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     FilledButton(
                       onPressed: () {},
-                      child: const Text('Entrar na Conta'),
+                      child: const Text('Cadatrar Conta'),
                     ),
                     FilledButton(
                       onPressed: () {
@@ -71,12 +73,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Ainda não possui conta?'),
+                    const Text('Já tem conta cadastrada?'),
                     FilledButton.tonal(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/cadastro');
+                        Navigator.of(context).pushNamed('/login');
                       },
-                      child: const Text('Cadastrar')
+                      child: const Text('Entrar na conta')
                     )
                   ],
                 ),

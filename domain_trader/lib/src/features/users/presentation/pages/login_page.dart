@@ -1,16 +1,16 @@
-import 'package:domain_trader/features/users/presentation/widgets/input_password.dart';
-import 'package:domain_trader/features/users/presentation/widgets/input_text.dart';
-import 'package:domain_trader/features/core/constants/constants.dart';
+import 'package:domain_trader/src/features/users/presentation/widgets/input_password.dart';
+import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
+import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
-class CreateAccountPage extends StatefulWidget {
-  const CreateAccountPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<CreateAccountPage> createState() => _CreateAccountPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _CreateAccountPageState extends State<CreateAccountPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Text(
-                  'Cadastro',
+                  'Login',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 24
@@ -34,10 +34,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
               ),
               const InputText(prefixIcon: Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
-              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'),
-              const InputText(prefixIcon: Icon(Icons.phone), hintText: 'Ex: +55 (19) 97524-5417', typeText: 'tell', labelText: 'Telefone',),
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'), 
               const InputPassword(hintText: ''),
-              const InputPassword(hintText: '',),
               const Padding(
                 padding: EdgeInsets.all(paddingPadrao),
                 child: Expanded(
@@ -54,7 +52,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   children: [
                     FilledButton(
                       onPressed: () {},
-                      child: const Text('Cadatrar Conta'),
+                      child: const Text('Entrar na Conta'),
                     ),
                     FilledButton(
                       onPressed: () {
@@ -73,12 +71,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Já tem conta cadastrada?'),
+                    const Text('Ainda não possui conta?'),
                     FilledButton.tonal(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/login');
+                        Navigator.of(context).pushNamed('/cadastro');
                       },
-                      child: const Text('Entrar na conta')
+                      child: const Text('Cadastrar')
                     )
                   ],
                 ),

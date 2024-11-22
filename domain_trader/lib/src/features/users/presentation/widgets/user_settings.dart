@@ -1,5 +1,5 @@
-import 'package:domain_trader/features/core/constants/constants.dart';
-import 'package:domain_trader/features/core/providers/app_provider.dart';
+import 'package:domain_trader/src/features/core/constants/constants.dart';
+import 'package:domain_trader/src/features/core/providers/app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
