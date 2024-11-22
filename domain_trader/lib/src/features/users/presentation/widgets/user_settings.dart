@@ -1,5 +1,6 @@
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/app_provider.dart';
+import 'package:domain_trader/src/features/users/presentation/widgets/edit_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,7 +39,10 @@ class UserSettings extends ConsumerWidget {
                 ),
                 FilledButton(
                   onPressed: () {
-                                
+                    showDialog(
+                      context: context,
+                      builder: (context) => const EditUser(),
+                    );
                   },
                   child: const Text('Editar Conta')
                 ),
