@@ -46,9 +46,12 @@ class InputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _controller = TextEditingController();
+
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
       child: TextField(
+        controller: _controller,
         keyboardType: _TypeText(),
         inputFormatters: _InputFomatter(),
         decoration: InputDecoration(

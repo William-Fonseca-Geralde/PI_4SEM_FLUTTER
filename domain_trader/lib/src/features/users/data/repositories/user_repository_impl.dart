@@ -13,12 +13,26 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({required this.supabase});
 
   @override
-  Future<void> createUser(UserModel user) async {
+  Future<void> createUser(UserModel user) {
+    // TODO: implement createUser
     throw UnimplementedError();
   }
 
   @override
-  Future<void> updateUser(UserModel user) {
+  Future<void> updateUserbyId(int id) {
+    // TODO: implement updateUserbyId
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteUser(UserModel user) {
+    // TODO: implement deleteUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<UserModel> findUserbyId(int id) {
+    // TODO: implement findUserbyId
     throw UnimplementedError();
   }
 }
