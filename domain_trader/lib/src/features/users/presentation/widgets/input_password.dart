@@ -24,7 +24,7 @@ class _InputPasswordState extends State<InputPassword> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
-      child: TextField(
+      child: TextFormField(
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),

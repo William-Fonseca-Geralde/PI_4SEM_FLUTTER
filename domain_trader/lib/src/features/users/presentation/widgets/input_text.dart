@@ -48,7 +48,7 @@ class InputText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
-      child: TextField(
+      child: TextFormField(
         keyboardType: _TypeText(),
         inputFormatters: _InputFomatter(),
         decoration: InputDecoration(

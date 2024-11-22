@@ -29,11 +29,17 @@ class _AddDomainPageState extends State<AddDomainPage> {
       nomeDialog: 'Novo Domínio',
       image: logo_domain,
       forms: [
-        const InputText(prefixIcon: Icon(CupertinoIcons.globe), hintText: 'Ex: www.teste.com', typeText: 'domain', labelText: 'Domínio'),
-        const DaterangeInput(),
-        const InputText(prefixIcon: Icon(Icons.attach_money), hintText: 'Ex: R\$ 99.99', typeText: 'price', labelText: 'Preço'),
-        const StatusInput(),
-        CategoryInput(dropdownMenuEntries: listaCategory)
+        Form(
+          child: Column(
+            children: [
+              const InputText(prefixIcon: Icon(CupertinoIcons.globe), hintText: 'Ex: www.teste.com', typeText: 'domain', labelText: 'Domínio'),
+              const DaterangeInput(),
+              const InputText(prefixIcon: Icon(Icons.attach_money), hintText: 'Ex: R\$ 99.99', typeText: 'price', labelText: 'Preço'),
+              const StatusInput(),
+              CategoryInput(dropdownMenuEntries: listaCategory),
+            ],
+          ),
+        )
       ]
     );
   }

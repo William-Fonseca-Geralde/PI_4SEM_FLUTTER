@@ -31,7 +31,7 @@ class _DaterangeInputState extends State<DaterangeInput> {
           children: [
             SizedBox(
               width: 170,
-              child: TextField(
+              child: TextFormField(
                 keyboardType: TextInputType.datetime,
                 inputFormatters: [MaskedInputFormatter('##/##/####')],
                 decoration: InputDecoration(

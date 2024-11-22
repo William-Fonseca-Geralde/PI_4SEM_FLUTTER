@@ -12,14 +12,20 @@ class EditUser extends StatelessWidget {
       nomeDialog: 'Edição do Usuário',
       image: logo_login,
       forms: [
-        Text(
-          'Digite nos campos que deseja atualizar os dados',
-          style: Theme.of(context).textTheme.bodyLarge,
-          textAlign: TextAlign.center,
+        Form(
+          child: Column(
+            children: [
+              Text(
+                'Digite nos campos que deseja atualizar os dados',
+                style: Theme.of(context).textTheme.bodyLarge,
+                textAlign: TextAlign.center,
+              ),
+              const InputText(prefixIcon: Icon(Icons.person), hintText: 'Jorge Amado', typeText: 'nome', labelText: 'Nome do usuário'),
+              const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'),
+              const InputText(prefixIcon: Icon(Icons.phone), hintText: '+55 (19) 97524-5417', typeText: 'tell', labelText: 'Telefone',),
+            ],
+          ),
         ),
-        const InputText(prefixIcon: Icon(Icons.person), hintText: 'Jorge Amado', typeText: 'nome', labelText: 'Nome do usuário'),
-        const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'),
-        const InputText(prefixIcon: Icon(Icons.phone), hintText: '+55 (19) 97524-5417', typeText: 'tell', labelText: 'Telefone',),
       ]
     );
   }

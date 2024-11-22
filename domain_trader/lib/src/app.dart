@@ -3,7 +3,6 @@ import 'package:domain_trader/src/features/core/providers/app_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/home_page.dart';
 import 'package:domain_trader/src/features/users/presentation/pages/create_account_page.dart';
 import 'package:domain_trader/src/features/users/presentation/pages/login_page.dart';
-import 'package:domain_trader/src/features/users/presentation/widgets/password_redifine.dart';
 import 'package:domain_trader/src/intro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +46,6 @@ class _MyAppState extends ConsumerState<MyApp> {
         '/home': (_) => const HomePage(),
         '/cadastro': (_) => const CreateAccountPage(),
         '/login': (_) => const LoginPage(),
-        '/password_redefine': (_) => const PasswordRedifine()
       },
     );
   }
