@@ -7,7 +7,7 @@ class UserLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card.outlined(
-      margin: const EdgeInsets.all(paddingPadrao),
+      margin: const EdgeInsets.symmetric(horizontal: paddingPadrao*3),
       child: Padding(
         padding: const EdgeInsets.all(paddingPadrao),
         child: Column(
