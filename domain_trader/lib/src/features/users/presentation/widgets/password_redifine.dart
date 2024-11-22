@@ -12,7 +12,7 @@ class PasswordRedifine extends StatelessWidget {
       title: 'Redefinição de Senha',
       content:SizedBox(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height/3,
+        height: MediaQuery.of(context).size.height/2,
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,17 +26,17 @@ class PasswordRedifine extends StatelessWidget {
         ),
       ), 
       actions: [
-        FilledButton(
-          onPressed: () {
-            
-          },
-          child: const Text('Confirmar')
-        ),
         OutlinedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
           child: const Text('Cancelar')
+        ),
+        FilledButton(
+          onPressed: () {
+            
+          },
+          child: const Text('Confirmar')
         ),
       ]
     );

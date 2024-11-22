@@ -16,17 +16,17 @@ class _LanceDialogState extends State<LanceDialog> {
       title: 'Valor do Lance',
       content: const InputText(prefixIcon: Icon(Icons.attach_money), hintText: 'R\$ Valor Mínino', typeText: 'price', labelText: 'Valor a Investir'),
       actions: [
-        FilledButton(
-          onPressed: () {
-            
-          },
-          child: const Text('Dar Lance')
-        ),
         OutlinedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
           child: const Text('Cancelar')
+        ),
+        FilledButton(
+          onPressed: () {
+            
+          },
+          child: const Text('Dar Lance')
         ),
       ]
     );

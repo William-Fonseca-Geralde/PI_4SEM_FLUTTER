@@ -20,7 +20,7 @@ class UserPage extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width - 80,
-                    child: const UserLogin(),
+                    child: const UserSettings(),
                   )
                 ],
               ),
