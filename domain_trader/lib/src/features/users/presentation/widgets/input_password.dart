@@ -6,11 +6,13 @@ class InputPassword extends StatefulWidget {
   final String labelText;
   final String? helpText;
 
-  const InputPassword({
+  final GlobalKey<FormFieldState<String>> _passwordKey = GlobalKey();
+
+  InputPassword({
     super.key,
     required this.hintText,
     required this.labelText,
-    required this.helpText
+    required this.helpText,
   });
 
   @override
@@ -25,6 +27,7 @@ class _InputPasswordState extends State<InputPassword> {
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
       child: TextFormField(
+        key: widget._passwordKey,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),

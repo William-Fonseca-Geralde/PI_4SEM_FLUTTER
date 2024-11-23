@@ -2,12 +2,59 @@ import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:validatorless/validatorless.dart';
 
 class InputText extends StatelessWidget {
   final Icon prefixIcon;
   final String hintText;
   final String typeText;
   final String labelText;
+
+  final GlobalKey<FormFieldState<String>> _nomeKey = GlobalKey();
+  final GlobalKey<FormFieldState<String>> _emailKey = GlobalKey();
+  final GlobalKey<FormFieldState<String>> _tellKey = GlobalKey();
+  final GlobalKey<FormFieldState<String>> _priceKey = GlobalKey();
+  final GlobalKey<FormFieldState<String>> _domainKey = GlobalKey();
+
+  FormFieldValidator<String>? _ValidatorLess() {
+    if (typeText == 'nome') {
+      return Validatorless.required('Nome é obrigatório');
+    } else if (typeText == 'email') {
+      return Validatorless.multiple(
+        [
+          Validatorless.email('É necessário um e-mail válido'),
+          Validatorless.required('E-mail é obrigatório')
+        ]
+      );
+    } else if (typeText == 'tell') {
+      return Validatorless.multiple(
+        [
+          Validatorless.min(8, 'Mínimo de 8 caracteres.'),
+          Validatorless.required('Senha é obrigatória')
+        ]
+      );
+    } else if (typeText == 'price') {
+      return Validatorless.required('Valor é Obrigatório');
+    } else if (typeText == 'domain') {
+      return Validatorless.required('Domínio é obrigatório');
+    }
+  }
+
+  GlobalKey<FormFieldState<String>>? _FormKey() {
+    if (typeText == 'nome') {
+      return _nomeKey;
+    } else if (typeText == 'email') {
+      return _emailKey;
+    } else if (typeText == 'tell') {
+      return _tellKey;
+    } else if (typeText == 'price') {
+      return _priceKey;
+    } else if (typeText == 'domain') {
+      return _domainKey;
+    } else {
+      return null;
+    }
+  }
 
   TextInputType? _TypeText() {
     if (typeText == 'nome') {
@@ -36,7 +83,7 @@ class InputText extends StatelessWidget {
     }
   }
 
-  const InputText({
+  InputText({
     super.key,
     required this.prefixIcon,
     required this.hintText,
@@ -49,6 +96,7 @@ class InputText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
       child: TextFormField(
+        key: _FormKey(),
         keyboardType: _TypeText(),
         inputFormatters: _InputFomatter(),
         decoration: InputDecoration(
@@ -71,6 +119,7 @@ class InputText extends StatelessWidget {
           prefixIcon: prefixIcon,
           labelText: labelText,
         ),
+        validator: _ValidatorLess()
       ),
     );
   }

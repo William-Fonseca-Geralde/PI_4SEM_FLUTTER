@@ -35,9 +35,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ),
                   ),
                 ),
-                const InputText(prefixIcon: Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
-                const InputText(prefixIcon: Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'), 
-                const InputPassword(hintText: '', labelText: 'Senha', helpText: null),
+                InputText(prefixIcon: const Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
+                InputText(prefixIcon: const Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'), 
+                InputPassword(hintText: '', labelText: 'Senha', helpText: null),
                 const Padding(
                   padding: EdgeInsets.all(paddingPadrao),
                   child: Expanded(

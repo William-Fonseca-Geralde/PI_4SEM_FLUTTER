@@ -14,7 +14,7 @@ class _LanceDialogState extends State<LanceDialog> {
   Widget build(BuildContext context) {
     return DialogAlert(
       title: 'Valor do Lance',
-      content: const InputText(prefixIcon: Icon(Icons.attach_money), hintText: 'R\$ Valor Mínino', typeText: 'price', labelText: 'Valor a Investir'),
+      content: InputText(prefixIcon: const Icon(Icons.attach_money), hintText: 'R\$ Valor Mínino', typeText: 'price', labelText: 'Valor a Investir'),
       actions: [
         OutlinedButton(
           onPressed: () {
