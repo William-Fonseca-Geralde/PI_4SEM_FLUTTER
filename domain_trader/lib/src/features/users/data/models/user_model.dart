@@ -6,13 +6,9 @@ part 'user_model.g.dart';
 @freezed
 class UserModel with _$UserModel {
   factory UserModel({
-    int? id,
     required String nome,
-    required String usuario,
     required String senha,
-    required String cpf,
     required String email,
-    required DateTime dataCriacao,
     required String tell,
   }) = _UserModel;
 

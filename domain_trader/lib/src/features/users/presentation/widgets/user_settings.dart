@@ -41,7 +41,7 @@ class UserSettings extends ConsumerWidget {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => const EditUser(),
+                      builder: (context) => EditUser(),
                     );
                   },
                   child: const Text('Editar Conta')

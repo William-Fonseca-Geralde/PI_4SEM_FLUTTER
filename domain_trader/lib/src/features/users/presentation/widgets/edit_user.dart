@@ -4,7 +4,11 @@ import 'package:domain_trader/src/features/users/presentation/widgets/input_text
 import 'package:flutter/material.dart';
 
 class EditUser extends StatelessWidget {
-  const EditUser({super.key});
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _tellController = TextEditingController();
+
+  EditUser({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +24,27 @@ class EditUser extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
-              InputText(prefixIcon: const Icon(Icons.person), hintText: 'Jorge Amado', typeText: 'nome', labelText: 'Nome do usuário'),
-              InputText(prefixIcon: const Icon(Icons.email_rounded), hintText: 'jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'),
-              InputText(prefixIcon: const Icon(Icons.phone), hintText: '+55 (19) 97524-5417', typeText: 'tell', labelText: 'Telefone',),
+              InputText(
+                controller: _nameController,
+                prefixIcon: const Icon(Icons.person),
+                hintText: 'Jorge Amado', 
+                typeText: 'nome', 
+                labelText: 'Nome do usuário'
+              ),
+              InputText(
+                controller: _emailController,
+                prefixIcon: const Icon(Icons.email_rounded), 
+                hintText: 'jorge.amado@gmail.com', 
+                typeText: 'email', 
+                labelText: 'E-mail'
+              ),
+              InputText(
+                controller: _tellController,
+                prefixIcon: const Icon(Icons.phone), 
+                hintText: '+55 (19) 97524-5417', 
+                typeText: 'tell', 
+                labelText: 'Telefone',
+              ),
             ],
           ),
         ),

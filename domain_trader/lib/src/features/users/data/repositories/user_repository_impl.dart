@@ -13,9 +13,23 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({required this.supabase});
 
   @override
-  Future<void> createUser(UserModel user) {
-    // TODO: implement createUser
-    throw UnimplementedError();
+  Future<void> createUser(UserModel usuario) async {
+    final AuthResponse resp = await supabase.auth.signUp(
+      email: usuario.email,
+      password: usuario.senha
+    );
+    final Session? session = resp.session;
+    final User? user = resp.user;
+
+    await supabase
+      .from('Usuarios')
+      .insert({
+        'user_fk': user?.id,
+        'nome': usuario.nome,
+        'senha': usuario.senha,
+        'email': usuario.email,
+        'telefone': usuario.tell,
+      });
   }
 
   @override
@@ -25,7 +39,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> deleteUser(UserModel user) {
+  Future<void> deleteUser(UserModel usuario) {
     // TODO: implement deleteUser
     throw UnimplementedError();
   }

@@ -20,13 +20,9 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
-  int? get id => throw _privateConstructorUsedError;
   String get nome => throw _privateConstructorUsedError;
-  String get usuario => throw _privateConstructorUsedError;
   String get senha => throw _privateConstructorUsedError;
-  String get cpf => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  DateTime get dataCriacao => throw _privateConstructorUsedError;
   String get tell => throw _privateConstructorUsedError;
 
   /// Serializes this UserModel to a JSON map.
@@ -44,15 +40,7 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call(
-      {int? id,
-      String nome,
-      String usuario,
-      String senha,
-      String cpf,
-      String email,
-      DateTime dataCriacao,
-      String tell});
+  $Res call({String nome, String senha, String email, String tell});
 }
 
 /// @nodoc
@@ -70,44 +58,24 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
     Object? nome = null,
-    Object? usuario = null,
     Object? senha = null,
-    Object? cpf = null,
     Object? email = null,
-    Object? dataCriacao = null,
     Object? tell = null,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
       nome: null == nome
           ? _value.nome
           : nome // ignore: cast_nullable_to_non_nullable
-              as String,
-      usuario: null == usuario
-          ? _value.usuario
-          : usuario // ignore: cast_nullable_to_non_nullable
               as String,
       senha: null == senha
           ? _value.senha
           : senha // ignore: cast_nullable_to_non_nullable
               as String,
-      cpf: null == cpf
-          ? _value.cpf
-          : cpf // ignore: cast_nullable_to_non_nullable
-              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      dataCriacao: null == dataCriacao
-          ? _value.dataCriacao
-          : dataCriacao // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       tell: null == tell
           ? _value.tell
           : tell // ignore: cast_nullable_to_non_nullable
@@ -124,15 +92,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int? id,
-      String nome,
-      String usuario,
-      String senha,
-      String cpf,
-      String email,
-      DateTime dataCriacao,
-      String tell});
+  $Res call({String nome, String senha, String email, String tell});
 }
 
 /// @nodoc
@@ -148,44 +108,24 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
     Object? nome = null,
-    Object? usuario = null,
     Object? senha = null,
-    Object? cpf = null,
     Object? email = null,
-    Object? dataCriacao = null,
     Object? tell = null,
   }) {
     return _then(_$UserModelImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
       nome: null == nome
           ? _value.nome
           : nome // ignore: cast_nullable_to_non_nullable
-              as String,
-      usuario: null == usuario
-          ? _value.usuario
-          : usuario // ignore: cast_nullable_to_non_nullable
               as String,
       senha: null == senha
           ? _value.senha
           : senha // ignore: cast_nullable_to_non_nullable
               as String,
-      cpf: null == cpf
-          ? _value.cpf
-          : cpf // ignore: cast_nullable_to_non_nullable
-              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      dataCriacao: null == dataCriacao
-          ? _value.dataCriacao
-          : dataCriacao // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       tell: null == tell
           ? _value.tell
           : tell // ignore: cast_nullable_to_non_nullable
@@ -198,38 +138,26 @@ class __$$UserModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserModelImpl implements _UserModel {
   _$UserModelImpl(
-      {this.id,
-      required this.nome,
-      required this.usuario,
+      {required this.nome,
       required this.senha,
-      required this.cpf,
       required this.email,
-      required this.dataCriacao,
       required this.tell});
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
 
   @override
-  final int? id;
-  @override
   final String nome;
-  @override
-  final String usuario;
   @override
   final String senha;
   @override
-  final String cpf;
-  @override
   final String email;
-  @override
-  final DateTime dataCriacao;
   @override
   final String tell;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, nome: $nome, usuario: $usuario, senha: $senha, cpf: $cpf, email: $email, dataCriacao: $dataCriacao, tell: $tell)';
+    return 'UserModel(nome: $nome, senha: $senha, email: $email, tell: $tell)';
   }
 
   @override
@@ -237,21 +165,15 @@ class _$UserModelImpl implements _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.nome, nome) || other.nome == nome) &&
-            (identical(other.usuario, usuario) || other.usuario == usuario) &&
             (identical(other.senha, senha) || other.senha == senha) &&
-            (identical(other.cpf, cpf) || other.cpf == cpf) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.dataCriacao, dataCriacao) ||
-                other.dataCriacao == dataCriacao) &&
             (identical(other.tell, tell) || other.tell == tell));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, nome, usuario, senha, cpf, email, dataCriacao, tell);
+  int get hashCode => Object.hash(runtimeType, nome, senha, email, tell);
 
   /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
@@ -271,32 +193,20 @@ class _$UserModelImpl implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   factory _UserModel(
-      {final int? id,
-      required final String nome,
-      required final String usuario,
+      {required final String nome,
       required final String senha,
-      required final String cpf,
       required final String email,
-      required final DateTime dataCriacao,
       required final String tell}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
 
   @override
-  int? get id;
-  @override
   String get nome;
-  @override
-  String get usuario;
   @override
   String get senha;
   @override
-  String get cpf;
-  @override
   String get email;
-  @override
-  DateTime get dataCriacao;
   @override
   String get tell;
 

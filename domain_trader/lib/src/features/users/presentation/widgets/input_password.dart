@@ -1,7 +1,9 @@
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:validatorless/validatorless.dart';
 
 class InputPassword extends StatefulWidget {
+  final TextEditingController? controller;
   final String hintText;
   final String labelText;
   final String? helpText;
@@ -13,6 +15,7 @@ class InputPassword extends StatefulWidget {
     required this.hintText,
     required this.labelText,
     required this.helpText,
+    required this.controller,
   });
 
   @override
@@ -27,6 +30,7 @@ class _InputPasswordState extends State<InputPassword> {
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
       child: TextFormField(
+        controller: widget.controller,
         key: widget._passwordKey,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
@@ -60,6 +64,12 @@ class _InputPasswordState extends State<InputPassword> {
           helperText: widget.helpText
         ),
         obscureText: !_showPassword,
+        validator: Validatorless.multiple(
+          [
+            Validatorless.min(8, 'A Senha deve conter no mínimo 8 caracteres'),
+            Validatorless.required('A Senha é obrigatória'),
+          ]
+        ),
       ),
     );
   }

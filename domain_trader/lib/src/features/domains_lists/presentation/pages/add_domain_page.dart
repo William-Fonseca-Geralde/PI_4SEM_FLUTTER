@@ -25,6 +25,10 @@ class _AddDomainPageState extends State<AddDomainPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final domainController = TextEditingController();
+    final priceController = TextEditingController();
+
     return DialogFull(
       nomeDialog: 'Novo Domínio',
       image: logo_domain,
@@ -32,9 +36,21 @@ class _AddDomainPageState extends State<AddDomainPage> {
         Form(
           child: Column(
             children: [
-              InputText(prefixIcon: const Icon(CupertinoIcons.globe), hintText: 'Ex: www.teste.com', typeText: 'domain', labelText: 'Domínio'),
+              InputText(
+                controller: domainController,
+                prefixIcon: const Icon(CupertinoIcons.globe), 
+                hintText: 'Ex: www.teste.com', 
+                typeText: 'domain', 
+                labelText: 'Domínio'
+              ),
               const DaterangeInput(),
-              InputText(prefixIcon: const Icon(Icons.attach_money), hintText: 'Ex: R\$ 99.99', typeText: 'price', labelText: 'Preço'),
+              InputText(
+                controller: priceController,
+                prefixIcon: const Icon(Icons.attach_money),
+                hintText: 'Ex: R\$ 99.99',
+                typeText: 'price',
+                labelText: 'Preço'
+              ),
               const StatusInput(),
               CategoryInput(dropdownMenuEntries: listaCategory),
             ],

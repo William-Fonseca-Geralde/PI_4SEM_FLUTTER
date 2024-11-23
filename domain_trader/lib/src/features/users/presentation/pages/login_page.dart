@@ -12,6 +12,10 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +39,25 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ),
                   ),
                 ),
-                InputText(prefixIcon: const Icon(Icons.person), hintText: 'Ex: Jorge Amado', typeText: 'nome', labelText: 'Nome do Usuário'),
-                InputText(prefixIcon: const Icon(Icons.email_rounded), hintText: 'Ex: jorge.amado@gmail.com', typeText: 'email', labelText: 'E-mail'), 
-                InputPassword(hintText: '', labelText: 'Senha', helpText: null),
+                InputText(
+                  controller: _nameController,
+                  prefixIcon: const Icon(Icons.person),
+                  hintText: 'Ex: Jorge Amado',
+                  typeText: 'nome',
+                  labelText: 'Nome do Usuário'
+                ),
+                InputText(
+                  controller: _emailController,
+                  prefixIcon: const Icon(Icons.email_rounded),
+                  hintText: 'Ex: jorge.amado@gmail.com',
+                  typeText: 'email', labelText: 'E-mail'
+                ), 
+                InputPassword(
+                  controller: _passwordController,
+                  hintText: '',
+                  labelText: 'Senha',
+                  helpText: null
+                ),
                 const Padding(
                   padding: EdgeInsets.all(paddingPadrao),
                   child: Expanded(

@@ -1,4 +1,6 @@
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
+import 'package:domain_trader/src/features/users/data/models/user_model.dart';
+import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_password.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
@@ -14,7 +16,48 @@ class CreateAccountPage extends ConsumerStatefulWidget {
 }
 
 class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
-  final GlobalKey<FormFieldState<String>> _passwordKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _tellController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _tellController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _criarConta() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      final userRepository = UserRepositoryImpl(supabase: ref.read(supabaseProvider));
+
+      try {
+        final user = UserModel(
+          nome: _nameController.text,
+          email: _emailController.text,
+          tell: _tellController.text,
+          senha: _passwordController.text,
+        );
+
+        await userRepository.createUser(user);
+
+        if (mounted) {
+          Navigator.of(context).pushNamed('/home');
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro ao criar conta: $e')),
+        );
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -41,6 +84,7 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 Image.asset(
@@ -59,29 +103,34 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                   ),
                 ),
                 InputText(
+                  controller: _nameController,
                   prefixIcon: const Icon(Icons.person),
                   hintText: 'Ex: Jorge Amado',
                   typeText: 'nome',
                   labelText: 'Nome do Usuário'
                 ),
                 InputText(
+                  controller: _emailController,
                   prefixIcon: const Icon(Icons.email_rounded),
                   hintText: 'Ex: jorge.amado@gmail.com',
                   typeText: 'email',
                   labelText: 'E-mail'
                 ),
                 InputText(
+                  controller: _tellController,
                   prefixIcon: const Icon(Icons.phone),
                   hintText: 'Ex: +55 (19) 97524-5417',
                   typeText: 'tell',
                   labelText: 'Telefone',
                 ),
                 InputPassword(
+                  controller: _passwordController,
                   hintText: '',
                   labelText: 'Senha',
                   helpText: 'A senha deve conter:\n - no mínimo 8 caracteres;'
                 ),
                 InputPassword(
+                  controller: _confirmPasswordController,
                   hintText: '',
                   labelText: 'Senha',
                   helpText: 'A senha ter que ser igual acima'
@@ -101,7 +150,9 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       FilledButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _criarConta();
+                        },
                         child: const Text('Cadatrar Conta'),
                       ),
                       FilledButton(

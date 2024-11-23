@@ -10,11 +10,19 @@ class LanceDialog extends StatefulWidget {
 }
 
 class _LanceDialogState extends State<LanceDialog> {
+    final _priceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return DialogAlert(
       title: 'Valor do Lance',
-      content: InputText(prefixIcon: const Icon(Icons.attach_money), hintText: 'R\$ Valor Mínino', typeText: 'price', labelText: 'Valor a Investir'),
+      content: InputText(
+        controller: _priceController,
+        prefixIcon: const Icon(Icons.attach_money),
+        hintText: 'R\$ Valor Mínino', 
+        typeText: 'price', 
+        labelText: 'Valor a Investir'
+      ),
       actions: [
         OutlinedButton(
           onPressed: () {

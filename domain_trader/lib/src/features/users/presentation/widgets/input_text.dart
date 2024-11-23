@@ -5,6 +5,7 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:validatorless/validatorless.dart';
 
 class InputText extends StatelessWidget {
+  final TextEditingController? controller;
   final Icon prefixIcon;
   final String hintText;
   final String typeText;
@@ -37,6 +38,8 @@ class InputText extends StatelessWidget {
       return Validatorless.required('Valor é Obrigatório');
     } else if (typeText == 'domain') {
       return Validatorless.required('Domínio é obrigatório');
+    } else {
+      return null;
     }
   }
 
@@ -89,6 +92,7 @@ class InputText extends StatelessWidget {
     required this.hintText,
     required this.typeText,
     required this.labelText,
+    required this.controller,
   });
 
   @override
@@ -96,6 +100,7 @@ class InputText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
       child: TextFormField(
+        controller: controller,
         key: _FormKey(),
         keyboardType: _TypeText(),
         inputFormatters: _InputFomatter(),
