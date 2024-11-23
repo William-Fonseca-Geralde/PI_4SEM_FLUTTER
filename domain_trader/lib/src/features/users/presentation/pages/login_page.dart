@@ -1,3 +1,6 @@
+import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
+import 'package:domain_trader/src/features/users/data/models/user_model.dart';
+import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_password.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
@@ -12,9 +15,35 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  final _nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _entrarConta() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      final userRepository = UserRepositoryImpl(supabase: ref.read(supabaseProvider));
+
+      try {
+        await userRepository.findUserbyId(_emailController.text, _passwordController.text);
+
+        if (mounted) {
+          Navigator.of(context).pushNamed('/home');
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro ao entrar na conta: $e')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +51,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 Image.asset(
@@ -38,13 +68,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       fontSize: 24
                     ),
                   ),
-                ),
-                InputText(
-                  controller: _nameController,
-                  prefixIcon: const Icon(Icons.person),
-                  hintText: 'Ex: Jorge Amado',
-                  typeText: 'nome',
-                  labelText: 'Nome do Usuário'
                 ),
                 InputText(
                   controller: _emailController,
@@ -73,7 +96,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       FilledButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _entrarConta();
+                        },
                         child: const Text('Entrar na Conta'),
                       ),
                       FilledButton(

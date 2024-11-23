@@ -4,5 +4,5 @@ abstract class UserRepository {
   Future<void> createUser(UserModel usuario);
   Future<void> updateUserbyId(int id);
   Future<void> deleteUser(UserModel usuario);
-  Future<UserModel> findUserbyId(int id);
+  Future<void> findUserbyId(String email, String senha);
 }
