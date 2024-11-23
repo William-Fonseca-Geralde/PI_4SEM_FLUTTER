@@ -43,17 +43,37 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> findUserbyId(String email, String senha) async {
+  Future<AuthResponse> loginUser(String email, String senha) async {
     final data = await supabase.from('usuario')
       .select()
       .eq('senha', senha)
-      .eq('email', email);
+      .eq('email', email)
+      .single();
 
     final AuthResponse resp = await supabase.auth
       .signInWithPassword(
-        email: data.first['email'],
-        password: data.first['senha']
+        email: data['email'],
+        password: data['senha']
       );
+
+    return resp;
+  }
+
+  @override
+  Future<UserModel> findUserbyId(String? id) async {
+    final data = await supabase.from('usuario')
+      .select()
+      .eq('supabase_id', id ?? '')
+      .single();
+
+    final UserModel userModel = UserModel(
+      nome: data['nome'],
+      senha: data['senha'],
+      email: data['email'],
+      tell: data['telefone']
+    );
+
+    return userModel;
   }
 }
 

@@ -1,22 +1,45 @@
 import 'package:animations/animations.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
+import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/domains_page.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/my_domains_page.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/navbar.dart';
+import 'package:domain_trader/src/features/users/data/models/user_model.dart';
+import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/pages/user_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   int currentPageIndex = 0;
+  String? userName;
+
+  Future<void> _checarUsuario() async {
+    final userRepository = UserRepositoryImpl(supabase: ref.read(supabaseProvider));
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+
+    final UserModel userModel = await userRepository.findUserbyId(user?.id);
+
+    setState(() {
+      userName = userModel.nome;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checarUsuario();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +56,16 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
-                    },
-                    child: const Text('Entrar')
+                  userName == null
+                  ? TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/login');
+                      },
+                      child: const Text('Entrar')
+                    )
+                  : TextButton(
+                    onPressed: () {},
+                    child: Text('$userName')
                   ),
                   const SizedBox(width: 5),
                   const CircleAvatar(

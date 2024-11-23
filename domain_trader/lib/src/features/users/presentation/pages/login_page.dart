@@ -1,5 +1,4 @@
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
-import 'package:domain_trader/src/features/users/data/models/user_model.dart';
 import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_password.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
@@ -32,7 +31,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       final userRepository = UserRepositoryImpl(supabase: ref.read(supabaseProvider));
 
       try {
-        await userRepository.findUserbyId(_emailController.text, _passwordController.text);
+        await userRepository.loginUser(_emailController.text, _passwordController.text);
 
         if (mounted) {
           Navigator.of(context).pushNamed('/home');
