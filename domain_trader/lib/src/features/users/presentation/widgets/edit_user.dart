@@ -50,14 +50,6 @@ class _EditUserState extends ConsumerState<EditUser> {
       final User? user = ref.read(supabaseProvider).auth.currentUser;
 
       await userRepository.updateUserbyId(user, _nameController.text, _emailController.text, _tellController.text);
-
-      if (mounted) {
-        ref.read(userProvider.notifier).updateUser(
-          nome: _nameController.text,
-          email: _emailController.text,
-          tell: _tellController.text
-        );
-      }
     }
   }
 
@@ -107,7 +99,7 @@ class _EditUserState extends ConsumerState<EditUser> {
       ],
       floatingActionButton: () {
         _atualizarDados();
-        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed('/home');
       },
     );
   }

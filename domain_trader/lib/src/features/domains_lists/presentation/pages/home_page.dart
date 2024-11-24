@@ -25,7 +25,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   int currentPageIndex = 0;
   String? userName;
 
-  Future<void> _checarUsuario() async {
+  Future<String> _checarUsuario() async {
     final userRepository = UserRepositoryImpl(supabase: ref.read(supabaseProvider));
     final User? user = ref.read(supabaseProvider).auth.currentUser;
 
@@ -34,17 +34,28 @@ class _HomePageState extends ConsumerState<HomePage> {
     setState(() {
       userName = userModel.nome;
     });
+
+    return userModel.nome;
   }
 
   @override
   void initState() {
     super.initState();
-    _checarUsuario();
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userProvider);
+    final dataState = ref.watch(realtimeDataNotifier);
+
+    ref.listen(realtimeDataNotifier, (previous, next) {
+      if (next is AsyncError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro: ${next.error}'))
+        );
+      }
+    });
+
+    _checarUsuario();
 
     return Scaffold(
       appBar: AppBar(
@@ -59,16 +70,21 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  userName == '' && user != null
-                  ? TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/login');
-                      },
-                      child: const Text('Entrar')
-                    )
-                  : TextButton(
-                    onPressed: () {},
-                    child: Text('$userName')
+                  dataState.when(
+                    data: (data) =>
+                      userName == ''
+                      ? TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/login');
+                          },
+                          child: const Text('Entrar')
+                        )
+                      : TextButton(
+                        onPressed: () {},
+                        child: Text('$userName')
+                      ),
+                    error: (error, stackTrace) => const Center(child: Text('Erro ao carregar')), 
+                    loading: () => const Center(child: CircularProgressIndicator.adaptive()),
                   ),
                   const SizedBox(width: 5),
                   const CircleAvatar(
