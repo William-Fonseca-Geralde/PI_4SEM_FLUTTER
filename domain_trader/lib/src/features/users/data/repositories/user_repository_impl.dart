@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/users/data/models/user_model.dart';
 import 'package:domain_trader/src/features/users/domain/repositories/user_repository.dart';
@@ -21,30 +19,35 @@ class UserRepositoryImpl implements UserRepository {
     // final Session? session = resp.session;
     final User? user = resp.user;
 
-    await supabase.from('usuario').insert({
-      'supabase_id': user?.id,
-      'nome': usuario.nome,
-      'senha': usuario.senha,
-      'email': usuario.email,
-      'telefone': usuario.tell,
-    });
+    await supabase
+      .from('usuario')
+      .insert({
+        'supabase_id': user?.id,
+        'nome': usuario.nome,
+        'senha': usuario.senha,
+        'email': usuario.email,
+        'telefone': usuario.tell,
+      });
   }
 
   @override
-  Future<void> updateUserbyId(int id) {
-    // TODO: implement updateUserbyId
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deleteUser(UserModel usuario) {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
+  Future<void> updateUserbyId(User? user, String? nome, String? email, String? tell) async {
+    if (user != null) {
+      await supabase
+        .from('usuario')
+        .update({
+          'nome': nome,
+          'email': email,
+          'telefone': tell
+        })
+        .eq('supabase_id', user.id);
+    }
   }
 
   @override
   Future<AuthResponse> loginUser(String email, String senha) async {
-    final data = await supabase.from('usuario')
+    final data = await supabase
+      .from('usuario')
       .select()
       .eq('senha', senha)
       .eq('email', email)
@@ -60,19 +63,25 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserModel> findUserbyId(String? id) async {
-    final data = await supabase.from('usuario')
-      .select()
-      .eq('supabase_id', id ?? '')
-      .single();
+  Future<UserModel> findUserbyId(User? user) async {
+    final UserModel userModel;
 
-    final UserModel userModel = UserModel(
-      nome: data['nome'],
-      senha: data['senha'],
-      email: data['email'],
-      tell: data['telefone']
-    );
+    if (user != null) {
+      final data = await supabase
+        .from('usuario')
+        .select()
+        .eq('supabase_id', user.id)
+        .single();
 
+      userModel = UserModel(
+        nome: data['nome'],
+        senha: data['senha'],
+        email: data['email'],
+        tell: data['telefone']
+      );
+    } else {
+      userModel = UserModel(nome: '', senha: '', email: '', tell: '');
+    }
     return userModel;
   }
 }

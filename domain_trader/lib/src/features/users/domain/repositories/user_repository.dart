@@ -3,8 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class UserRepository {
   Future<void> createUser(UserModel usuario);
-  Future<void> updateUserbyId(int id);
-  Future<void> deleteUser(UserModel usuario);
+  Future<void> updateUserbyId(User user, String nome, String email, String tell);
   Future<AuthResponse> loginUser(String email, String senha);
-  Future<UserModel> findUserbyId(String? id);
+  Future<UserModel> findUserbyId(User? user);
 }

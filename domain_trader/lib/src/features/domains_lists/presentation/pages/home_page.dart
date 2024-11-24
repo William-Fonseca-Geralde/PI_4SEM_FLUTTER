@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
+import 'package:domain_trader/src/features/core/providers/app_provider.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/domains_page.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/my_domains_page.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final userRepository = UserRepositoryImpl(supabase: ref.read(supabaseProvider));
     final User? user = ref.read(supabaseProvider).auth.currentUser;
 
-    final UserModel userModel = await userRepository.findUserbyId(user?.id);
+    final UserModel userModel = await userRepository.findUserbyId(user);
 
     setState(() {
       userName = userModel.nome;
@@ -43,6 +44,8 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(userProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Navbar(),
@@ -56,7 +59,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  userName == null
+                  userName == '' && user != null
                   ? TextButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/login');

@@ -15,6 +15,8 @@ class AddDomainPage extends StatefulWidget {
 }
 
 class _AddDomainPageState extends State<AddDomainPage> {
+  final _formKey = GlobalKey<FormState>();
+
   final List<DropdownMenuEntry> listaCategory = [
     const DropdownMenuEntry(value: 'tecnol', label: 'Tecnologia'),
     const DropdownMenuEntry(value: 'nature', label: 'Natureza'),
@@ -30,33 +32,35 @@ class _AddDomainPageState extends State<AddDomainPage> {
     final priceController = TextEditingController();
 
     return DialogFull(
+      formKey: _formKey,
       nomeDialog: 'Novo Domínio',
       image: logo_domain,
       forms: [
-        Form(
-          child: Column(
-            children: [
-              InputText(
-                controller: domainController,
-                prefixIcon: const Icon(CupertinoIcons.globe), 
-                hintText: 'Ex: www.teste.com', 
-                typeText: 'domain', 
-                labelText: 'Domínio'
-              ),
-              const DaterangeInput(),
-              InputText(
-                controller: priceController,
-                prefixIcon: const Icon(Icons.attach_money),
-                hintText: 'Ex: R\$ 99.99',
-                typeText: 'price',
-                labelText: 'Preço'
-              ),
-              const StatusInput(),
-              CategoryInput(dropdownMenuEntries: listaCategory),
-            ],
-          ),
+        Column(
+          children: [
+            InputText(
+              controller: domainController,
+              prefixIcon: const Icon(CupertinoIcons.globe), 
+              hintText: 'Ex: www.teste.com', 
+              typeText: 'domain', 
+              labelText: 'Domínio'
+            ),
+            const DaterangeInput(),
+            InputText(
+              controller: priceController,
+              prefixIcon: const Icon(Icons.attach_money),
+              hintText: 'Ex: R\$ 99.99',
+              typeText: 'price',
+              labelText: 'Preço'
+            ),
+            const StatusInput(),
+            CategoryInput(dropdownMenuEntries: listaCategory),
+          ],
         )
-      ]
+      ],
+      floatingActionButton: () {
+        
+      },
     );
   }
 }
