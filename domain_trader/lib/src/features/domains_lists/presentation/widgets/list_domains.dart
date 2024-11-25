@@ -1,11 +1,23 @@
 import 'package:domain_trader/src/features/core/constants/constants.dart';
+import 'package:domain_trader/src/features/core/providers/app_provider.dart';
+import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
+import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
+import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/domain_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ListDomains extends StatelessWidget {
+class ListDomains extends ConsumerStatefulWidget {
   final String selectedOption;
 
   const ListDomains({super.key, required this.selectedOption});
+
+  @override
+  ConsumerState<ListDomains> createState() => _ListDomainsState();
+}
+
+class _ListDomainsState extends ConsumerState<ListDomains> {
+  List<DomainModel>? dominios;
 
   void _showDomainDetails(BuildContext context, String domain) {
     showModalBottomSheet(
@@ -17,16 +29,27 @@ class ListDomains extends StatelessWidget {
     );
   }
 
+  Future<void> _dominios() async {
+    final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
+    final domains = await domainRepository.findAllDomains();
+
+    if (mounted) {
+      setState(() {
+        dominios = domains;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _dominios();
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    final Map<String, List<String>> _dados = {
-      'leiloes': ['www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com', 'www.leiloes.com'
-      ],
-      'investimento': ['www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com', 'www.invest.com'
-      ],
-      'mydomains': ['www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com', 'www.mydomains.com'
-      ]
+    final Map<String, List<DomainModel>?> _dados = {
+      'leiloes': dominios,
     };
 
     return Row(
@@ -42,18 +65,19 @@ class ListDomains extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 2,
                     child: ListView.builder(
-                      itemCount: _dados[selectedOption]?.length ?? 0,
+                      itemCount: _dados['leiloes']?.length,
                       itemBuilder: (context, index) {
-                        final item = _dados[selectedOption]?[index] ?? '';
+                        final item = _dados['leiloes'];
+
                         return Column(
                           children: [
                             ListTile(
                               title: Text(
-                                item,
+                                item?[index].url ?? '',
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               onTap: () {
-                                _showDomainDetails(context, _dados[selectedOption]?[index] ?? '');
+                                _showDomainDetails(context, item![index].url);
                               },
                             ),
                             const Divider(height: 0)

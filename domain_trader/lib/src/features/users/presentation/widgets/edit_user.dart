@@ -18,13 +18,11 @@ class EditUser extends ConsumerStatefulWidget {
 
 class _EditUserState extends ConsumerState<EditUser> {
   String? userName;
-  String? email;
   String? tell;
 
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
   final _tellController = TextEditingController();
 
   Future<void> _checarUsuario() async {
@@ -35,11 +33,9 @@ class _EditUserState extends ConsumerState<EditUser> {
 
     setState(() {
       userName = userModel.nome;
-      email = userModel.email;
       tell = userModel.tell;
 
       _nameController.text = userName ?? '';
-      _emailController.text = email ?? '';
       _tellController.text = tell ?? '';
     });
   }
@@ -49,7 +45,7 @@ class _EditUserState extends ConsumerState<EditUser> {
       final userRepository = UserRepositoryImpl(supabase: ref.read(supabaseProvider));
       final User? user = ref.read(supabaseProvider).auth.currentUser;
 
-      await userRepository.updateUserbyId(user, _nameController.text, _emailController.text, _tellController.text);
+      await userRepository.updateUserbyId(user, _nameController.text, _tellController.text);
     }
   }
 
@@ -79,13 +75,6 @@ class _EditUserState extends ConsumerState<EditUser> {
               hintText: 'Jorge Amado', 
               typeText: 'nome',
               labelText: 'Nome do usuário'
-            ),
-            InputText(
-              controller: _emailController,
-              prefixIcon: const Icon(Icons.email_rounded), 
-              hintText: 'jorge.amado@gmail.com', 
-              typeText: 'email', 
-              labelText: 'E-mail'
             ),
             InputText(
               controller: _tellController,

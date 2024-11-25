@@ -13,27 +13,52 @@ class DomainRepositoryImpl implements DomainRepository {
   DomainRepositoryImpl({required this.supabase});
 
   @override
-  Future<void> createDomain(DomainModel domain) {
-    // TODO: implement createDomain
-    throw UnimplementedError();
+  Future<void> createDomain(DomainModel domain) async {
+    await supabase
+      .from('dominio')
+      .insert({
+        'url': domain.url,
+        'preco': domain.preco,
+        'data_expiracao': domain.dataExpiracao,
+        'status': domain.status,
+        'categoria': domain.categoria,
+        'id_usuario': domain.idUser,
+      });
   }
 
   @override
-  Future<void> updateDomainbyId(int id) {
-    // TODO: implement updateDomainbyId
-    throw UnimplementedError();
+  Future<void> updateDomainbyId(int id, DateTime dataExpiracao, String status, String categoria) async {
+    await supabase
+      .from('dominio')
+      .update({
+        'data_expiracao': dataExpiracao,
+        'status': status,
+        'categoria': categoria,
+      })
+      .eq('id_dominio', id);
   }
 
   @override
-  Future<void> deleteDomain(DomainModel domain) {
-    // TODO: implement deleteDomain
-    throw UnimplementedError();
-  }
+  Future<List<DomainModel>> findAllDomains() async {
+    final data = await supabase
+      .from('dominio')
+      .select()
+      .eq('status', 'disponível');
 
-  @override
-  Future<List<DomainModel>> findAllDomains() {
-    // TODO: implement findAllDomains
-    throw UnimplementedError();
+    final List<DomainModel> listDomais = List.generate(
+      data.length,
+      (index) => 
+        DomainModel(
+          url: data[index]['url'],
+          idUser: data[index]['id_usuario'],
+          preco: data[index]['preco'],
+          dataExpiracao: data[index]['data_expiracao'],
+          status: data[index]['status'],
+          categoria: data[index]['categoria']
+        ),
+    );
+
+    return listDomais;
   }
 
   @override

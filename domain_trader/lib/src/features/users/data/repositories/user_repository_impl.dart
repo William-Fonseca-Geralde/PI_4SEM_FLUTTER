@@ -31,13 +31,12 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> updateUserbyId(User? user, String? nome, String? email, String? tell) async {
+  Future<void> updateUserbyId(User? user, String? nome, String? tell) async {
     if (user != null) {
       await supabase
         .from('usuario')
         .update({
           'nome': nome,
-          'email': email,
           'telefone': tell
         })
         .eq('supabase_id', user.id);

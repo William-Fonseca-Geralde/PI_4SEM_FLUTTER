@@ -44,16 +44,6 @@ class _UserSettingsState extends ConsumerState<UserSettings> {
 
   @override
   Widget build(BuildContext context) {
-    final dataState = ref.watch(realtimeDataNotifier);
-
-    ref.listen(realtimeDataNotifier, (previous, next) {
-      if (next is AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro: ${next.error}'))
-        );
-      }
-    });
-
     return Column(
       children: [
         Text(
@@ -75,14 +65,9 @@ class _UserSettingsState extends ConsumerState<UserSettings> {
                     child: Icon(Icons.person),
                   ),
                 ),
-                dataState.when(
-                  data: (data) =>
-                  Text(
-                    '$userName',
-                    style: Theme.of(context).textTheme.bodyLarge
-                  ),
-                  error: (error, stackTrace) => const Text('Erro ao carregar'), 
-                  loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+                Text(
+                  '$userName',
+                  style: Theme.of(context).textTheme.bodyLarge
                 ),
                 const SizedBox(
                   height: paddingPadrao,

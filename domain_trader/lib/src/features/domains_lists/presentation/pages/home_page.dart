@@ -45,15 +45,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final dataState = ref.watch(realtimeDataNotifier);
-
-    ref.listen(realtimeDataNotifier, (previous, next) {
-      if (next is AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro: ${next.error}'))
-        );
-      }
-    });
 
     _checarUsuario();
 
@@ -70,21 +61,16 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  dataState.when(
-                    data: (data) =>
-                      userName == ''
-                      ? TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/login');
-                          },
-                          child: const Text('Entrar')
-                        )
-                      : TextButton(
-                        onPressed: () {},
-                        child: Text('$userName')
-                      ),
-                    error: (error, stackTrace) => const Center(child: Text('Erro ao carregar')), 
-                    loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+                  userName == ''
+                  ? TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/login');
+                      },
+                      child: const Text('Entrar')
+                    )
+                  : TextButton(
+                    onPressed: () {},
+                    child: Text('$userName')
                   ),
                   const SizedBox(width: 5),
                   const CircleAvatar(

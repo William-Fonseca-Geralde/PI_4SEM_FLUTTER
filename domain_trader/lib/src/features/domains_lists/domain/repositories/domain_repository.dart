@@ -2,8 +2,6 @@ import 'package:domain_trader/src/features/domains_lists/data/models/domain_mode
 
 abstract class DomainRepository {
   Future<void> createDomain(DomainModel domain);
-  Future<void> updateDomainbyId(int id);
-  Future<void> deleteDomain(DomainModel domain);
+  Future<void> updateDomainbyId(int id, DateTime dataExpiracao, String status, String categoria);
   Future<List<DomainModel>> findAllDomains();
-  Future<List<DomainModel>> findDetailsDomains(int id);
 }
