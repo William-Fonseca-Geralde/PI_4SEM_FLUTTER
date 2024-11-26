@@ -4,7 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract class DomainRepository {
   Future<void> createDomain(DomainModel domain);
   Future<void> updateDomainbyId(int id, DateTime dataExpiracao, String status, String categoria);
-  Future<List<DomainModel>> findAllDomains();
+  Future<List<Map<String, dynamic>>> findAllDomains();
   Future<List<Map<String, dynamic>>> findDomainsbyUser(User user);
-  Future<List<DomainModel>> findDomainsbyInvest(User user);
+  Future<List<Map<String, dynamic>>> findDomainsbyInvest(User user);
 }

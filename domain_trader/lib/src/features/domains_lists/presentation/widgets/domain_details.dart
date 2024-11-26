@@ -23,8 +23,7 @@ class DomainDetails extends ConsumerStatefulWidget {
 class _DomainDetailsState extends ConsumerState<DomainDetails> {
   double? valor;
   String? nomeDono;
-  List<DomainModel> dados = List.empty();
-  List<Map<String, dynamic>> dominios = List.empty();
+  List<Map<String, dynamic>>? dominios, dados;
 
   Future<void> _dominios() async {
     if (!mounted) return;
@@ -93,7 +92,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
   @override
   Widget build(BuildContext context) {
     final User? user = ref.read(supabaseProvider).auth.currentUser;
-    final domainsNome = dados.where((element) => element.url == widget.domain).toList();
+    final domainsNome = dados != null ? dados?.where((element) => element['url'] == widget.domain).toList() : List.empty();
 
     return Expanded(
       child: FractionallySizedBox(
@@ -137,12 +136,16 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                                 padding: const EdgeInsets.all(paddingPadrao),
                                 child: Column(
                                   children: [
-                                    const CircleAvatar(
-                                      radius: 30,
-                                      child: Icon(Icons.person),
-                                    ),
-                                    const SizedBox(height: paddingPadrao),
-                                    Text('$nomeDono'),
+                                    if (nomeDono == null)
+                                      const Center(child: CircularProgressIndicator.adaptive())
+                                    else ... [
+                                      const CircleAvatar(
+                                        radius: 30,
+                                        child: Icon(Icons.person),
+                                      ),
+                                      const SizedBox(height: paddingPadrao),
+                                      Text('$nomeDono'),
+                                    ]
                                   ],
                                 ),
                               ),
@@ -158,7 +161,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                               child: const Text('Dar Lance')
                             ),
                             const SizedBox(height: paddingPadrao),
-                            domainsNome.isEmpty
+                            domainsNome == null || domainsNome.isEmpty
                             ? const FilledButton.tonal(
                               onPressed: null,
                               child: Text('Desfazer aposta')
@@ -184,36 +187,38 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                                     SizedBox(
                                       height: MediaQuery.of(context).size.height / 2.5,
                                       width: MediaQuery.of(context).size.width / 2,
-                                      child: dominios.isEmpty
+                                      child: dominios == null
                                       ? const Center(child: CircularProgressIndicator.adaptive())
-                                      : ListView.builder(
-                                        itemCount: dominios.length,
-                                        itemBuilder: (context, index) {
-                                          final item = dominios[index];
-                                      
-                                          return Column(
-                                            children: [
-                                              ListTile(
-                                                title: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      item['nome'],
-                                                      style: Theme.of(context).textTheme.bodySmall,
-                                                    ),
-                                                    Text(
-                                                      'R\$ ${item['valor'].toString()}',
-                                                      style: Theme.of(context).textTheme.bodySmall,
-                                                    )
-                                                  ],
+                                      : dominios!.isNotEmpty
+                                        ? ListView.builder(
+                                          itemCount: dominios!.length,
+                                          itemBuilder: (context, index) {
+                                            final item = dominios?[index];
+                                        
+                                            return Column(
+                                              children: [
+                                                ListTile(
+                                                  title: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        item?['nome'],
+                                                        style: Theme.of(context).textTheme.bodySmall,
+                                                      ),
+                                                      Text(
+                                                        'R\$ ${item?['valor'].toString()}',
+                                                        style: Theme.of(context).textTheme.bodySmall,
+                                                      )
+                                                    ],
+                                                  ),
+                                                  leading: item?['id'] == user?.id ? const Icon(Icons.star) : null,
                                                 ),
-                                                leading: item['id'] == user?.id ? const Icon(Icons.star) : null,
-                                              ),
-                                              const Divider(height: 0)
-                                            ],
-                                          );
-                                        },
-                                      ),
+                                                const Divider(height: 0)
+                                              ],
+                                            );
+                                          },
+                                        ) 
+                                        : const Center(child: Text('Não há participantes'))
                                     )
                                   ],
                                 ),

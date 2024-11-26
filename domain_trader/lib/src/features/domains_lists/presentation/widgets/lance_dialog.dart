@@ -16,7 +16,7 @@ class LanceDialog extends ConsumerStatefulWidget {
 class _LanceDialogState extends ConsumerState<LanceDialog> {
   final _priceController = TextEditingController();
 
-  Future<List<DomainModel>> _dominios() async {
+  Future<List<Map<String, dynamic>>> _dominios() async {
     final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
 
     final domains = await domainRepository.findAllDomains();
@@ -33,7 +33,7 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
       content: InputText(
         controller: _priceController,
         prefixIcon: const Icon(Icons.attach_money),
-        hintText: 'R\$ Valor Mínino', 
+        hintText: 'R\$ Valor Mínino',
         typeText: 'price', 
         labelText: 'Valor a Investir'
       ),

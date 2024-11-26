@@ -39,24 +39,22 @@ class DomainRepositoryImpl implements DomainRepository {
   }
 
   @override
-  Future<List<DomainModel>> findAllDomains() async {
+  Future<List<Map<String, dynamic>>> findAllDomains() async {
     final data = await supabase
       .from('dominio')
-      .select()
+      .select('*, leilao(valor)')
       .eq('status', 'disponível');
 
-    final List<DomainModel> listDomais = List.generate(
-      data.length,
-      (index) => 
-        DomainModel(
-          url: data[index]['url'],
-          idUser: data[index]['id_usuario'],
-          preco: data[index]['preco'],
-          dataExpiracao: data[index]['data_expiracao'],
-          status: data[index]['status'],
-          categoria: data[index]['categoria']
-        ),
-    );
+    final listDomais = data.map((e) {
+      final leilao = (e['leilao'] as List<dynamic>?) ?? [];
+      leilao.sort((a, b) => (b['valor']).compareTo((a['valor'])));
+
+      return {
+        'url': e['url'],
+        'status': e['status'],
+        'valor': leilao.isNotEmpty ? leilao.first['valor'] : e['preco']
+      };
+    }).toList();
 
     print('findAllDomain: $listDomais');
 
@@ -78,7 +76,7 @@ class DomainRepositoryImpl implements DomainRepository {
   }
 
   @override
-  Future<List<DomainModel>> findDomainsbyInvest(User? user) async {
+  Future<List<Map<String, dynamic>>> findDomainsbyInvest(User? user) async {
     if (user != null) {
       final dataUser = await supabase
         .from('usuario')
@@ -88,21 +86,18 @@ class DomainRepositoryImpl implements DomainRepository {
 
       final data = await supabase
         .from('leilao')
-        .select('dominio(url, preco, data_expiracao, status, categoria)')
+        .select('dominio(url, preco, data_expiracao, status, categoria), valor')
         .eq('id_usuario', dataUser['id_usuario']);
 
-      final List<DomainModel> listDomains = List.generate(
-        data.length,
-        (index) => 
-          DomainModel(
-            url: data[index]['dominio']['url'],
-            idUser: dataUser['id_usuario'],
-            preco: data[index]['dominio']['preco'],
-            dataExpiracao: data[index]['dominio']['data_expiracao'],
-            status: data[index]['dominio']['status'],
-            categoria: data[index]['dominio']['categoria']
-          ),
-      );
+      final listDomains = data.map((e) {
+        final dominio = e['dominio'];
+
+        return {
+          'url': dominio['url'] ?? '',
+          'status': dominio['status'] ?? '',
+          'valor': e['valor'] ?? ''
+        };
+      }).toList();
 
       print('findDomainsBy: $listDomains');
 

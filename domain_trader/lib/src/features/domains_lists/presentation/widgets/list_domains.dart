@@ -18,8 +18,7 @@ class ListDomains extends ConsumerStatefulWidget {
 }
 
 class _ListDomainsState extends ConsumerState<ListDomains> {
-  List<DomainModel>? dominios;
-  List<DomainModel>? dominiosUser;
+  List<Map<String, dynamic>>? dominios, dominiosUser;
 
   void _showDomainDetails(BuildContext context, String domain) {
     showModalBottomSheet(
@@ -83,32 +82,43 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 2,
-                    child: _dados == null || _dados.isEmpty
-                    ? const Padding(
-                      padding: EdgeInsets.all(paddingPadrao),
-                      child: UserLogin(),
-                    )
-                    : ListView.builder(
-                      itemCount: _dados.length,
-                      itemBuilder: (context, index) {
-                        final item = _dados?[index];
+                    child: _dados == null
+                    ? const Center(child: CircularProgressIndicator())
+                    : _dados.isEmpty
+                      ? const Padding(
+                        padding: EdgeInsets.all(paddingPadrao),
+                        child: UserLogin(),
+                      )
+                      : ListView.builder(
+                        itemCount: _dados.length,
+                        itemBuilder: (context, index) {
+                          final item = _dados?[index];
 
-                        return Column(
-                          children: [
-                            ListTile(
-                              title: Text(
-                                item.url ?? '',
-                                style: Theme.of(context).textTheme.bodyLarge,
+                          return Column(
+                            children: [
+                              ListTile(
+                                title: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      item['url'],
+                                      style: Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                    Text(
+                                      'R\$ ${item['valor'].toString()}',
+                                      style: Theme.of(context).textTheme.bodyLarge
+                                    )
+                                  ],
+                                ),
+                                onTap: () {
+                                  _showDomainDetails(context, item['url']);
+                                },
                               ),
-                              onTap: () {
-                                _showDomainDetails(context, item.url ?? '');
-                              },
-                            ),
-                            const Divider(height: 0)
-                          ],
-                        );
-                      },
-                    ),
+                              const Divider(height: 0)
+                            ],
+                          );
+                        },
+                      ),
                   )
                 ],
               ),

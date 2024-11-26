@@ -25,9 +25,9 @@ class LeiloesRepositoryImpl implements LeiloesRepositories {
         final usuario = e['usuario'];
 
         return {
-          'nome': usuario['nome'],
+          'nome': usuario['nome'] ?? "",
           'id': usuario['supabase_id'] ?? "",
-          'valor': e['valor'],
+          'valor': e['valor'] ?? "",
         };
       }).toList();
 
