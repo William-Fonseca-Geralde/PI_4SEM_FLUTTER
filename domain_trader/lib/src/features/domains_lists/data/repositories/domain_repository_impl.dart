@@ -64,12 +64,30 @@ class DomainRepositoryImpl implements DomainRepository {
   @override
   Future<List<Map<String, dynamic>>> findDomainsbyUser(User? user) async {
     if (user != null) {
-      final data = await supabase
+      final usuario = await supabase
         .from('usuario')
-        .select('dominio(url, preco, data_expiracao, status, categoria)')
-        .eq('supabase_id', user.id);
+        .select()
+        .eq('supabase_id', user.id)
+        .single();
 
-      return List<Map<String, dynamic>>.from(data);
+      final data = await supabase
+        .from('dominio')
+        .select('url, categoria, leilao(valor, id_usuario)')
+        .eq('id_usuario', usuario['id_usuario'])
+        .neq('leilao.id_usuario', usuario['id_usuario']);
+
+      final listDomais = data.map((e) {
+        final leilao = (e['leilao'] as List<dynamic>?) ?? [];
+        leilao.sort((a, b) => (b['valor']).compareTo((a['valor'])));
+
+        return {
+          'url': e['url'],
+          'status': e['status'],
+          'valor': leilao.isNotEmpty ? leilao.first['valor'] : e['preco']
+        };
+      }).toList();
+
+      return listDomais;
     } else {
       return List.empty();
     }

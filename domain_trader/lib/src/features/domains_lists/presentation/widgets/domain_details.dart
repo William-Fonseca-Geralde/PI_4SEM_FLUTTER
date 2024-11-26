@@ -1,6 +1,5 @@
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
-import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/lance_dialog.dart';
 import 'package:domain_trader/src/features/leiloes/data/repositories/leiloes_repository_impl.dart';

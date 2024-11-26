@@ -1,6 +1,5 @@
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
-import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/domain_details.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/user_login.dart';
@@ -18,7 +17,7 @@ class ListDomains extends ConsumerStatefulWidget {
 }
 
 class _ListDomainsState extends ConsumerState<ListDomains> {
-  List<Map<String, dynamic>>? dominios, dominiosUser;
+  List<Map<String, dynamic>>? dominios, dominiosInvest, dominiosUser;
 
   void _showDomainDetails(BuildContext context, String domain) {
     showModalBottomSheet(
@@ -48,6 +47,18 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
 
     if (mounted) {
       setState(() {
+        dominiosInvest = domains;
+      });
+    }
+  }
+
+  Future<void> _dominiosUser() async {
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+    final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
+    final domains = await domainRepository.findDomainsbyUser(user);
+
+    if (mounted) {
+      setState(() {
         dominiosUser = domains;
       });
     }
@@ -58,6 +69,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
     super.initState();
     _dominios();
     _dominiosInvest();
+    _dominiosUser();
   }
 
   @override
@@ -66,6 +78,8 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
 
     if (widget.selectedOption == 'leiloes') {
       _dados = dominios;
+    } else if (widget.selectedOption == 'investimento') {
+      _dados = dominiosInvest;
     } else {
       _dados = dominiosUser;
     }
@@ -85,10 +99,12 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                     child: _dados == null
                     ? const Center(child: CircularProgressIndicator())
                     : _dados.isEmpty
-                      ? const Padding(
-                        padding: EdgeInsets.all(paddingPadrao),
-                        child: UserLogin(),
-                      )
+                      ? widget.selectedOption != 'mydomains'
+                        ? const Padding(
+                          padding: EdgeInsets.all(paddingPadrao),
+                          child: UserLogin(),
+                        )
+                        : const Center(child: Text('Não tem domínios cadastrados.\nAproveite e cadastre o seu domínio', textAlign: TextAlign.center,))
                       : ListView.builder(
                         itemCount: _dados.length,
                         itemBuilder: (context, index) {

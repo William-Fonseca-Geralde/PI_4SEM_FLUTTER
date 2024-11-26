@@ -1,6 +1,5 @@
 import 'package:domain_trader/src/dialog_alert.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
-import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
 import 'package:flutter/material.dart';
