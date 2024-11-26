@@ -1,6 +1,5 @@
 import 'package:animations/animations.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
-import 'package:domain_trader/src/features/core/providers/app_provider.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/domains_page.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/my_domains_page.dart';

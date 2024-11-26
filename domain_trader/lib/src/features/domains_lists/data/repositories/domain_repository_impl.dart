@@ -58,13 +58,58 @@ class DomainRepositoryImpl implements DomainRepository {
         ),
     );
 
+    print('findAllDomain: $listDomais');
+
     return listDomais;
   }
 
   @override
-  Future<List<DomainModel>> findDetailsDomains(int id) {
-    // TODO: implement findDetailsDomains
-    throw UnimplementedError();
+  Future<List<Map<String, dynamic>>> findDomainsbyUser(User? user) async {
+    if (user != null) {
+      final data = await supabase
+        .from('usuario')
+        .select('dominio(url, preco, data_expiracao, status, categoria)')
+        .eq('supabase_id', user.id);
+
+      return List<Map<String, dynamic>>.from(data);
+    } else {
+      return List.empty();
+    }
+  }
+
+  @override
+  Future<List<DomainModel>> findDomainsbyInvest(User? user) async {
+    if (user != null) {
+      final dataUser = await supabase
+        .from('usuario')
+        .select()
+        .eq('supabase_id', user.id)
+        .single();
+
+      final data = await supabase
+        .from('leilao')
+        .select('dominio(url, preco, data_expiracao, status, categoria)')
+        .eq('id_usuario', dataUser['id_usuario']);
+
+      final List<DomainModel> listDomains = List.generate(
+        data.length,
+        (index) => 
+          DomainModel(
+            url: data[index]['dominio']['url'],
+            idUser: dataUser['id_usuario'],
+            preco: data[index]['dominio']['preco'],
+            dataExpiracao: data[index]['dominio']['data_expiracao'],
+            status: data[index]['dominio']['status'],
+            categoria: data[index]['dominio']['categoria']
+          ),
+      );
+
+      print('findDomainsBy: $listDomains');
+
+      return listDomains;
+    } else {
+      return List.empty();
+    }
   }
 }
 

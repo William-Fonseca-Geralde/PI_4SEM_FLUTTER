@@ -1,11 +1,12 @@
 import 'package:domain_trader/src/features/core/constants/constants.dart';
-import 'package:domain_trader/src/features/core/providers/app_provider.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/domain_details.dart';
+import 'package:domain_trader/src/features/users/presentation/widgets/user_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ListDomains extends ConsumerStatefulWidget {
   final String selectedOption;
@@ -18,6 +19,7 @@ class ListDomains extends ConsumerStatefulWidget {
 
 class _ListDomainsState extends ConsumerState<ListDomains> {
   List<DomainModel>? dominios;
+  List<DomainModel>? dominiosUser;
 
   void _showDomainDetails(BuildContext context, String domain) {
     showModalBottomSheet(
@@ -40,17 +42,34 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
     }
   }
 
+  Future<void> _dominiosInvest() async {
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+    final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
+    final domains = await domainRepository.findDomainsbyInvest(user);
+
+    if (mounted) {
+      setState(() {
+        dominiosUser = domains;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _dominios();
+    _dominiosInvest();
   }
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, List<DomainModel>?> _dados = {
-      'leiloes': dominios,
-    };
+    final List? _dados;
+
+    if (widget.selectedOption == 'leiloes') {
+      _dados = dominios;
+    } else {
+      _dados = dominiosUser;
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -64,20 +83,25 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 2,
-                    child: ListView.builder(
-                      itemCount: _dados['leiloes']?.length,
+                    child: _dados == null || _dados.isEmpty
+                    ? const Padding(
+                      padding: EdgeInsets.all(paddingPadrao),
+                      child: UserLogin(),
+                    )
+                    : ListView.builder(
+                      itemCount: _dados.length,
                       itemBuilder: (context, index) {
-                        final item = _dados['leiloes'];
+                        final item = _dados?[index];
 
                         return Column(
                           children: [
                             ListTile(
                               title: Text(
-                                item?[index].url ?? '',
+                                item.url ?? '',
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               onTap: () {
-                                _showDomainDetails(context, item![index].url);
+                                _showDomainDetails(context, item.url ?? '');
                               },
                             ),
                             const Divider(height: 0)

@@ -1,12 +1,12 @@
-import 'dart:ffi';
-
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/lance_dialog.dart';
+import 'package:domain_trader/src/features/leiloes/data/repositories/leiloes_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DomainDetails extends ConsumerStatefulWidget {
   final String domain;
@@ -23,6 +23,8 @@ class DomainDetails extends ConsumerStatefulWidget {
 class _DomainDetailsState extends ConsumerState<DomainDetails> {
   double? valor;
   String? nomeDono;
+  List<DomainModel> dados = List.empty();
+  List<Map<String, dynamic>> dominios = List.empty();
 
   Future<void> _dominios() async {
     if (!mounted) return;
@@ -54,14 +56,48 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
     }
   }
 
+  Future<void> _verifInvest() async {
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+    final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
+    final data = await domainRepository.findDomainsbyInvest(user);
+
+    if (mounted) {
+      setState(() {
+        dados = data;
+      }); 
+    }
+  }
+
+  Future<void> _idDomain() async {
+    final leiloesRepository = LeiloesRepositoryImpl(supabase: ref.read(supabaseProvider));
+
+    final data = await ref.read(supabaseProvider).from('dominio').select().eq('url', widget.domain).single();
+    final dominioId = data['id_dominio'];
+    final leiloes = await leiloesRepository.findLeiloesbyDomain(dominioId);
+
+    if (mounted) {
+      setState(() {
+        dominios = leiloes;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _verifInvest();
+    _dominios();
+    _idDomain();
+  }
+
   @override
   Widget build(BuildContext context) {
-    
-    _dominios();
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+    final domainsNome = dados.where((element) => element.url == widget.domain).toList();
 
     return Expanded(
       child: FractionallySizedBox(
-        heightFactor: 0.55,
+        heightFactor: 0.7,
         widthFactor: 1,
         child: Scaffold(
           appBar: AppBar(
@@ -78,7 +114,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
           ),
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(paddingPadrao),
+              padding: const EdgeInsets.all(paddingPadrao/4),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -87,14 +123,8 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                     style: Theme.of(context).textTheme.bodyLarge
                   ),
                   const SizedBox(height: 25),
-                  Text(
-                    'R\$ $valor',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(paddingPadrao),
@@ -104,7 +134,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                           children: [
                             Card.outlined(
                               child: Padding(
-                                padding: EdgeInsets.all(paddingPadrao),
+                                padding: const EdgeInsets.all(paddingPadrao),
                                 child: Column(
                                   children: [
                                     const CircleAvatar(
@@ -117,14 +147,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: paddingPadrao),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                            const SizedBox(height: paddingPadrao),
                             FilledButton(
                               onPressed: () {
                                 showDialog(
@@ -135,10 +158,67 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                               child: const Text('Dar Lance')
                             ),
                             const SizedBox(height: paddingPadrao),
-                            const FilledButton.tonal(
+                            domainsNome.isEmpty
+                            ? const FilledButton.tonal(
                               onPressed: null,
                               child: Text('Desfazer aposta')
-                            ),
+                            )
+                            : FilledButton.tonal(
+                              onPressed: () {
+                                
+                              }, 
+                              child: const Text('Desfazer aposta')
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: paddingPadrao),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Card.filled(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: MediaQuery.of(context).size.height / 2.5,
+                                      width: MediaQuery.of(context).size.width / 2,
+                                      child: dominios.isEmpty
+                                      ? const Center(child: CircularProgressIndicator.adaptive())
+                                      : ListView.builder(
+                                        itemCount: dominios.length,
+                                        itemBuilder: (context, index) {
+                                          final item = dominios[index];
+                                      
+                                          return Column(
+                                            children: [
+                                              ListTile(
+                                                title: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      item['nome'],
+                                                      style: Theme.of(context).textTheme.bodySmall,
+                                                    ),
+                                                    Text(
+                                                      'R\$ ${item['valor'].toString()}',
+                                                      style: Theme.of(context).textTheme.bodySmall,
+                                                    )
+                                                  ],
+                                                ),
+                                                leading: item['id'] == user?.id ? const Icon(Icons.star) : null,
+                                              ),
+                                              const Divider(height: 0)
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       )

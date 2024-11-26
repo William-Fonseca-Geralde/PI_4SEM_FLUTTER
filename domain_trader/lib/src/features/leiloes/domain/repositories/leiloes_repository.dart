@@ -1,4 +1,4 @@
 abstract class LeiloesRepositories {
   Future<void> createLeilao();
-  Future<void> findLeiloesbyDomain();
+  Future<List<Map<String, dynamic>>> findLeiloesbyDomain(int? dominioId);
 }
