@@ -14,17 +14,15 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> createUser(UserModel usuario) async {
-    final AuthResponse resp = await supabase.auth.signUp(
-      email: usuario.email,
-      password: usuario.senha
-    );
-    final Session? session = resp.session;
+    final AuthResponse resp = await supabase.auth
+      .signUp(email: usuario.email, password: usuario.senha);
+    // final Session? session = resp.session;
     final User? user = resp.user;
 
     await supabase
-      .from('Usuarios')
+      .from('usuario')
       .insert({
-        'user_fk': user?.id,
+        'supabase_id': user?.id,
         'nome': usuario.nome,
         'senha': usuario.senha,
         'email': usuario.email,
@@ -33,21 +31,57 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> updateUserbyId(int id) {
-    // TODO: implement updateUserbyId
-    throw UnimplementedError();
+  Future<void> updateUserbyId(User? user, String? nome, String? tell) async {
+    if (user != null) {
+      await supabase
+        .from('usuario')
+        .update({
+          'nome': nome,
+          'telefone': tell
+        })
+        .eq('supabase_id', user.id);
+    }
   }
 
   @override
-  Future<void> deleteUser(UserModel usuario) {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
+  Future<AuthResponse> loginUser(String email, String senha) async {
+    final data = await supabase
+      .from('usuario')
+      .select()
+      .eq('senha', senha)
+      .eq('email', email)
+      .single();
+
+    final AuthResponse resp = await supabase.auth
+      .signInWithPassword(
+        email: data['email'],
+        password: data['senha']
+      );
+
+    return resp;
   }
 
   @override
-  Future<UserModel> findUserbyId(int id) {
-    // TODO: implement findUserbyId
-    throw UnimplementedError();
+  Future<UserModel> findUserbyId(User? user) async {
+    final UserModel userModel;
+
+    if (user != null) {
+      final data = await supabase
+        .from('usuario')
+        .select()
+        .eq('supabase_id', user.id)
+        .single();
+
+      userModel = UserModel(
+        nome: data['nome'],
+        senha: data['senha'],
+        email: data['email'],
+        tell: data['telefone']
+      );
+    } else {
+      userModel = UserModel(nome: '', senha: '', email: '', tell: '');
+    }
+    return userModel;
   }
 }
 

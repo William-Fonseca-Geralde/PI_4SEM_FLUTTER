@@ -8,22 +8,20 @@ part of 'domain_model.dart';
 
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
     _$UserModelImpl(
-      id: (json['id'] as num?)?.toInt(),
+      url: json['url'] as String,
       idUser: (json['idUser'] as num).toInt(),
       preco: (json['preco'] as num).toDouble(),
-      dataCriacao: DateTime.parse(json['dataCriacao'] as String),
-      dataExpiracao: DateTime.parse(json['dataExpiracao'] as String),
-      status: (json['status'] as List<dynamic>).toSet(),
+      dataExpiracao: json['dataExpiracao'] as String,
+      status: json['status'] as String,
       categoria: json['categoria'] as String,
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'url': instance.url,
       'idUser': instance.idUser,
       'preco': instance.preco,
-      'dataCriacao': instance.dataCriacao.toIso8601String(),
-      'dataExpiracao': instance.dataExpiracao.toIso8601String(),
-      'status': instance.status.toList(),
+      'dataExpiracao': instance.dataExpiracao,
+      'status': instance.status,
       'categoria': instance.categoria,
     };

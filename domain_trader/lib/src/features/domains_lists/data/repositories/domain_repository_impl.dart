@@ -2,6 +2,7 @@ import 'package:domain_trader/src/features/core/providers/supabase_provider.dart
 import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
 import 'package:domain_trader/src/features/domains_lists/domain/repositories/domain_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -13,33 +14,128 @@ class DomainRepositoryImpl implements DomainRepository {
   DomainRepositoryImpl({required this.supabase});
 
   @override
-  Future<void> createDomain(DomainModel domain) {
-    // TODO: implement createDomain
-    throw UnimplementedError();
+  Future<void> createDomain(DomainModel domain) async {
+    await supabase
+      .from('dominio')
+      .insert({
+        'url': domain.url,
+        'preco': domain.preco,
+        'data_expiracao': domain.dataExpiracao,
+        'status': domain.status,
+        'categoria': domain.categoria,
+        'id_usuario': domain.idUser,
+      });
   }
 
   @override
-  Future<void> updateDomainbyId(int id) {
-    // TODO: implement updateDomainbyId
-    throw UnimplementedError();
+  Future<void> updateDomainbyId(String url, String dataExpiracao, String status, String categoria, String preco) async {
+    final dateIso = DateFormat('dd/MM/yyyy').parse(dataExpiracao).toUtc().toIso8601String();
+    final valor = preco.replaceAll(RegExp(r'[^\d.]'), '');
+
+    await supabase
+      .from('dominio')
+      .update({
+        'data_expiracao': dateIso,
+        'status': status,
+        'categoria': categoria,
+        'preco': double.parse(valor)
+      })
+      .eq('url', url);
   }
 
   @override
-  Future<void> deleteDomain(DomainModel domain) {
-    // TODO: implement deleteDomain
-    throw UnimplementedError();
+  Future<void> deleteDomain(String url) async {
+    await supabase
+      .from('dominio')
+      .delete()
+      .eq('url', url);
   }
 
   @override
-  Future<List<DomainModel>> findAllDomains() {
-    // TODO: implement findAllDomains
-    throw UnimplementedError();
+  Future<List<Map<String, dynamic>>> findAllDomains() async {
+    final data = await supabase
+      .from('dominio')
+      .select('*, leilao(valor)')
+      .eq('status', 'disponível');
+
+    final listDomais = data.map((e) {
+      final leilao = (e['leilao'] as List<dynamic>?) ?? [];
+      leilao.sort((a, b) => (b['valor']).compareTo((a['valor'])));
+
+      return {
+        'url': e['url'],
+        'status': e['status'],
+        'valor': leilao.isNotEmpty ? leilao.first['valor'] : e['preco']
+      };
+    }).toList();
+
+    print('findAllDomain: $listDomais');
+
+    return listDomais;
   }
 
   @override
-  Future<List<DomainModel>> findDetailsDomains(int id) {
-    // TODO: implement findDetailsDomains
-    throw UnimplementedError();
+  Future<List<Map<String, dynamic>>> findDomainsbyUser(User? user) async {
+    if (user != null) {
+      final usuario = await supabase
+        .from('usuario')
+        .select()
+        .eq('supabase_id', user.id)
+        .single();
+
+      final data = await supabase
+        .from('dominio')
+        .select('url, categoria, preco, status, leilao(valor, id_usuario)')
+        .eq('id_usuario', usuario['id_usuario'])
+        .neq('leilao.id_usuario', usuario['id_usuario']);
+
+      final listDomais = data.map((e) {
+        final leilao = (e['leilao'] as List<dynamic>?) ?? [];
+        leilao.sort((a, b) => (b['valor']).compareTo((a['valor'])));
+
+        return {
+          'url': e['url'],
+          'status': e['status'],
+          'valor': leilao.isNotEmpty ? leilao.first['valor'] : e['preco']
+        };
+      }).toList();
+
+      return listDomais;
+    } else {
+      return List.empty();
+    }
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> findDomainsbyInvest(User? user) async {
+    if (user != null) {
+      final dataUser = await supabase
+        .from('usuario')
+        .select()
+        .eq('supabase_id', user.id)
+        .single();
+
+      final data = await supabase
+        .from('leilao')
+        .select('dominio(url, preco, data_expiracao, status, categoria), valor')
+        .eq('id_usuario', dataUser['id_usuario']);
+
+      final listDomains = data.map((e) {
+        final dominio = e['dominio'];
+
+        return {
+          'url': dominio['url'] ?? '',
+          'status': dominio['status'] ?? '',
+          'valor': e['valor'] ?? ''
+        };
+      }).toList();
+
+      print('findDomainsBy: $listDomains');
+
+      return listDomains;
+    } else {
+      return List.empty();
+    }
   }
 }
 

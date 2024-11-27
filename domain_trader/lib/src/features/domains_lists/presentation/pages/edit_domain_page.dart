@@ -1,31 +1,34 @@
 import 'package:domain_trader/src/dialog_full.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
-import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/category_input.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/daterange_input.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/status_input.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class AddDomainPage extends ConsumerStatefulWidget {
-  const AddDomainPage({super.key});
+class EditDomainPage extends ConsumerStatefulWidget {
+  const EditDomainPage(this.url, {super.key});
+
+  final String url;
 
   @override
-  ConsumerState<AddDomainPage> createState() => _AddDomainPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _EditDomainPageState();
 }
 
-class _AddDomainPageState extends ConsumerState<AddDomainPage> {
+class _EditDomainPageState extends ConsumerState<EditDomainPage> {
+  String? categoria, status, valor, _selectedOption;
+  DateTime date = DateTime.now();
+
   final _formKey = GlobalKey<FormState>();
-  final _domainController = TextEditingController();
-  final _priceController = TextEditingController();
-  final _dateController = TextEditingController();
+
   final _categoryController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _priceController = TextEditingController();
 
   final List<DropdownMenuEntry> listaCategory = [
     const DropdownMenuEntry(value: 'tecnol', label: 'Tecnologia'),
@@ -35,81 +38,71 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
     const DropdownMenuEntry(value: 'viagem', label: 'Viagem'),
   ];
 
-  String? _selectedOption;
+  Future<void> _checarDomain() async {
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
 
-  @override
-  void dispose() {
-    super.dispose();
-    _domainController.dispose();
-    _priceController.dispose();
-    _dateController.dispose();
-    _categoryController.dispose();
-  }
-
-  Future<void> _criarDominio() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      final User? user = ref.read(supabaseProvider).auth.currentUser;
-      final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
-      final usuario = await ref.read(supabaseProvider)
-        .from('usuario')
+    if (user != null) {
+      final data = await ref.read(supabaseProvider)
+        .from('dominio')
         .select()
-        .eq('supabase_id', user!.id)
+        .eq('url', widget.url)
         .single();
 
-      try {
-        final valor = _priceController.text.replaceAll(RegExp(r'[^\d.]'), '');
-        final date = DateFormat('dd/MM/yyyy').parse(_dateController.text);
+      setState(() {
+        categoria = data['categoria'];
+        status = data['status'];
+        date = DateTime.parse(data['data_expiracao']);
+        valor = 'R\$ ${data['preco']}';
 
-        final domain = DomainModel(
-          url: _domainController.text, 
-          idUser: usuario['id_usuario'], 
-          preco: double.parse(valor),
-          dataExpiracao: date.toUtc().toIso8601String(),
-          status: _selectedOption ?? "", 
-          categoria: _categoryController.text
-        );
+        _categoryController.text = categoria ?? '';
+        _dateController.text = DateFormat('dd/MM/yyyy').format(date);
+        _selectedOption = status ?? '';
+        _priceController.text = valor ?? 'R\$ ';
+      });
+    }
+  }
 
-        await domainRepository.createDomain(domain);
+  Future<void> _atualizarDados() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
 
-        if (mounted) {
-          Navigator.of(context).pushNamed('/home');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Domínio ${domain.url} adicionado para Leilão!!!')),
-          );
-        }
-      } catch (e) {
+      await domainRepository.updateDomainbyId(widget.url, _dateController.text, _selectedOption ?? '', _categoryController.text, _priceController.text);
+
+      if (mounted) {
+        Navigator.of(context).pushNamed('/home');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro ao criar o domínio: $e')),
+          SnackBar(content: Text('Domínio ${widget.url} modificado')),
         );
       }
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _checarDomain();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return DialogFull(
-      formKey: _formKey,
-      nomeDialog: 'Novo Domínio',
-      image: logo_domain,
+      nomeDialog: 'Edição do Domínio',
       forms: [
         Column(
           children: [
-            InputText(
-              controller: _domainController,
-              prefixIcon: const Icon(CupertinoIcons.globe), 
-              hintText: 'Ex: www.teste.com', 
-              typeText: 'domain',
-              labelText: 'Domínio'
+            Text(
+              'Digite nos campos que deseja atualizar os dados',
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
             ),
-            DaterangeInput(controller: _dateController),
             InputText(
               controller: _priceController,
               prefixIcon: const Icon(Icons.attach_money),
-              hintText: 'Ex: R\$ 99.99',
+              hintText: '',
               typeText: 'price',
               labelText: 'Preço'
             ),
+            DaterangeInput(controller: _dateController),
             StatusInput(
               status: const ['disponível', 'vendido', 'pausado'],
               onSelected: (value) {
@@ -122,14 +115,16 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
             ),
             CategoryInput(
               dropdownMenuEntries: listaCategory,
-              controller: _categoryController
-            ),
+              controller: _categoryController,
+            )
           ],
         )
       ],
+      image: logo_domain,
       floatingActionButton: () {
-        _criarDominio();
+        _atualizarDados();
       },
+      formKey: _formKey
     );
   }
 }

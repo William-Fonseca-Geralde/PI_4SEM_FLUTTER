@@ -3,24 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:intl/intl.dart';
+import 'package:validatorless/validatorless.dart';
 
 class DaterangeInput extends StatefulWidget {
-  const DaterangeInput({super.key});
+  const DaterangeInput({super.key, this.controller});
+
+  final TextEditingController? controller;
 
   @override
   State<DaterangeInput> createState() => _DaterangeInputState();
 }
 
 class _DaterangeInputState extends State<DaterangeInput> {
-  DateTimeRange dateRange = DateTimeRange(
-      start: DateTime.now(),
-      end: DateTime.now().add(const Duration(days: 10)) 
-    );
+  DateTime selectedDate = DateTime.now();
+  final GlobalKey<FormFieldState<String>> _dateKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      widget.controller?.text = DateFormat('dd/MM/yyyy').format(selectedDate);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final start = dateRange.start;
-    final end = dateRange.end;
 
     return Card.filled(
       margin: const EdgeInsets.all(paddingPadrao),
@@ -32,17 +39,19 @@ class _DaterangeInputState extends State<DaterangeInput> {
             SizedBox(
               width: 170,
               child: TextFormField(
+                controller: widget.controller,
+                key: _dateKey,
                 keyboardType: TextInputType.datetime,
                 inputFormatters: [MaskedInputFormatter('##/##/####')],
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
+                decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(
                       color: Colors.blueGrey,
                       width: 2
                     )
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(
                       color: Colors.blueGrey,
@@ -51,13 +60,24 @@ class _DaterangeInputState extends State<DaterangeInput> {
                   ),
                   filled: true,
                   labelText: 'Data de Finalização',
-                  hintText: 'Ex: ${DateFormat('dd/MM/yyyy').format(dateRange.end)}'
                 ),
+                validator: Validatorless.multiple([
+                  Validatorless.required('Data é obrigatória'),
+                ]),
               ),
             ),
             IconButton.filled(
-              onPressed: () {
-                
+              onPressed: () async {
+                DateTime? newDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateFormat('dd/MM/yyyy').parse(widget.controller!.text),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2030),
+                  initialEntryMode: DatePickerEntryMode.calendarOnly,
+                );
+                if (newDate == null) return;
+
+                setState(() => widget.controller?.text = DateFormat('dd/MM/yyyy').format(newDate));
               },
               icon: const Icon(Icons.date_range)
             )

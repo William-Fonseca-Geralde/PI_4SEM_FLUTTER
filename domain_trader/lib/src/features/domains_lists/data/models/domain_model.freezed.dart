@@ -20,12 +20,11 @@ DomainModel _$DomainModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DomainModel {
-  int? get id => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
   int get idUser => throw _privateConstructorUsedError;
   double get preco => throw _privateConstructorUsedError;
-  DateTime get dataCriacao => throw _privateConstructorUsedError;
-  DateTime get dataExpiracao => throw _privateConstructorUsedError;
-  Set<dynamic> get status => throw _privateConstructorUsedError;
+  String get dataExpiracao => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
   String get categoria => throw _privateConstructorUsedError;
 
   /// Serializes this DomainModel to a JSON map.
@@ -45,12 +44,11 @@ abstract class $DomainModelCopyWith<$Res> {
       _$DomainModelCopyWithImpl<$Res, DomainModel>;
   @useResult
   $Res call(
-      {int? id,
+      {String url,
       int idUser,
       double preco,
-      DateTime dataCriacao,
-      DateTime dataExpiracao,
-      Set<dynamic> status,
+      String dataExpiracao,
+      String status,
       String categoria});
 }
 
@@ -69,19 +67,18 @@ class _$DomainModelCopyWithImpl<$Res, $Val extends DomainModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? url = null,
     Object? idUser = null,
     Object? preco = null,
-    Object? dataCriacao = null,
     Object? dataExpiracao = null,
     Object? status = null,
     Object? categoria = null,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
       idUser: null == idUser
           ? _value.idUser
           : idUser // ignore: cast_nullable_to_non_nullable
@@ -90,18 +87,14 @@ class _$DomainModelCopyWithImpl<$Res, $Val extends DomainModel>
           ? _value.preco
           : preco // ignore: cast_nullable_to_non_nullable
               as double,
-      dataCriacao: null == dataCriacao
-          ? _value.dataCriacao
-          : dataCriacao // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       dataExpiracao: null == dataExpiracao
           ? _value.dataExpiracao
           : dataExpiracao // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as Set<dynamic>,
+              as String,
       categoria: null == categoria
           ? _value.categoria
           : categoria // ignore: cast_nullable_to_non_nullable
@@ -119,12 +112,11 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String url,
       int idUser,
       double preco,
-      DateTime dataCriacao,
-      DateTime dataExpiracao,
-      Set<dynamic> status,
+      String dataExpiracao,
+      String status,
       String categoria});
 }
 
@@ -141,19 +133,18 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? url = null,
     Object? idUser = null,
     Object? preco = null,
-    Object? dataCriacao = null,
     Object? dataExpiracao = null,
     Object? status = null,
     Object? categoria = null,
   }) {
     return _then(_$UserModelImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
       idUser: null == idUser
           ? _value.idUser
           : idUser // ignore: cast_nullable_to_non_nullable
@@ -162,18 +153,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.preco
           : preco // ignore: cast_nullable_to_non_nullable
               as double,
-      dataCriacao: null == dataCriacao
-          ? _value.dataCriacao
-          : dataCriacao // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       dataExpiracao: null == dataExpiracao
           ? _value.dataExpiracao
           : dataExpiracao // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       status: null == status
-          ? _value._status
+          ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as Set<dynamic>,
+              as String,
       categoria: null == categoria
           ? _value.categoria
           : categoria // ignore: cast_nullable_to_non_nullable
@@ -186,42 +173,32 @@ class __$$UserModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserModelImpl implements _UserModel {
   _$UserModelImpl(
-      {this.id,
+      {required this.url,
       required this.idUser,
       required this.preco,
-      required this.dataCriacao,
       required this.dataExpiracao,
-      required final Set<dynamic> status,
-      required this.categoria})
-      : _status = status;
+      required this.status,
+      required this.categoria});
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
 
   @override
-  final int? id;
+  final String url;
   @override
   final int idUser;
   @override
   final double preco;
   @override
-  final DateTime dataCriacao;
+  final String dataExpiracao;
   @override
-  final DateTime dataExpiracao;
-  final Set<dynamic> _status;
-  @override
-  Set<dynamic> get status {
-    if (_status is EqualUnmodifiableSetView) return _status;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_status);
-  }
-
+  final String status;
   @override
   final String categoria;
 
   @override
   String toString() {
-    return 'DomainModel(id: $id, idUser: $idUser, preco: $preco, dataCriacao: $dataCriacao, dataExpiracao: $dataExpiracao, status: $status, categoria: $categoria)';
+    return 'DomainModel(url: $url, idUser: $idUser, preco: $preco, dataExpiracao: $dataExpiracao, status: $status, categoria: $categoria)';
   }
 
   @override
@@ -229,22 +206,20 @@ class _$UserModelImpl implements _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.url, url) || other.url == url) &&
             (identical(other.idUser, idUser) || other.idUser == idUser) &&
             (identical(other.preco, preco) || other.preco == preco) &&
-            (identical(other.dataCriacao, dataCriacao) ||
-                other.dataCriacao == dataCriacao) &&
             (identical(other.dataExpiracao, dataExpiracao) ||
                 other.dataExpiracao == dataExpiracao) &&
-            const DeepCollectionEquality().equals(other._status, _status) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.categoria, categoria) ||
                 other.categoria == categoria));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, idUser, preco, dataCriacao,
-      dataExpiracao, const DeepCollectionEquality().hash(_status), categoria);
+  int get hashCode => Object.hash(
+      runtimeType, url, idUser, preco, dataExpiracao, status, categoria);
 
   /// Create a copy of DomainModel
   /// with the given fields replaced by the non-null parameter values.
@@ -264,29 +239,26 @@ class _$UserModelImpl implements _UserModel {
 
 abstract class _UserModel implements DomainModel {
   factory _UserModel(
-      {final int? id,
+      {required final String url,
       required final int idUser,
       required final double preco,
-      required final DateTime dataCriacao,
-      required final DateTime dataExpiracao,
-      required final Set<dynamic> status,
+      required final String dataExpiracao,
+      required final String status,
       required final String categoria}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
 
   @override
-  int? get id;
+  String get url;
   @override
   int get idUser;
   @override
   double get preco;
   @override
-  DateTime get dataCriacao;
+  String get dataExpiracao;
   @override
-  DateTime get dataExpiracao;
-  @override
-  Set<dynamic> get status;
+  String get status;
   @override
   String get categoria;
 

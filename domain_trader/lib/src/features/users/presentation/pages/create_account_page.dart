@@ -50,6 +50,9 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
 
         if (mounted) {
           Navigator.of(context).pushNamed('/home');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Usuário Criado!!!')),
+          );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
