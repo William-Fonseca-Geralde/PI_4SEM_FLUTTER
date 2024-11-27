@@ -2,15 +2,21 @@ import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class CategoryInput extends StatelessWidget {
-  const CategoryInput({super.key, required this.dropdownMenuEntries});
+  const CategoryInput({super.key, required this.dropdownMenuEntries, this.controller});
+
+  final TextEditingController? controller;
 
   final List<DropdownMenuEntry> dropdownMenuEntries;
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormFieldState<String>> _categoryKey = GlobalKey();
+
     return Padding(
       padding: const EdgeInsets.all(paddingPadrao),
       child: DropdownMenu(
+        key: _categoryKey,
+        controller: controller,
         width: MediaQuery.of(context).size.width - 40,
         enableSearch: false,
         enableFilter: false,

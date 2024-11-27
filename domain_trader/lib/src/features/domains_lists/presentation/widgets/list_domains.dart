@@ -126,6 +126,20 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                     )
                                   ],
                                 ),
+                                subtitle: widget.selectedOption == 'mydomains'
+                                ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(item['status']),
+                                    OutlinedButton(
+                                      onPressed: () {
+                                        
+                                      },
+                                      child: const Text('Editar')
+                                    )
+                                  ],
+                                )
+                                : null,
                                 onTap: () {
                                   _showDomainDetails(context, item['url']);
                                 },

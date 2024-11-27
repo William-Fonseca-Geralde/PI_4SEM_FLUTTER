@@ -3,6 +3,8 @@ import 'package:domain_trader/src/features/core/providers/supabase_provider.dart
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/lance_dialog.dart';
 import 'package:domain_trader/src/features/leiloes/data/repositories/leiloes_repository_impl.dart';
+import 'package:domain_trader/src/features/users/data/models/user_model.dart';
+import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -22,7 +24,24 @@ class DomainDetails extends ConsumerStatefulWidget {
 class _DomainDetailsState extends ConsumerState<DomainDetails> {
   double? valor;
   String? nomeDono;
+  int? userId, userIdDomain;
   List<Map<String, dynamic>>? dominios, dados;
+
+  Future<void> _checarUsuario() async {
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+
+    if (user != null) {
+      final data = await ref.read(supabaseProvider)
+      .from('usuario')
+      .select()
+      .eq('supabase_id', user.id)
+      .single();
+
+      setState(() {
+        userId = data['id_usuario'];
+      });
+    }
+  }
 
   Future<void> _dominios() async {
     if (!mounted) return;
@@ -50,6 +69,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
       setState(() {
         valor = preco;
         nomeDono = nome;
+        userIdDomain = result['id_usuario'];
       });
     }
   }
@@ -86,6 +106,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
     _verifInvest();
     _dominios();
     _idDomain();
+    _checarUsuario();
   }
 
   @override
@@ -149,28 +170,30 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: paddingPadrao),
-                            FilledButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context, 
-                                  builder: (BuildContext context) => const LanceDialog()
-                                );
-                              }, 
-                              child: const Text('Dar Lance')
-                            ),
-                            const SizedBox(height: paddingPadrao),
-                            domainsNome == null || domainsNome.isEmpty
-                            ? const FilledButton.tonal(
-                              onPressed: null,
-                              child: Text('Desfazer aposta')
-                            )
-                            : FilledButton.tonal(
-                              onPressed: () {
-                                
-                              }, 
-                              child: const Text('Desfazer aposta')
-                            )
+                            if (userId != userIdDomain)...[
+                              const SizedBox(height: paddingPadrao),
+                              FilledButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context, 
+                                    builder: (BuildContext context) => const LanceDialog()
+                                  );
+                                },
+                                child: const Text('Dar Lance')
+                              ),
+                              const SizedBox(height: paddingPadrao),
+                              domainsNome == null || domainsNome.isEmpty
+                              ? const FilledButton.tonal(
+                                onPressed: null,
+                                child: Text('Desfazer aposta')
+                              )
+                              : FilledButton.tonal(
+                                onPressed: () {
+                                  
+                                }, 
+                                child: const Text('Desfazer aposta')
+                              )
+                            ]
                           ],
                         ),
                       ),

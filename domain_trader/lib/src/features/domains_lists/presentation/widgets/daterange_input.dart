@@ -5,7 +5,9 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:intl/intl.dart';
 
 class DaterangeInput extends StatefulWidget {
-  const DaterangeInput({super.key});
+  const DaterangeInput({super.key, this.controller});
+
+  final TextEditingController? controller;
 
   @override
   State<DaterangeInput> createState() => _DaterangeInputState();
@@ -19,8 +21,7 @@ class _DaterangeInputState extends State<DaterangeInput> {
 
   @override
   Widget build(BuildContext context) {
-    final start = dateRange.start;
-    final end = dateRange.end;
+    final GlobalKey<FormFieldState<String>> _dateKey = GlobalKey();
 
     return Card.filled(
       margin: const EdgeInsets.all(paddingPadrao),
@@ -32,6 +33,8 @@ class _DaterangeInputState extends State<DaterangeInput> {
             SizedBox(
               width: 170,
               child: TextFormField(
+                controller: widget.controller,
+                key: _dateKey,
                 keyboardType: TextInputType.datetime,
                 inputFormatters: [MaskedInputFormatter('##/##/####')],
                 decoration: InputDecoration(

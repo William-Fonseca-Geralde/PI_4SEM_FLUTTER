@@ -72,7 +72,7 @@ class DomainRepositoryImpl implements DomainRepository {
 
       final data = await supabase
         .from('dominio')
-        .select('url, categoria, leilao(valor, id_usuario)')
+        .select('url, categoria, preco, status, leilao(valor, id_usuario)')
         .eq('id_usuario', usuario['id_usuario'])
         .neq('leilao.id_usuario', usuario['id_usuario']);
 
