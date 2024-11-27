@@ -44,6 +44,14 @@ class DomainRepositoryImpl implements DomainRepository {
   }
 
   @override
+  Future<void> deleteDomain(String url) async {
+    await supabase
+      .from('dominio')
+      .delete()
+      .eq('url', url);
+  }
+
+  @override
   Future<List<Map<String, dynamic>>> findAllDomains() async {
     final data = await supabase
       .from('dominio')

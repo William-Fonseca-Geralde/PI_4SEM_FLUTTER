@@ -65,6 +65,21 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
     }
   }
 
+  Future<void> _deletarDominio(String? url) async {
+    final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
+
+    if (url != null) {
+      await domainRepository.deleteDomain(url);
+
+      if (mounted) {
+        Navigator.of(context).pushNamed('/home');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Domínio $url deletado')),
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -134,18 +149,40 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         if (widget.selectedOption == 'mydomains')...[
-                                          Chip(
-                                            label: Text(item['status']),
-                                            padding: const EdgeInsets.all(paddingPadrao/10),
+                                          Column(
+                                            children: [
+                                              Chip(
+                                                label: Text(item['status']),
+                                                padding: const EdgeInsets.all(paddingPadrao/10),
+                                              ),
+                                            ],
                                           ),
-                                          OutlinedButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) => EditDomainPage(item['url']),
-                                              );
-                                            },
-                                            child: const Text('Editar')
+                                          Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  OutlinedButton(
+                                                    onPressed: () {
+                                                      _deletarDominio(item['url']);
+                                                    },
+                                                    style: const ButtonStyle(
+                                                      foregroundColor: WidgetStatePropertyAll(Colors.red)
+                                                    ),
+                                                    child: const Text('Deletar'),
+                                                  ),
+                                                  const SizedBox(width: paddingPadrao),
+                                                  OutlinedButton(
+                                                    onPressed: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (context) => EditDomainPage(item['url']),
+                                                      );
+                                                    },
+                                                    child: const Text('Editar')
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           )
                                         ]
                                       ],

@@ -35,6 +35,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
         if (mounted) {
           Navigator.of(context).pushNamed('/home');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Usuário cadastrado')),
+          );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(

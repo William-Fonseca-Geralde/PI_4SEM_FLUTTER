@@ -49,6 +49,9 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
 
       if (mounted) {
         Navigator.of(context).pushNamed('/home');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Lance na ${widget.domain} foi feito')),
+        );
       }
     }
   }
@@ -94,6 +97,9 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
 
       if (mounted) {
         Navigator.of(context).pushNamed('/home');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Lance atualizado!!!')),
+        );
       }
     }
   }

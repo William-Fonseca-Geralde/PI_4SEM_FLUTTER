@@ -73,6 +73,9 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
 
         if (mounted) {
           Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Domínio ${domain.url} adicionado para Leilão!!!')),
+          );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(

@@ -67,6 +67,13 @@ class _EditDomainPageState extends ConsumerState<EditDomainPage> {
       final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
 
       await domainRepository.updateDomainbyId(widget.url, _dateController.text, _selectedOption ?? '', _categoryController.text, _priceController.text);
+
+      if (mounted) {
+        Navigator.of(context).pushNamed('/home');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Domínio ${widget.url} modificado')),
+        );
+      }
     }
   }
 
@@ -116,7 +123,6 @@ class _EditDomainPageState extends ConsumerState<EditDomainPage> {
       image: logo_domain,
       floatingActionButton: () {
         _atualizarDados();
-        Navigator.of(context).pushNamed('/home');
       },
       formKey: _formKey
     );
