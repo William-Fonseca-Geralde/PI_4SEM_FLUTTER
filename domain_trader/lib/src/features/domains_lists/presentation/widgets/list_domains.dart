@@ -177,6 +177,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                                                 },
                                                                 child: const Text('Deletar mesmo assim')
                                                               ),
+                                                              const SizedBox(height: paddingPadrao),
                                                               FilledButton(
                                                                 onPressed: () {
                                                                   Navigator.of(context).pop();

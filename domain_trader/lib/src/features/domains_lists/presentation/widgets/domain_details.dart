@@ -215,6 +215,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                                             },
                                             child: const Text('Desfazer mesmo assim')
                                           ),
+                                          const SizedBox(height: paddingPadrao),
                                           FilledButton(
                                             onPressed: () {
                                               Navigator.of(context).pop();
