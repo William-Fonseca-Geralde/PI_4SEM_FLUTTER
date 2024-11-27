@@ -14,14 +14,19 @@ class DaterangeInput extends StatefulWidget {
 }
 
 class _DaterangeInputState extends State<DaterangeInput> {
-  DateTimeRange dateRange = DateTimeRange(
-      start: DateTime.now(),
-      end: DateTime.now().add(const Duration(days: 10)) 
-    );
+  DateTime selectedDate = DateTime.now();
+  final GlobalKey<FormFieldState<String>> _dateKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      widget.controller?.text = DateFormat('dd/MM/yyyy').format(selectedDate);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormFieldState<String>> _dateKey = GlobalKey();
 
     return Card.filled(
       margin: const EdgeInsets.all(paddingPadrao),
@@ -37,15 +42,15 @@ class _DaterangeInputState extends State<DaterangeInput> {
                 key: _dateKey,
                 keyboardType: TextInputType.datetime,
                 inputFormatters: [MaskedInputFormatter('##/##/####')],
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
+                decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(
                       color: Colors.blueGrey,
                       width: 2
                     )
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(
                       color: Colors.blueGrey,
@@ -54,13 +59,21 @@ class _DaterangeInputState extends State<DaterangeInput> {
                   ),
                   filled: true,
                   labelText: 'Data de Finalização',
-                  hintText: 'Ex: ${DateFormat('dd/MM/yyyy').format(dateRange.end)}'
                 ),
               ),
             ),
             IconButton.filled(
-              onPressed: () {
-                
+              onPressed: () async {
+                DateTime? newDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateFormat('dd/MM/yyyy').parse(widget.controller!.text),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2030),
+                  initialEntryMode: DatePickerEntryMode.calendarOnly,
+                );
+                if (newDate == null) return;
+
+                setState(() => widget.controller?.text = DateFormat('dd/MM/yyyy').format(newDate));
               },
               icon: const Icon(Icons.date_range)
             )

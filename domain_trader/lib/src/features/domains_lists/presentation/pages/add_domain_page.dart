@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:domain_trader/src/dialog_full.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
@@ -8,7 +6,6 @@ import 'package:domain_trader/src/features/domains_lists/data/repositories/domai
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/category_input.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/daterange_input.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/status_input.dart';
-import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

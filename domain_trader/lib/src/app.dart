@@ -5,6 +5,7 @@ import 'package:domain_trader/src/features/users/presentation/pages/create_accou
 import 'package:domain_trader/src/features/users/presentation/pages/login_page.dart';
 import 'package:domain_trader/src/intro_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyApp extends ConsumerStatefulWidget {
@@ -30,6 +31,13 @@ class _MyAppState extends ConsumerState<MyApp> {
     final isLightTheme = ref.watch(brightnessProvider);
 
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('pt', 'BR')
+      ],
       navigatorObservers: [navigatorObserver],
       debugShowCheckedModeBanner: false,
       theme: isLightTheme

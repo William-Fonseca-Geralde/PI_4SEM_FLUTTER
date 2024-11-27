@@ -3,8 +3,6 @@ import 'package:domain_trader/src/features/core/providers/supabase_provider.dart
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/lance_dialog.dart';
 import 'package:domain_trader/src/features/leiloes/data/repositories/leiloes_repository_impl.dart';
-import 'package:domain_trader/src/features/users/data/models/user_model.dart';
-import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

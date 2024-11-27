@@ -19,10 +19,9 @@ class _DomainsPageState extends State<DomainsPage> {
       child: Expanded(
         flex: 8,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const ValorInvest(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

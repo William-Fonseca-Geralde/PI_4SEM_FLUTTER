@@ -1,6 +1,5 @@
 import 'package:domain_trader/src/dialog_full.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
-import 'package:domain_trader/src/features/core/providers/app_provider.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/users/data/models/user_model.dart';
 import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';

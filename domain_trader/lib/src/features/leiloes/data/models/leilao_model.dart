@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'leilao_model.freezed.dart';
 part 'leilao_model.g.dart';
 
