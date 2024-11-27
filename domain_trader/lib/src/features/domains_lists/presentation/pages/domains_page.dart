@@ -1,5 +1,5 @@
+import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/list_domains.dart';
-import 'package:domain_trader/src/features/domains_lists/presentation/widgets/valor_invest.dart';
 import 'package:flutter/material.dart';
 
 class DomainsPage extends StatefulWidget {
@@ -25,6 +25,16 @@ class _DomainsPageState extends State<DomainsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text(
+                  'Leilões',
+                  style: Theme.of(context).textTheme.displayMedium,
+                )
+              ],
+            ),
+            const SizedBox(height: paddingPadrao),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width - 40,
                   child: SegmentedButton(
@@ -40,7 +50,7 @@ class _DomainsPageState extends State<DomainsPage> {
                       ButtonSegment(
                         value: _opcoesDomains.elementAt(1),
                         label: Text(
-                          'Meus Investimentos',
+                          'Leilões que participo',
                           style: Theme.of(context).textTheme.bodyMedium
                         )
                       )

@@ -48,8 +48,9 @@ class _UserSettingsState extends ConsumerState<UserSettings> {
       children: [
         Text(
           'Perfil',
-          style: Theme.of(context).textTheme.headlineLarge,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
+        const SizedBox(height: paddingPadrao),
         Card.outlined(
           margin: const EdgeInsets.symmetric(horizontal: paddingPadrao*4),
           child: Padding(

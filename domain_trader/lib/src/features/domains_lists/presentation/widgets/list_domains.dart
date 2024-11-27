@@ -1,6 +1,7 @@
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
+import 'package:domain_trader/src/features/domains_lists/presentation/pages/edit_domain_page.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/domain_details.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/user_login.dart';
 import 'package:flutter/material.dart';
@@ -133,7 +134,10 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                     Text(item['status']),
                                     OutlinedButton(
                                       onPressed: () {
-                                        
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => EditDomainPage(item['url']),
+                                        );
                                       },
                                       child: const Text('Editar')
                                     )

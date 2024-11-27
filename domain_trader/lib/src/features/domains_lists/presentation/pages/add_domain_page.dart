@@ -96,7 +96,7 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
               controller: _domainController,
               prefixIcon: const Icon(CupertinoIcons.globe), 
               hintText: 'Ex: www.teste.com', 
-              typeText: 'domain', 
+              typeText: 'domain',
               labelText: 'Domínio'
             ),
             DaterangeInput(controller: _dateController),

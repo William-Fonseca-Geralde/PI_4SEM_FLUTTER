@@ -2,6 +2,7 @@ import 'package:domain_trader/src/features/core/providers/supabase_provider.dart
 import 'package:domain_trader/src/features/domains_lists/data/models/domain_model.dart';
 import 'package:domain_trader/src/features/domains_lists/domain/repositories/domain_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -27,15 +28,17 @@ class DomainRepositoryImpl implements DomainRepository {
   }
 
   @override
-  Future<void> updateDomainbyId(int id, DateTime dataExpiracao, String status, String categoria) async {
+  Future<void> updateDomainbyId(String url, String dataExpiracao, String status, String categoria) async {
+    final dateIso = DateFormat('dd/MM/yyyy').parse(dataExpiracao).toUtc().toIso8601String();
+
     await supabase
       .from('dominio')
       .update({
-        'data_expiracao': dataExpiracao,
+        'data_expiracao': dateIso,
         'status': status,
         'categoria': categoria,
       })
-      .eq('id_dominio', id);
+      .eq('url', url);
   }
 
   @override

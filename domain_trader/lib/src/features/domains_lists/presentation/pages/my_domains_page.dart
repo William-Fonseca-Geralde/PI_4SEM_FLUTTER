@@ -1,7 +1,7 @@
+import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/add_domain_page.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/list_domains.dart';
-import 'package:domain_trader/src/features/domains_lists/presentation/widgets/valor_invest.dart';
 import 'package:domain_trader/src/features/users/data/models/user_model.dart';
 import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/user_login.dart';
@@ -47,10 +47,14 @@ class _MyDomainsPageState extends ConsumerState<MyDomainsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(
+                'Meus Domínios',
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+              const SizedBox(height: paddingPadrao),
               if (userModel?.nome == null || userModel?.nome == '')
                 const UserLogin()
               else ...[
-                const ValorInvest(),
                 const ListDomains(selectedOption: 'mydomains'),
               ]
             ],
