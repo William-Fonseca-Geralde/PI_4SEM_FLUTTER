@@ -1,3 +1,4 @@
+import 'package:domain_trader/src/dialog_alert.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
@@ -163,7 +164,29 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                                 children: [
                                                   OutlinedButton(
                                                     onPressed: () {
-                                                      _deletarDominio(item['url']);
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return DialogAlert(
+                                                            title: 'Deletar Domínio',
+                                                            content: const Text('Deseja realmente deletar o domínio.\nNão será recebido nada em troca, ainda tem certeza?'),
+                                                            actions: [
+                                                              OutlinedButton(
+                                                                onPressed: () {
+                                                                  _deletarDominio(item['url']);
+                                                                },
+                                                                child: const Text('Deletar mesmo assim')
+                                                              ),
+                                                              FilledButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: const Text('Não deletar')
+                                                              )
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
                                                     },
                                                     style: const ButtonStyle(
                                                       foregroundColor: WidgetStatePropertyAll(Colors.red)

@@ -1,3 +1,4 @@
+import 'package:domain_trader/src/dialog_alert.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
@@ -135,6 +136,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
               'Detalhes do Leilão',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
+            centerTitle: true,
             leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -150,7 +152,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                 children: [
                   Text(
                     widget.domain,
-                    style: Theme.of(context).textTheme.bodyLarge
+                    style: Theme.of(context).textTheme.headlineMedium
                   ),
                   const SizedBox(height: 25),
                   Row(
@@ -200,7 +202,29 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                               )
                               : FilledButton.tonal(
                                 onPressed: () {
-                                  _desfazerAposta();
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return DialogAlert(
+                                        title: 'Desfazer Aposta', 
+                                        content: const Text('Tem certeza de que deseja desfazer a aposta?'), 
+                                        actions: [
+                                          OutlinedButton(
+                                            onPressed: () {
+                                              _desfazerAposta();
+                                            },
+                                            child: const Text('Desfazer mesmo assim')
+                                          ),
+                                          FilledButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Não desfazer')
+                                          )
+                                        ]
+                                      );
+                                    },
+                                  );
                                 }, 
                                 child: const Text('Desfazer aposta')
                               )

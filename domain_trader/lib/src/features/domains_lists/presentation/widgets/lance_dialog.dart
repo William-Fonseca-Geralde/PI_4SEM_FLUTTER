@@ -40,7 +40,7 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
       final valor = _priceController.text.replaceAll(RegExp(r'[^\d.]'), '');
       
       final leilao = LeilaoModel(
-        id_dominio: dominio['id_dominio'], 
+        id_dominio: dominio['id_dominio'],
         id_usuario: usuario['id_usuario'],
         valor: double.parse(valor),
       );

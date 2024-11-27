@@ -63,7 +63,6 @@ class _DaterangeInputState extends State<DaterangeInput> {
                 ),
                 validator: Validatorless.multiple([
                   Validatorless.required('Data é obrigatória'),
-                  Validatorless.date('Data Inválida')
                 ]),
               ),
             ),

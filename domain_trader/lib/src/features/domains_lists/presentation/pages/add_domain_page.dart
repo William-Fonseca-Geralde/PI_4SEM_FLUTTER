@@ -72,7 +72,7 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
         await domainRepository.createDomain(domain);
 
         if (mounted) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed('/home');
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Domínio ${domain.url} adicionado para Leilão!!!')),
           );

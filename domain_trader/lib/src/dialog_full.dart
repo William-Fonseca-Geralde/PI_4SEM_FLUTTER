@@ -15,7 +15,11 @@ class DialogFull extends StatelessWidget {
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(nomeDialog),
+          title: Text(
+            nomeDialog,
+            style: Theme.of(context).textTheme.headlineLarge
+          ),
+          centerTitle: true,
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
