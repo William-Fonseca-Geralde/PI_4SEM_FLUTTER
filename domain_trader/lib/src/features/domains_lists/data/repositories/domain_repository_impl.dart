@@ -38,7 +38,7 @@ class DomainRepositoryImpl implements DomainRepository {
         'data_expiracao': dateIso,
         'status': status,
         'categoria': categoria,
-        'preco': double.parse(valor),
+        'preco': double.parse(valor)
       })
       .eq('url', url);
   }

@@ -98,6 +98,19 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
     }
   }
 
+  Future<void> _desfazerAposta() async {
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+    final leiloesRepository = LeiloesRepositoryImpl(supabase: ref.read(supabaseProvider));
+
+    if (user != null) {
+      await leiloesRepository.deleteLeilao(user, widget.domain);
+
+      if (mounted) {
+        Navigator.of(context).pushNamed('/home');
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -174,10 +187,10 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                                 onPressed: () {
                                   showDialog(
                                     context: context, 
-                                    builder: (BuildContext context) => const LanceDialog()
+                                    builder: (BuildContext context) => LanceDialog(widget.domain)
                                   );
                                 },
-                                child: const Text('Dar Lance')
+                                child: domainsNome == null || domainsNome.isEmpty ? const Text('Dar Lance') : const Text('Aumentar o Lance')
                               ),
                               const SizedBox(height: paddingPadrao),
                               domainsNome == null || domainsNome.isEmpty
@@ -187,7 +200,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                               )
                               : FilledButton.tonal(
                                 onPressed: () {
-                                  
+                                  _desfazerAposta();
                                 }, 
                                 child: const Text('Desfazer aposta')
                               )

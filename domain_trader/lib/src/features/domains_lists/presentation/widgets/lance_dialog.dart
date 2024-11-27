@@ -1,12 +1,16 @@
 import 'package:domain_trader/src/dialog_alert.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
-import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
+import 'package:domain_trader/src/features/leiloes/data/models/leilao_model.dart';
+import 'package:domain_trader/src/features/leiloes/data/repositories/leiloes_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LanceDialog extends ConsumerStatefulWidget {
-  const LanceDialog({super.key});
+  const LanceDialog(this.domain, {super.key});
+
+  final String domain;
 
   @override
   ConsumerState<LanceDialog> createState() => _LanceDialogState();
@@ -14,25 +18,100 @@ class LanceDialog extends ConsumerStatefulWidget {
 
 class _LanceDialogState extends ConsumerState<LanceDialog> {
   final _priceController = TextEditingController();
+  Map<String, dynamic>? leilao; 
 
-  Future<List<Map<String, dynamic>>> _dominios() async {
-    final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
+  Future<void> _criarLeilao() async {
+    final leilaoRepository = LeiloesRepositoryImpl(supabase: ref.read(supabaseProvider));
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
 
-    final domains = await domainRepository.findAllDomains();
+    if (user != null) {
+      final usuario = await ref.read(supabaseProvider)
+        .from('usuario')
+        .select()
+        .eq('supabase_id', user.id)
+        .single();
 
-    return domains;
+      final dominio = await ref.read(supabaseProvider)
+        .from('dominio')
+        .select()
+        .eq('url', widget.domain)
+        .single();
+      
+      final valor = _priceController.text.replaceAll(RegExp(r'[^\d.]'), '');
+      
+      final leilao = LeilaoModel(
+        id_dominio: dominio['id_dominio'], 
+        id_usuario: usuario['id_usuario'],
+        valor: double.parse(valor),
+      );
+
+      await leilaoRepository.createLeilao(leilao);
+
+      if (mounted) {
+        Navigator.of(context).pushNamed('/home');
+      }
+    }
+  }
+
+  Future<void> _checarLeilao() async {
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+
+    if (user != null) {
+      final usuario = await ref.read(supabaseProvider)
+        .from('usuario')
+        .select()
+        .eq('supabase_id', user.id)
+        .single();
+
+      final dominio = await ref.read(supabaseProvider)
+        .from('dominio')
+        .select()
+        .eq('url', widget.domain)
+        .single();
+      
+      final data = await ref.read(supabaseProvider)
+        .from('leilao')
+        .select()
+        .eq('id_usuario', usuario['id_usuario'])
+        .eq('id_dominio', dominio['id_dominio']);
+
+      if (data.isNotEmpty) {
+        setState(() {
+          leilao = data.first;
+        });
+      }
+    }
+  }
+
+  Future<void> _atualizarLeilao() async {
+    final User? user = ref.read(supabaseProvider).auth.currentUser;
+    final leilaoRepository = LeiloesRepositoryImpl(supabase: ref.read(supabaseProvider));
+
+    if (user != null) {
+      final valor = _priceController.text.replaceAll(RegExp(r'[^\d.]'), '');
+
+      await leilaoRepository.updateLeilao(valor, user, widget.domain);
+
+      if (mounted) {
+        Navigator.of(context).pushNamed('/home');
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checarLeilao();
   }
 
   @override
   Widget build(BuildContext context) {
-    final dominios = _dominios();
-
     return DialogAlert(
       title: 'Valor do Lance',
       content: InputText(
         controller: _priceController,
         prefixIcon: const Icon(Icons.attach_money),
-        hintText: 'R\$ Valor Mínino',
+        hintText: 'R\$ 00.00',
         typeText: 'price', 
         labelText: 'Valor a Investir'
       ),
@@ -43,12 +122,19 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
           },
           child: const Text('Cancelar')
         ),
-        FilledButton(
+        leilao == null
+        ? FilledButton(
           onPressed: () {
-            
+            _criarLeilao();
           },
           child: const Text('Dar Lance')
-        ),
+        )
+        : FilledButton(
+          onPressed: () {
+            _atualizarLeilao();
+          },
+          child: const Text('Aumentar o Lance')
+        )
       ]
     );
   }

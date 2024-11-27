@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:intl/intl.dart';
+import 'package:validatorless/validatorless.dart';
 
 class DaterangeInput extends StatefulWidget {
   const DaterangeInput({super.key, this.controller});
@@ -60,6 +61,10 @@ class _DaterangeInputState extends State<DaterangeInput> {
                   filled: true,
                   labelText: 'Data de Finalização',
                 ),
+                validator: Validatorless.multiple([
+                  Validatorless.required('Data é obrigatória'),
+                  Validatorless.date('Data Inválida')
+                ]),
               ),
             ),
             IconButton.filled(
