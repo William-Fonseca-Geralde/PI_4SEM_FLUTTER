@@ -98,7 +98,7 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
       if (mounted) {
         Navigator.of(context).pushNamed('/home');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Lance atualizado!!!')),
+          SnackBar(content: Text('Lance na ${widget.domain} atualizado!!!')),
         );
       }
     }
