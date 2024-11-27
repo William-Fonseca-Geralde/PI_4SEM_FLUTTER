@@ -116,12 +116,14 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                     child: _dados == null
                     ? const Center(child: CircularProgressIndicator())
                     : _dados.isEmpty
-                      ? widget.selectedOption != 'mydomains'
-                        ? const Padding(
-                          padding: EdgeInsets.all(paddingPadrao),
-                          child: UserLogin(),
-                        )
-                        : const Center(child: Text('Não tem domínios cadastrados.\nAproveite e cadastre o seu domínio', textAlign: TextAlign.center,))
+                      ? widget.selectedOption == 'mydomains'
+                        ? widget.selectedOption != 'investimento'
+                          ? const Center(child: Text('Não tem domínios cadastrados.\nAproveite e cadastre o seu domínio', textAlign: TextAlign.center,))
+                          : const Padding(
+                            padding: EdgeInsets.all(paddingPadrao),
+                            child: UserLogin(),
+                          )
+                        : const Center(child: Text('Você não está participando de um leilão.\nAproveite e participe de um na aba Leilões'))
                       : ListView.builder(
                         itemCount: _dados.length,
                         itemBuilder: (context, index) {

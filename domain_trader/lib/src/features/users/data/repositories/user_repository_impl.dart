@@ -69,14 +69,13 @@ class UserRepositoryImpl implements UserRepository {
       final data = await supabase
         .from('usuario')
         .select()
-        .eq('supabase_id', user.id)
-        .single();
+        .eq('supabase_id', user.id);
 
       userModel = UserModel(
-        nome: data['nome'],
-        senha: data['senha'],
-        email: data['email'],
-        tell: data['telefone']
+        nome: data.first['nome'],
+        senha: data.first['senha'],
+        email: data.first['email'],
+        tell: data.first['telefone']
       );
     } else {
       userModel = UserModel(nome: '', senha: '', email: '', tell: '');
