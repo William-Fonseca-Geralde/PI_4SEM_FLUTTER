@@ -5,6 +5,7 @@ import 'package:domain_trader/src/features/domains_lists/data/repositories/domai
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/category_input.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/daterange_input.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/status_input.dart';
+import 'package:domain_trader/src/features/users/presentation/widgets/input_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -20,13 +21,14 @@ class EditDomainPage extends ConsumerStatefulWidget {
 }
 
 class _EditDomainPageState extends ConsumerState<EditDomainPage> {
-  String? categoria, status, _selectedOption;
+  String? categoria, status, valor, _selectedOption;
   DateTime date = DateTime.now();
 
   final _formKey = GlobalKey<FormState>();
 
   final _categoryController = TextEditingController();
   final _dateController = TextEditingController();
+  final _priceController = TextEditingController();
 
   final List<DropdownMenuEntry> listaCategory = [
     const DropdownMenuEntry(value: 'tecnol', label: 'Tecnologia'),
@@ -46,16 +48,16 @@ class _EditDomainPageState extends ConsumerState<EditDomainPage> {
         .eq('url', widget.url)
         .single();
 
-      
-
       setState(() {
         categoria = data['categoria'];
         status = data['status'];
         date = DateTime.parse(data['data_expiracao']);
+        valor = 'R\$ ${data['preco']}';
 
         _categoryController.text = categoria ?? '';
         _dateController.text = DateFormat('dd/MM/yyyy').format(date);
         _selectedOption = status ?? '';
+        _priceController.text = valor ?? 'R\$ ';
       });
     }
   }
@@ -64,7 +66,7 @@ class _EditDomainPageState extends ConsumerState<EditDomainPage> {
     if (_formKey.currentState?.validate() ?? false) {
       final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
 
-      await domainRepository.updateDomainbyId(widget.url, _dateController.text, _selectedOption ?? '', _categoryController.text);
+      await domainRepository.updateDomainbyId(widget.url, _dateController.text, _selectedOption ?? '', _categoryController.text, _priceController.text);
     }
   }
 
@@ -85,6 +87,13 @@ class _EditDomainPageState extends ConsumerState<EditDomainPage> {
               'Digite nos campos que deseja atualizar os dados',
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
+            ),
+            InputText(
+              controller: _priceController,
+              prefixIcon: const Icon(Icons.attach_money),
+              hintText: '',
+              typeText: 'price',
+              labelText: 'Preço'
             ),
             DaterangeInput(controller: _dateController),
             StatusInput(

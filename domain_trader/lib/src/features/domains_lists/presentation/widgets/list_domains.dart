@@ -114,36 +114,45 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                           return Column(
                             children: [
                               ListTile(
-                                title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                title: Column(
                                   children: [
-                                    Text(
-                                      item['url'],
-                                      style: Theme.of(context).textTheme.bodyLarge,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          item['url'],
+                                          style: Theme.of(context).textTheme.bodyLarge,
+                                        ),
+                                        Text(
+                                          'R\$ ${item['valor'].toString()}',
+                                          style: Theme.of(context).textTheme.bodyLarge
+                                        )
+                                      ],
                                     ),
-                                    Text(
-                                      'R\$ ${item['valor'].toString()}',
-                                      style: Theme.of(context).textTheme.bodyLarge
+                                    if (widget.selectedOption == 'mydomains') const SizedBox(height: paddingPadrao/2),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        if (widget.selectedOption == 'mydomains')...[
+                                          Chip(
+                                            label: Text(item['status']),
+                                            padding: const EdgeInsets.all(paddingPadrao/10),
+                                          ),
+                                          OutlinedButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => EditDomainPage(item['url']),
+                                              );
+                                            },
+                                            child: const Text('Editar')
+                                          )
+                                        ]
+                                      ],
                                     )
                                   ],
                                 ),
-                                subtitle: widget.selectedOption == 'mydomains'
-                                ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(item['status']),
-                                    OutlinedButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => EditDomainPage(item['url']),
-                                        );
-                                      },
-                                      child: const Text('Editar')
-                                    )
-                                  ],
-                                )
-                                : null,
+                                
                                 onTap: () {
                                   _showDomainDetails(context, item['url']);
                                 },

@@ -28,8 +28,9 @@ class DomainRepositoryImpl implements DomainRepository {
   }
 
   @override
-  Future<void> updateDomainbyId(String url, String dataExpiracao, String status, String categoria) async {
+  Future<void> updateDomainbyId(String url, String dataExpiracao, String status, String categoria, String preco) async {
     final dateIso = DateFormat('dd/MM/yyyy').parse(dataExpiracao).toUtc().toIso8601String();
+    final valor = preco.replaceAll(RegExp(r'[^\d.]'), '');
 
     await supabase
       .from('dominio')
@@ -37,6 +38,7 @@ class DomainRepositoryImpl implements DomainRepository {
         'data_expiracao': dateIso,
         'status': status,
         'categoria': categoria,
+        'preco': double.parse(valor),
       })
       .eq('url', url);
   }
