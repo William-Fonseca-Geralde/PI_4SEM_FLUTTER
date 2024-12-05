@@ -244,7 +244,7 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
                                   children: [
                                     SizedBox(
                                       height: MediaQuery.of(context).size.height / 2.5,
-                                      width: MediaQuery.of(context).size.width / 2,
+                                      width: MediaQuery.of(context).size.width / 5,
                                       child: dominios == null
                                       ? const Center(child: CircularProgressIndicator.adaptive())
                                       : dominios!.isNotEmpty

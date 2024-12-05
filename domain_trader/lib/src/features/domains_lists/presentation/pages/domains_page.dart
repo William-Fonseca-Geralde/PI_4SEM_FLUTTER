@@ -36,7 +36,7 @@ class _DomainsPageState extends State<DomainsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width - 40,
+                  width: MediaQuery.of(context).size.width / 2.8,
                   child: SegmentedButton(
                     showSelectedIcon: false,
                     segments: [

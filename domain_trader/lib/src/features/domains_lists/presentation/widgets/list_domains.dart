@@ -107,7 +107,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
         Card.filled(
           margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width - 40,
+            width: MediaQuery.of(context).size.width / 2.5,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -116,14 +116,14 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                     child: _dados == null
                     ? const Center(child: CircularProgressIndicator())
                     : _dados.isEmpty
-                      ? widget.selectedOption == 'mydomains'
+                      ? widget.selectedOption != 'mydomains'
                         ? widget.selectedOption != 'investimento'
-                          ? const Center(child: Text('Não tem domínios cadastrados.\nAproveite e cadastre o seu domínio', textAlign: TextAlign.center,))
-                          : const Padding(
+                          ? const Padding(
                             padding: EdgeInsets.all(paddingPadrao),
                             child: UserLogin(),
                           )
-                        : const Center(child: Text('Você não está participando de um leilão.\nAproveite e participe de um na aba Leilões'))
+                          : const Center(child: Text('Você não está participando de um leilão.\nAproveite e participe de um na aba Leilões'))
+                        : const Center(child: Text('Não tem domínios cadastrados.\nAproveite e cadastre o seu domínio', textAlign: TextAlign.center,))
                       : ListView.builder(
                         itemCount: _dados.length,
                         itemBuilder: (context, index) {
@@ -154,9 +154,14 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                         if (widget.selectedOption == 'mydomains')...[
                                           Column(
                                             children: [
-                                              Chip(
-                                                label: Text(item['status']),
-                                                padding: const EdgeInsets.all(paddingPadrao/10),
+                                              OutlinedButton(
+                                                onPressed: () {
+                                                  
+                                                },
+                                                style: const ButtonStyle(
+                                                  foregroundColor: WidgetStatePropertyAll(Colors.green)
+                                                ),
+                                                child: const Text('Fechar Leilão')
                                               ),
                                             ],
                                           ),

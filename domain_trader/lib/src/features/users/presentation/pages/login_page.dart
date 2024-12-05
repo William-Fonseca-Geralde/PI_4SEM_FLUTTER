@@ -51,86 +51,91 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Image.asset(
-                  logo_login,
-                  width: 200,
-                  height: 200,
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(paddingPadrao),
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 24
+        child: Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width / 3,
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      logo_login,
+                      width: 200,
+                      height: 200,
                     ),
-                  ),
-                ),
-                InputText(
-                  controller: _emailController,
-                  prefixIcon: const Icon(Icons.email_rounded),
-                  hintText: 'Ex: jorge.amado@gmail.com',
-                  typeText: 'email', labelText: 'E-mail'
-                ), 
-                InputPassword(
-                  controller: _passwordController,
-                  hintText: '',
-                  labelText: 'Senha',
-                  helpText: null
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(paddingPadrao),
-                  child: Expanded(
-                    child: Divider(
-                      color: corPrimariaClara,
-                      thickness: 2,
-                    )
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(paddingPadrao),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      FilledButton(
-                        onPressed: () {
-                          _entrarConta();
-                        },
-                        child: const Text('Entrar na Conta'),
-                      ),
-                      FilledButton(
-                        onPressed: () {
-                          voltarIgnorando(context, ['/login', '/cadastro'], navigatorObserver);
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(cancelColor)
+                    const Padding(
+                      padding: EdgeInsets.all(paddingPadrao),
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 24
                         ),
-                        child: const Text('Voltar à Página'),
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                    InputText(
+                      controller: _emailController,
+                      prefixIcon: const Icon(Icons.email_rounded),
+                      hintText: 'Ex: jorge.amado@gmail.com',
+                      typeText: 'email', labelText: 'E-mail'
+                    ), 
+                    InputPassword(
+                      controller: _passwordController,
+                      hintText: '',
+                      labelText: 'Senha',
+                      helpText: null
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(paddingPadrao),
+                      child: Expanded(
+                        child: Divider(
+                          color: corPrimariaClara,
+                          thickness: 2,
+                        )
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(paddingPadrao),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          FilledButton(
+                            onPressed: () {
+                              _entrarConta();
+                            },
+                            child: const Text('Entrar na Conta'),
+                          ),
+                          FilledButton(
+                            onPressed: () {
+                              voltarIgnorando(context, ['/login', '/cadastro'], navigatorObserver);
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll(cancelColor)
+                            ),
+                            child: const Text('Voltar à Página'),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(paddingPadrao),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Ainda não possui conta?'),
+                          FilledButton.tonal(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/cadastro');
+                            },
+                            child: const Text('Cadastrar')
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(paddingPadrao),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Ainda não possui conta?'),
-                      FilledButton.tonal(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/cadastro');
-                        },
-                        child: const Text('Cadastrar')
-                      )
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
           ),
         )

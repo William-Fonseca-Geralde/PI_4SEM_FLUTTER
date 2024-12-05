@@ -86,106 +86,111 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Image.asset(
-                  logo_login,
-                  width: 200,
-                  height: 200,
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(paddingPadrao),
-                  child: Text(
-                    'Cadastro',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 24
+          child: Center(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width / 3,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      logo_login,
+                      width: 200,
+                      height: 200,
                     ),
-                  ),
-                ),
-                InputText(
-                  controller: _nameController,
-                  prefixIcon: const Icon(Icons.person),
-                  hintText: 'Ex: Jorge Amado',
-                  typeText: 'nome',
-                  labelText: 'Nome do Usuário'
-                ),
-                InputText(
-                  controller: _emailController,
-                  prefixIcon: const Icon(Icons.email_rounded),
-                  hintText: 'Ex: jorge.amado@gmail.com',
-                  typeText: 'email',
-                  labelText: 'E-mail'
-                ),
-                InputText(
-                  controller: _tellController,
-                  prefixIcon: const Icon(Icons.phone),
-                  hintText: 'Ex: +55 (19) 97524-5417',
-                  typeText: 'tell',
-                  labelText: 'Telefone',
-                ),
-                InputPassword(
-                  controller: _passwordController,
-                  hintText: '',
-                  labelText: 'Senha',
-                  helpText: 'A senha deve conter:\n - no mínimo 8 caracteres;'
-                ),
-                InputPassword(
-                  controller: _confirmPasswordController,
-                  hintText: '',
-                  labelText: 'Senha',
-                  helpText: 'A senha ter que ser igual acima'
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(paddingPadrao),
-                  child: Expanded(
-                    child: Divider(
-                      color: corPrimariaClara,
-                      thickness: 2,
-                    )
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(paddingPadrao),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      FilledButton(
-                        onPressed: () {
-                          _criarConta();
-                        },
-                        child: const Text('Cadatrar Conta'),
-                      ),
-                      FilledButton(
-                        onPressed: () {
-                          voltarIgnorando(context, ['/login', '/cadastro'], navigatorObserver);
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(cancelColor)
+                    const Padding(
+                      padding: EdgeInsets.all(paddingPadrao),
+                      child: Text(
+                        'Cadastro',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 24
                         ),
-                        child: const Text('Voltar à Página'),
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                    InputText(
+                      controller: _nameController,
+                      prefixIcon: const Icon(Icons.person),
+                      hintText: 'Ex: Jorge Amado',
+                      typeText: 'nome',
+                      labelText: 'Nome do Usuário'
+                    ),
+                    InputText(
+                      controller: _emailController,
+                      prefixIcon: const Icon(Icons.email_rounded),
+                      hintText: 'Ex: jorge.amado@gmail.com',
+                      typeText: 'email',
+                      labelText: 'E-mail'
+                    ),
+                    InputText(
+                      controller: _tellController,
+                      prefixIcon: const Icon(Icons.phone),
+                      hintText: 'Ex: +55 (19) 97524-5417',
+                      typeText: 'tell',
+                      labelText: 'Telefone',
+                    ),
+                    InputPassword(
+                      controller: _passwordController,
+                      hintText: '',
+                      labelText: 'Senha',
+                      helpText: 'A senha deve conter:\n - no mínimo 8 caracteres;'
+                    ),
+                    InputPassword(
+                      controller: _confirmPasswordController,
+                      hintText: '',
+                      labelText: 'Senha',
+                      helpText: 'A senha ter que ser igual acima'
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(paddingPadrao),
+                      child: Expanded(
+                        child: Divider(
+                          color: corPrimariaClara,
+                          thickness: 2,
+                        )
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(paddingPadrao),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          FilledButton(
+                            onPressed: () {
+                              _criarConta();
+                            },
+                            child: const Text('Cadatrar Conta'),
+                          ),
+                          FilledButton(
+                            onPressed: () {
+                              voltarIgnorando(context, ['/login', '/cadastro'], navigatorObserver);
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll(cancelColor)
+                            ),
+                            child: const Text('Voltar à Página'),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(paddingPadrao),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Já tem conta cadastrada?'),
+                          FilledButton.tonal(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/login');
+                            },
+                            child: const Text('Entrar na conta')
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(paddingPadrao),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Já tem conta cadastrada?'),
-                      FilledButton.tonal(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/login');
-                        },
-                        child: const Text('Entrar na conta')
-                      )
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
           ),
         )

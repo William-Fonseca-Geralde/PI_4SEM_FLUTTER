@@ -12,7 +12,8 @@ class DialogFull extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog.fullscreen(
+    return Dialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 300),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
