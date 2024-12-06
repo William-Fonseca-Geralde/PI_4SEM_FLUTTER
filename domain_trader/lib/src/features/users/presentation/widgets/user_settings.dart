@@ -1,5 +1,4 @@
 import 'package:domain_trader/src/features/core/constants/constants.dart';
-import 'package:domain_trader/src/features/core/providers/app_provider.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/users/data/models/user_model.dart';
 import 'package:domain_trader/src/features/users/data/repositories/user_repository_impl.dart';
@@ -77,7 +76,7 @@ class _UserSettingsState extends ConsumerState<UserSettings> {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => EditUser(),
+                      builder: (context) => const EditUser(),
                     );
                   },
                   child: const Text('Editar Conta')
@@ -94,33 +93,6 @@ class _UserSettingsState extends ConsumerState<UserSettings> {
                   },
                   child: const Text('Sair da Conta')
                 ),
-                const SizedBox(
-                  height: paddingPadrao,
-                ),
-                Card.outlined(
-                  child: Padding(
-                    padding: const EdgeInsets.all(paddingPadrao),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          'Tema: ',
-                          style: Theme.of(context).textTheme.bodyLarge
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            ref.read(brightnessProvider.notifier).update((state) => !state);
-                          },
-                          icon: Icon(
-                            ref.watch(brightnessProvider)
-                            ? Icons.dark_mode
-                            : Icons.light_mode
-                          )
-                        ),
-                      ],
-                    ),
-                  ),
-                )
               ],
             ),
           ),

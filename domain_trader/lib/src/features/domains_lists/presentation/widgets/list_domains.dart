@@ -107,7 +107,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
         Card.filled(
           margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width / 2.5,
+            width: MediaQuery.of(context).size.width / 3,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -137,14 +137,8 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          item['url'],
-                                          style: Theme.of(context).textTheme.bodyLarge,
-                                        ),
-                                        Text(
-                                          'R\$ ${item['valor'].toString()}',
-                                          style: Theme.of(context).textTheme.bodyLarge
-                                        )
+                                        Text(item['url']),
+                                        Text('R\$ ${item['valor'].toString()}')
                                       ],
                                     ),
                                     if (widget.selectedOption == 'mydomains') const SizedBox(height: paddingPadrao/2),

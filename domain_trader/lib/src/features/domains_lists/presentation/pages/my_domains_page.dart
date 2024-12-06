@@ -45,34 +45,40 @@ class _MyDomainsPageState extends ConsumerState<MyDomainsPage> {
           flex: 8,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Meus Domínios',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
               const SizedBox(height: paddingPadrao),
-              if (userModel?.nome == null || userModel?.nome == '')
-                const UserLogin()
+              if (userModel?.nome == null || userModel?.nome == '')...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width / 4,
+                      child: const UserLogin()
+                    )
+                  ],
+                )
+              ]
               else ...[
+                Text(
+                  'Meus Domínios',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
                 const ListDomains(selectedOption: 'mydomains'),
+                FloatingActionButton.extended(
+                  label: const Text('Adicionar'),
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => const AddDomainPage(),
+                    );
+                  },
+                )
               ]
             ],
           )
         )
       ),
-      floatingActionButton: userModel?.nome != '' 
-      ? FloatingActionButton.extended(
-        label: const Text('Adicionar'),
-        icon: const Icon(Icons.add),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => const AddDomainPage(),
-          );
-        },
-      )
-      : null
     );
   }
 }

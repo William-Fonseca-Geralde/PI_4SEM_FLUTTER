@@ -94,6 +94,7 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
       image: logo_domain,
       forms: [
         Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             InputText(
               controller: _domainController,
@@ -102,27 +103,42 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
               typeText: 'domain',
               labelText: 'Domínio'
             ),
-            DaterangeInput(controller: _dateController),
-            InputText(
-              controller: _priceController,
-              prefixIcon: const Icon(Icons.attach_money),
-              hintText: 'Ex: R\$ 99.99',
-              typeText: 'price',
-              labelText: 'Preço'
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(child: DaterangeInput(controller: _dateController)),
+                Expanded(
+                  child: InputText(
+                    controller: _priceController,
+                    prefixIcon: const Icon(Icons.attach_money),
+                    hintText: 'Ex: R\$ 99.99',
+                    typeText: 'price',
+                    labelText: 'Preço'
+                  ),
+                ),
+              ],
             ),
-            StatusInput(
-              status: const ['disponível', 'vendido', 'pausado'],
-              onSelected: (value) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  setState(() {
-                    _selectedOption = value;
-                  });
-                });
-              },
-            ),
-            CategoryInput(
-              dropdownMenuEntries: listaCategory,
-              controller: _categoryController
+            Row(
+              children: [
+                Expanded(
+                  child: StatusInput(
+                    status: const ['disponível', 'vendido', 'pausado'],
+                    onSelected: (value) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        setState(() {
+                          _selectedOption = value;
+                        });
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: CategoryInput(
+                    dropdownMenuEntries: listaCategory,
+                    controller: _categoryController
+                  ),
+                ),
+              ],
             ),
           ],
         )

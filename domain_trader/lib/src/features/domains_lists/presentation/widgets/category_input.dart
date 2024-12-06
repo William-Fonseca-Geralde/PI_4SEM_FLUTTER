@@ -17,7 +17,7 @@ class CategoryInput extends StatelessWidget {
       child: DropdownMenu(
         key: _categoryKey,
         controller: controller,
-        width: MediaQuery.of(context).size.width - 40,
+        width: MediaQuery.of(context).size.width / 4.5,
         enableSearch: false,
         enableFilter: false,
         inputDecorationTheme: const InputDecorationTheme(

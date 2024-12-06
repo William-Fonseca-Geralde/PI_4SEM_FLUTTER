@@ -10,8 +10,6 @@ class DomainsPage extends StatefulWidget {
 }
 
 class _DomainsPageState extends State<DomainsPage> {
-  static final Set<String> _opcoesDomains = {'leiloes', 'investimento'};
-  Set<String> _opcoesDomainsSegmented = {_opcoesDomains.first};
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class _DomainsPageState extends State<DomainsPage> {
       child: Expanded(
         flex: 8,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
@@ -31,41 +29,30 @@ class _DomainsPageState extends State<DomainsPage> {
                 )
               ],
             ),
-            const SizedBox(height: paddingPadrao),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2.8,
-                  child: SegmentedButton(
-                    showSelectedIcon: false,
-                    segments: [
-                      ButtonSegment(
-                        value: _opcoesDomains.elementAt(0),
-                        label: Text(
-                          'Leilões',
-                          style: Theme.of(context).textTheme.bodyMedium
-                        )
-                      ),
-                      ButtonSegment(
-                        value: _opcoesDomains.elementAt(1),
-                        label: Text(
-                          'Leilões que participo',
-                          style: Theme.of(context).textTheme.bodyMedium
-                        )
-                      )
-                    ],
-                    selected: _opcoesDomainsSegmented,
-                    onSelectionChanged: (opcao) {
-                      setState(() {
-                        _opcoesDomainsSegmented = opcao;
-                      });
-                    },
-                  ),
+                Column(
+                  children: [
+                    Text(
+                      'Lista de Leilões',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const ListDomains(selectedOption: 'leiloes'),
+                  ],
+                ),
+                const SizedBox(width: paddingPadrao * 3),
+                Column(
+                  children: [
+                    Text(
+                      'Minha Lista',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const ListDomains(selectedOption: 'investimento'),
+                  ],
                 )
               ],
             ),
-            ListDomains(selectedOption: _opcoesDomainsSegmented.first),
           ],
         ),
       )

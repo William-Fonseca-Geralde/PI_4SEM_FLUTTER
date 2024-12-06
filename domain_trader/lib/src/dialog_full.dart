@@ -13,7 +13,10 @@ class DialogFull extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 300),
+      insetPadding: const EdgeInsets.symmetric(
+        horizontal: 380,
+        vertical: 30,
+      ),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -52,7 +55,7 @@ class DialogFull extends StatelessWidget {
                     ),
                     const SizedBox(height: paddingPadrao),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         FloatingActionButton.extended(
                           label: const Text('Cancelar'),

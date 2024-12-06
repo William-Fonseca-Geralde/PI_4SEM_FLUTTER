@@ -95,27 +95,41 @@ class _EditDomainPageState extends ConsumerState<EditDomainPage> {
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
-            InputText(
-              controller: _priceController,
-              prefixIcon: const Icon(Icons.attach_money),
-              hintText: '',
-              typeText: 'price',
-              labelText: 'Preço'
+            Row(
+              children: [
+                Expanded(
+                  child: InputText(
+                    controller: _priceController,
+                    prefixIcon: const Icon(Icons.attach_money),
+                    hintText: '',
+                    typeText: 'price',
+                    labelText: 'Preço'
+                  ),
+                ),
+                Expanded(child: DaterangeInput(controller: _dateController)),
+              ],
             ),
-            DaterangeInput(controller: _dateController),
-            StatusInput(
-              status: const ['disponível', 'vendido', 'pausado'],
-              onSelected: (value) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  setState(() {
-                    _selectedOption = value;
-                  });
-                });
-              },
-            ),
-            CategoryInput(
-              dropdownMenuEntries: listaCategory,
-              controller: _categoryController,
+            Row(
+              children: [
+                Expanded(
+                  child: StatusInput(
+                    status: const ['disponível', 'vendido', 'pausado'],
+                    onSelected: (value) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        setState(() {
+                          _selectedOption = value;
+                        });
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: CategoryInput(
+                    dropdownMenuEntries: listaCategory,
+                    controller: _categoryController,
+                  ),
+                ),
+              ],
             )
           ],
         )
