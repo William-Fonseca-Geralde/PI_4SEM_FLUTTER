@@ -22,13 +22,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
   List<Map<String, dynamic>>? dominios, dominiosInvest, dominiosUser;
 
   void _showDomainDetails(BuildContext context, String domain) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        return DomainDetails(domain: domain);
-      }
-    );
+    DomainDetails(domain: domain);
   }
 
   Future<void> _dominios() async {
@@ -216,7 +210,12 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                 ),
                                 
                                 onTap: () {
-                                  _showDomainDetails(context, item['url']);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return DomainDetails(domain: item['url']);
+                                    },
+                                  );
                                 },
                               ),
                               const Divider(height: 0)
