@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:domain_trader/src/dialog_alert.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
@@ -7,7 +8,9 @@ import 'package:domain_trader/src/features/domains_lists/presentation/widgets/do
 import 'package:domain_trader/src/features/users/presentation/widgets/user_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:emailjs/emailjs.dart' as emailjs;
 
 class ListDomains extends ConsumerStatefulWidget {
   final String selectedOption;
@@ -72,6 +75,41 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
           SnackBar(content: Text('Domínio $url deletado')),
         );
       }
+    }
+  }
+
+  Future<void> _enviarPagamento(String qrData) async {
+    try {
+      final QrPainter qrPainter = QrPainter(
+        data: qrData,
+        version: QrVersions.auto,
+        gapless: false
+      );
+
+      final picData = await qrPainter.toImageData(300);
+      final String base64Image = base64Encode(picData!.buffer.asUint8List());
+      
+      await emailjs.send(
+        'service_bqtunsa',
+        'template_wergwh5',
+        {
+          'user_name': 'William',
+          'domain': 'www.teste.com',
+          'qr_code': base64Image,
+          'user_email': 'wfgeralde@gmail.com'
+        },
+        const emailjs.Options(
+          publicKey: 'RmDHexerhAQAkDYjG',
+          privateKey: 'iKsW1mhk4ZKkw6qOHcT0L'
+        )
+      );
+
+      print('Sucesso');
+    } catch (e) {
+      if (e is emailjs.EmailJSResponseStatus) {
+        print('Erro... ${e.status}: ${e.text}');
+      }
+      print(e.toString());
     }
   }
 
@@ -144,7 +182,9 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                             children: [
                                               OutlinedButton(
                                                 onPressed: () {
-                                                  
+                                                  const qrData = 'https://pub.dev/packages/qr_flutter';
+
+                                                  _enviarPagamento(qrData);
                                                 },
                                                 style: const ButtonStyle(
                                                   foregroundColor: WidgetStatePropertyAll(Colors.green)
