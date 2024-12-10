@@ -1,4 +1,5 @@
 import 'package:domain_trader/src/dialog_alert.dart';
+import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
 import 'package:domain_trader/src/features/leiloes/data/models/leilao_model.dart';
 import 'package:domain_trader/src/features/leiloes/data/repositories/leiloes_repository_impl.dart';
@@ -50,7 +51,14 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
       if (mounted) {
         Navigator.of(context).pushNamed('/home');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Lance na ${widget.domain} por R\$ $valor foi feito')),
+          SnackBar(
+            action: SnackBarAction(
+              label: 'Fechar',
+              onPressed: () {}
+            ),
+            width: MediaQuery.of(context).size.width / 4,
+            content: Text('Lance na ${widget.domain} por R\$ $valor foi feito')
+          ),
         );
       }
     }
@@ -98,7 +106,15 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
       if (mounted) {
         Navigator.of(context).pushNamed('/home');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Lance na ${widget.domain} atualizado para R\$ $valor')),
+          SnackBar(
+            showCloseIcon: true,
+            width: MediaQuery.of(context).size.width / 4,
+            content: Text('Lance na ${widget.domain} atualizado para R\$ $valor'),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(paddingPadrao / 2),
+            ),
+          ),
         );
       }
     }

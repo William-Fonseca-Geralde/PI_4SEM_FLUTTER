@@ -38,6 +38,14 @@ class InputText extends StatelessWidget {
       return Validatorless.required('Valor é Obrigatório');
     } else if (typeText == 'domain') {
       return Validatorless.required('Domínio é obrigatório');
+    } else if (typeText == 'cpf') {
+      return Validatorless.multiple(
+        [
+          // Validatorless.cpf('Esse CPF não é válido'),
+          Validatorless.min(14, 'Esse CPF não é válido'),
+          Validatorless.required('O CPF é obrigatório'),
+        ]
+      );
     } else {
       return null;
     }

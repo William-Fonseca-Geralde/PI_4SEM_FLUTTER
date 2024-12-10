@@ -78,7 +78,7 @@ class LeiloesRepositoryImpl implements LeiloesRepository {
     if (dominioId != null) {
       final data = await supabase
         .from('leilao')
-        .select('usuario(nome, supabase_id), valor')
+        .select('usuario(nome, supabase_id, cpf, email), valor')
         .eq('id_dominio', dominioId)
         .order('valor', ascending: false);
 
@@ -87,6 +87,8 @@ class LeiloesRepositoryImpl implements LeiloesRepository {
 
         return {
           'nome': usuario['nome'] ?? "",
+          'cpf': usuario['cpf'] ?? "",
+          'email': usuario['email'] ?? "",
           'id': usuario['supabase_id'] ?? "",
           'valor': e['valor'] ?? "",
         };

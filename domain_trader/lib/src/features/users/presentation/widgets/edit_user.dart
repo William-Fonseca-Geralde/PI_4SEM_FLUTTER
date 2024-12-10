@@ -49,7 +49,15 @@ class _EditUserState extends ConsumerState<EditUser> {
       if (mounted) {
         Navigator.of(context).pushNamed('/home');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Usuário modificado')),
+          SnackBar(
+            showCloseIcon: true,
+            width: MediaQuery.of(context).size.width / 4,
+            content: const Text('Usuário modificado'),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(paddingPadrao / 2),
+            ),
+          ),
         );
       }
     }

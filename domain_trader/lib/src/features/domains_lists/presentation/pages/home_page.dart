@@ -65,54 +65,66 @@ class _HomePageState extends ConsumerState<HomePage> {
                   child: Navbar(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: paddingPadrao * 5, left: paddingPadrao, bottom: paddingPadrao),
-                  child: Card.filled(
-                    child: Padding(
-                      padding: const EdgeInsets.all(paddingPadrao / 2),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          userName == ''
-                          ? TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamed('/login');
-                              },
-                              child: const Text('Entrar')
-                            )
-                          : TextButton(
-                            onPressed: () {},
-                            child: Text('$userName')
+                  padding: const EdgeInsets.only(right: paddingPadrao * 3.5, left: paddingPadrao, bottom: paddingPadrao),
+                  child: Expanded(
+                    child: SizedBox(
+                      height: paddingPadrao * 3.5,
+                      child: FilledButton(
+                        onPressed: () {
+                          userName == '' ? Navigator.of(context).pushNamed('/login') : null;
+                        },
+                        style: FilledButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(paddingPadrao / 2)
                           ),
-                          const SizedBox(width: 5),
-                          const CircleAvatar(
-                            child: Icon(Icons.person)
-                          ),
-                        ],
+                          padding: const EdgeInsets.symmetric(horizontal: paddingPadrao)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            userName == ''
+                              ? const Text('Entrar')
+                              : Text('$userName'),
+                            Card.filled(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(paddingPadrao / 2),
+                              ),
+                              child: Container(
+                                width: 45,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(paddingPadrao / 2),
+                                ),
+                                child: Icon(Icons.person, color: ref.watch(brightnessProvider) ? Colors.black : Colors.white),
+                              ),
+                            ),
+                          ],
+                        )
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: paddingPadrao * 5, left: paddingPadrao, bottom: paddingPadrao),
-                  child: Card.filled(
-                    child: Padding(
-                      padding: const EdgeInsets.all(paddingPadrao / 1.5),
+                  padding: const EdgeInsets.only(right: paddingPadrao * 7, left: paddingPadrao, bottom: paddingPadrao),
+                  child: SizedBox(
+                    height: paddingPadrao * 3.5,
+                    child: FilledButton.tonal(
+                      onPressed: () {
+                        ref.read(brightnessProvider.notifier).update((state) => !state);
+                      },
+                      style: FilledButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(paddingPadrao / 2)
+                        )
+                      ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Tema: ',
-                            style: Theme.of(context).textTheme.bodyLarge
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              ref.read(brightnessProvider.notifier).update((state) => !state);
-                            },
-                            icon: Icon(
-                              ref.watch(brightnessProvider)
-                              ? Icons.dark_mode
-                              : Icons.light_mode
-                            )
+                          const Text('Tema'),
+                          Icon(
+                            ref.watch(brightnessProvider)
+                            ? Icons.dark_mode
+                            : Icons.light_mode
                           ),
                         ],
                       ),

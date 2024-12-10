@@ -71,7 +71,15 @@ class _EditDomainPageState extends ConsumerState<EditDomainPage> {
       if (mounted) {
         Navigator.of(context).pushNamed('/home');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Domínio ${widget.url} modificado')),
+          SnackBar(
+            showCloseIcon: true,
+            content: Text('Domínio ${widget.url} modificado'),
+            width: MediaQuery.of(context).size.width / 4,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(paddingPadrao / 2),
+            ),
+          ),
         );
       }
     }

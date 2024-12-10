@@ -5,12 +5,15 @@ import 'package:domain_trader/src/features/core/providers/supabase_provider.dart
 import 'package:domain_trader/src/features/domains_lists/data/repositories/domain_repository_impl.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/pages/edit_domain_page.dart';
 import 'package:domain_trader/src/features/domains_lists/presentation/widgets/domain_details.dart';
+import 'package:domain_trader/src/features/leiloes/data/repositories/leiloes_repository_impl.dart';
 import 'package:domain_trader/src/features/users/presentation/widgets/user_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:emailjs/emailjs.dart' as emailjs;
+import 'package:efipay/efipay.dart';
+import 'package:domain_trader/src/features/core/providers/api_service.dart';
 
 class ListDomains extends ConsumerStatefulWidget {
   final String selectedOption;
@@ -22,7 +25,17 @@ class ListDomains extends ConsumerStatefulWidget {
 }
 
 class _ListDomainsState extends ConsumerState<ListDomains> {
-  List<Map<String, dynamic>>? dominios, dominiosInvest, dominiosUser;
+  List<Map<String, dynamic>>? dominios, dominiosInvest, dominiosUser, usuario;
+  final ApiService _apiService = ApiService();
+  
+
+  var config = {
+    'client_id': 'Client_Id_2aab47281114d859f2f196d4b1e4b55234ef6f69',
+    'client_secret': 'Client_Secret_6fa9b9fe8a27aa020d5c69477929b3a0a290e129',
+    'account_id': '65a7b6ae56de8ca5e228b9045c858c00',
+    'sandbox': true,
+    'certificate':'C:\\Users\\wfger\\repos\\PI_4SEM_FLUTTER\\domain_trader\\lib\\src\\features\\core\\certificatehomologacao-659866-Domaintrader.p12',
+  };
 
   void _showDomainDetails(BuildContext context, String domain) {
     DomainDetails(domain: domain);
@@ -72,44 +85,89 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
       if (mounted) {
         Navigator.of(context).pushNamed('/home');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Domínio $url deletado')),
+          SnackBar(
+            showCloseIcon: true,
+            width: MediaQuery.of(context).size.width / 4,
+            content: Text('Domínio $url deletado'),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(paddingPadrao / 2),
+            ),
+          ),
         );
       }
     }
   }
 
-  Future<void> _enviarPagamento(String qrData) async {
+  Future<void> _enviarPagamento(String url, String nome, String email, double valor) async {
     try {
-      final QrPainter qrPainter = QrPainter(
-        data: qrData,
-        version: QrVersions.auto,
-        gapless: false
-      );
-
-      final picData = await qrPainter.toImageData(300);
-      final String base64Image = base64Encode(picData!.buffer.asUint8List());
+      final base64Image = await _apiService.criarPagamento(nome, valor * 100);
+      print(base64Image);
+      print(base64Image['pixQrCode']);
+      print(base64Image['pixQrCode']['brCode']);
+      print(base64Image['pixQrCode']['qrCodeImage']);
       
       await emailjs.send(
         'service_bqtunsa',
         'template_wergwh5',
         {
-          'user_name': 'William',
-          'domain': 'www.teste.com',
-          'qr_code': base64Image,
-          'user_email': 'wfgeralde@gmail.com'
+          'user_name': nome,
+          'domain': url,
+          'qr_code': base64Image['pixQrCode']['qrCodeImage'],
+          'user_email': email
         },
         const emailjs.Options(
           publicKey: 'RmDHexerhAQAkDYjG',
           privateKey: 'iKsW1mhk4ZKkw6qOHcT0L'
         )
       );
-
-      print('Sucesso');
-    } catch (e) {
-      if (e is emailjs.EmailJSResponseStatus) {
-        print('Erro... ${e.status}: ${e.text}');
+      if (mounted) {
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            showCloseIcon: true,
+            width: MediaQuery.of(context).size.width / 4,
+            content: Text('Enviado para o e-mail $email do usuário $nome'),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(paddingPadrao / 1.5),
+            ),
+          ),
+        );
       }
-      print(e.toString());
+    } catch (e) {
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          showCloseIcon: true,
+          width: MediaQuery.of(context).size.width / 4,
+          content: Text('Falha em enviar para o e-mail $email'),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(paddingPadrao / 1.5),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _atualizarDados(String url, String data, String status, String categoria, double preco) async {
+    final domainRepository = DomainRepositoryImpl(supabase: ref.read(supabaseProvider));
+
+    await domainRepository.updateDomainbyId(url, data, status, categoria, preco.toString());
+  }
+
+  Future<void> _usuarioInvest(String dominio) async {
+    final leiloesRepository = LeiloesRepositoryImpl(supabase: ref.read(supabaseProvider));
+
+    final data = await ref.read(supabaseProvider).from('dominio').select().eq('url', dominio).single();
+    final dominioId = data['id_dominio'];
+    final leiloes = await leiloesRepository.findLeiloesbyDomain(dominioId);
+
+    if (mounted) {
+      setState(() {
+        usuario = leiloes;
+      });
     }
   }
 
@@ -182,9 +240,33 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                             children: [
                                               OutlinedButton(
                                                 onPressed: () {
-                                                  const qrData = 'https://pub.dev/packages/qr_flutter';
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      _usuarioInvest(item['url']);
+                                                      return DialogAlert(
+                                                        title: 'Fechar Leilão', 
+                                                        content: const Text('Deseja realmente fechar o leilão?\nAquele que lançou o valor maior, ganhará o domínio'), 
+                                                        actions: [
+                                                          OutlinedButton(
+                                                            onPressed: () async {
+                                                              _enviarPagamento(item['url'], usuario?.first['nome'], usuario?.first['email'], usuario?.first['valor']);
 
-                                                  _enviarPagamento(qrData);
+                                                              _atualizarDados(item['url'], item['data'], 'pausado', item['categoria'], item['valor']);
+                                                            },
+                                                            child: const Text('Fechar mesmo assim')
+                                                          ),
+                                                          const SizedBox(height: paddingPadrao),
+                                                          FilledButton(
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            child: const Text('Não fechar')
+                                                          )
+                                                        ]
+                                                      );
+                                                    },
+                                                  );
                                                 },
                                                 style: const ButtonStyle(
                                                   foregroundColor: WidgetStatePropertyAll(Colors.green)

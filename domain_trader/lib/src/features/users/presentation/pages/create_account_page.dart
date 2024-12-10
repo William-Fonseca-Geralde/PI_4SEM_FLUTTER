@@ -6,6 +6,7 @@ import 'package:domain_trader/src/features/users/presentation/widgets/input_text
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CreateAccountPage extends ConsumerStatefulWidget {
@@ -23,6 +24,7 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
   final _tellController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _cpfController = TextEditingController();
 
   @override
   void dispose() {
@@ -31,6 +33,7 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
     _tellController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _cpfController.dispose();
     super.dispose();
   }
 
@@ -51,12 +54,28 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
         if (mounted) {
           Navigator.of(context).pushNamed('/home');
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Usuário Criado!!!')),
+            SnackBar(
+              showCloseIcon: true,
+              width: MediaQuery.of(context).size.width / 4,
+              content: const Text('Usuário Criado!!!'),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(paddingPadrao / 2),
+              ),
+            ),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro ao criar conta: $e')),
+          SnackBar(
+            showCloseIcon: true,
+            width: MediaQuery.of(context).size.width / 4,
+            content: Text('Erro ao criar conta: $e'),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(paddingPadrao / 2),
+            ),
+          ),
         );
       }
     }
@@ -121,6 +140,13 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                       hintText: 'Ex: jorge.amado@gmail.com',
                       typeText: 'email',
                       labelText: 'E-mail'
+                    ),
+                    InputText(
+                      controller: _cpfController,
+                      prefixIcon: const Icon(FontAwesomeIcons.idCard),
+                      hintText: 'Ex: 451.784.856-58',
+                      typeText: 'cpf',
+                      labelText: 'CPF'
                     ),
                     InputText(
                       controller: _tellController,

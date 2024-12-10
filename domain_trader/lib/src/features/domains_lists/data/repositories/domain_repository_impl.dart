@@ -96,7 +96,9 @@ class DomainRepositoryImpl implements DomainRepository {
         return {
           'url': e['url'],
           'status': e['status'],
-          'valor': leilao.isNotEmpty ? leilao.first['valor'] : e['preco']
+          'valor': leilao.isNotEmpty ? leilao.first['valor'] : e['preco'],
+          'categoria': e['categoria'],
+          'data': e['data_expiracao'],
         };
       }).toList();
 

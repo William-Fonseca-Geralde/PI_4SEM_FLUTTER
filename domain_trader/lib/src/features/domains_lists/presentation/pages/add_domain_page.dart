@@ -74,12 +74,28 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
         if (mounted) {
           Navigator.of(context).pushNamed('/home');
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Domínio ${domain.url} adicionado para Leilão!!!')),
+            SnackBar(
+              showCloseIcon: true,
+              width: MediaQuery.of(context).size.width / 4,
+              content: Text('Domínio ${domain.url} adicionado para Leilão!!!'),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(paddingPadrao / 2),
+              ),
+            ),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro ao criar o domínio: $e')),
+          SnackBar(
+            showCloseIcon: true,
+            width: MediaQuery.of(context).size.width / 4,
+            content: Text('Erro ao criar o domínio: $e'),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(paddingPadrao / 2),
+            ),
+          ),
         );
       }
     }

@@ -36,12 +36,28 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         if (mounted) {
           Navigator.of(context).pushNamed('/home');
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Usuário cadastrado')),
+            SnackBar(
+              showCloseIcon: true,
+              width: MediaQuery.of(context).size.width / 4,
+              content: const Text('Usuário cadastrado'),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(paddingPadrao / 2),
+              ),
+            ),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro ao entrar na conta: $e')),
+          SnackBar(
+            showCloseIcon: true,
+            width: MediaQuery.of(context).size.width / 4,
+            content: Text('Erro ao entrar na conta: $e'),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(paddingPadrao / 2),
+            ),
+          ),
         );
       }
     }
