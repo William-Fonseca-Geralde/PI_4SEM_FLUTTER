@@ -7,9 +7,6 @@ class ApiService {
   final Dio _dio = Dio(
     BaseOptions(
       baseUrl: 'https://api.openpix.com.br/api/v1/qrcode-static',
-      headers: {
-        'Authorization': 'Q2xpZW50X0lkX2RiNTE2YmQ1LTljNzMtNGQzOS05YzVkLTk4NjE1MmIzZjMwYjpDbGllbnRfU2VjcmV0X1ltWHVWMW8ydmpVdGRpQlZkMFBxbHFFamtsS2E2L0VjWEpRQkQ4aVFtbUk9',
-      }
     )
   );
 
