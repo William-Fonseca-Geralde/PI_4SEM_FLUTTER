@@ -99,13 +99,11 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
     }
   }
 
-  Future<void> _enviarPagamento(String url, String nome, String email, double valor) async {
+  Future<void> _enviarPagamento(String url, String nome, String email, double valor, String tel) async {
     try {
-      final base64Image = await _apiService.criarPagamento(nome, valor * 100);
-      print(base64Image);
-      print(base64Image['pixQrCode']);
-      print(base64Image['pixQrCode']['brCode']);
-      print(base64Image['pixQrCode']['qrCodeImage']);
+      final telefone = tel.replaceAll(RegExp(r'[^\d+]'), '');
+
+      final base64Image = await _apiService.criarPagamento(telefone, valor * 100);
       
       await emailjs.send(
         'service_bqtunsa',
@@ -250,7 +248,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                                         actions: [
                                                           OutlinedButton(
                                                             onPressed: () async {
-                                                              _enviarPagamento(item['url'], usuario?.first['nome'], usuario?.first['email'], usuario?.first['valor']);
+                                                              _enviarPagamento(item['url'], usuario?.first['nome'], usuario?.first['email'], usuario?.first['valor'], usuario?.first['tel']);
 
                                                               _atualizarDados(item['url'], item['data'], 'pausado', item['categoria'], item['valor']);
                                                             },

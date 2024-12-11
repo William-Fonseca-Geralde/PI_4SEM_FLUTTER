@@ -76,6 +76,8 @@ class InputText extends StatelessWidget {
       return TextInputType.phone;
     } else if (typeText == 'price'){
       return const TextInputType.numberWithOptions(decimal: true);
+    } else if (typeText == 'cpf') {
+      return TextInputType.number;
     } else {
       return null;
     }
@@ -89,6 +91,8 @@ class InputText extends StatelessWidget {
               leadingSymbol: 'R\$',
               useSymbolPadding: true
             )];
+    } else if (typeText == 'cpf') {
+      return [MaskedInputFormatter('000.000.000-00')];
     } else {
       return null;
     }
