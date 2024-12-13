@@ -108,7 +108,7 @@ class _LanceDialogState extends ConsumerState<LanceDialog> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             showCloseIcon: true,
-            width: MediaQuery.of(context).size.width / 4,
+            width: MediaQuery.of(context).size.width - 80,
             content: Text('Lance na ${widget.domain} atualizado para R\$ $valor'),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(

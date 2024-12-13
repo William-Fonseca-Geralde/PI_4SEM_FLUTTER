@@ -74,7 +74,7 @@ class _EditDomainPageState extends ConsumerState<EditDomainPage> {
           SnackBar(
             showCloseIcon: true,
             content: Text('Domínio ${widget.url} modificado'),
-            width: MediaQuery.of(context).size.width / 4,
+            width: MediaQuery.of(context).size.width - 80,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(paddingPadrao / 2),
