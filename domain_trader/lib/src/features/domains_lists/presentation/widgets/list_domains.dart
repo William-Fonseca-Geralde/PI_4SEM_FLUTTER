@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:typed_data';
+import 'dart:convert';
 import 'package:domain_trader/src/dialog_alert.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
@@ -9,7 +12,7 @@ import 'package:domain_trader/src/features/users/presentation/widgets/user_login
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:emailjs/emailjs.dart' as emailjs;
+// import 'package:emailjs/emailjs.dart' as emailjs;
 import 'package:domain_trader/src/features/core/providers/api_service.dart';
 
 class ListDomains extends ConsumerStatefulWidget {
@@ -108,41 +111,46 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
 
       final base64Image = await _apiService.criarPagamento(telefone, valor * 100);
       
-      await emailjs.send(
-        'service_bqtunsa',
-        'template_wergwh5',
-        {
-          'user_name': nome,
-          'domain': url,
-          'qr_code': base64Image['pixQrCode']['qrCodeImage'],
-          'user_email': email
-        },
-        const emailjs.Options(
-          publicKey: 'RmDHexerhAQAkDYjG',
-          privateKey: 'iKsW1mhk4ZKkw6qOHcT0L'
-        )
-      );
-      if (mounted) {
-        Navigator.of(context).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            showCloseIcon: true,
-            width: MediaQuery.of(context).size.width - 80,
-            content: Text('Enviado para o e-mail $email do usuário $nome'),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(paddingPadrao / 1.5),
+      // await emailjs.send(
+      //   'service_bqtunsa',
+      //   'template_wergwh5',
+      //   {
+      //     'user_name': nome,
+      //     'domain': url,
+      //     'qr_code': base64Image['pixQrCode']['qrCodeImage'],
+      //     'user_email': email
+      //   },
+      //   const emailjs.Options(
+      //     publicKey: 'RmDHexerhAQAkDYjG',
+      //     privateKey: 'iKsW1mhk4ZKkw6qOHcT0L'
+      //   )
+      // );
+      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return DialogAlert(
+            title: 'QrCode para Pagamento',
+            content: Padding(
+              padding: const EdgeInsets.all(paddingPadrao),
+              child: SizedBox(
+                width: 200,
+                height: 200,
+                child: Image.network(base64Image['pixQrCode']['qrCodeImage'])
+              ),
             ),
-          ),
-        );
-      }
+            actions: List.empty()
+          );
+        },
+      );
     } catch (e) {
+      print(e);
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           showCloseIcon: true,
           width: MediaQuery.of(context).size.width - 80,
-          content: Text('Falha em enviar para o e-mail $email'),
+          content: const Text('Falha em enviar em gerar o QRCode'),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(paddingPadrao / 1.5),

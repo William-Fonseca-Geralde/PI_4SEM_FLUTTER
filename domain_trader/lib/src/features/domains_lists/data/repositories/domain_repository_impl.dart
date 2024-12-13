@@ -85,7 +85,7 @@ class DomainRepositoryImpl implements DomainRepository {
 
       final data = await supabase
         .from('dominio')
-        .select('url, categoria, preco, status, leilao(valor, id_usuario)')
+        .select('url, categoria, preco, status, data_expiracao, leilao(valor, id_usuario)')
         .eq('id_usuario', usuario['id_usuario'])
         .neq('leilao.id_usuario', usuario['id_usuario']);
 
@@ -98,7 +98,7 @@ class DomainRepositoryImpl implements DomainRepository {
           'status': e['status'],
           'valor': leilao.isNotEmpty ? leilao.first['valor'] : e['preco'],
           'categoria': e['categoria'],
-          'data': e['data_expiracao'],
+          'data': DateFormat('dd/MM/yyyy').format(DateTime.parse(e['data_expiracao'])),
         };
       }).toList();
 
