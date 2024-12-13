@@ -47,124 +47,112 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          SizedBox(
-            width: 250,
-            child: NavigationDrawer(
-              tilePadding: const EdgeInsets.all(paddingPadrao),
-              onDestinationSelected: (int index) {
-                setState(() {
-                  currentPageIndex = index;
-                });
-              },
-              selectedIndex: currentPageIndex,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(paddingPadrao),
-                  child: Navbar(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: paddingPadrao * 3.5, left: paddingPadrao, bottom: paddingPadrao),
-                  child: Expanded(
-                    child: SizedBox(
-                      height: paddingPadrao * 3.5,
-                      child: FilledButton(
-                        onPressed: () {
-                          userName == '' ? Navigator.of(context).pushNamed('/login') : null;
-                        },
-                        style: FilledButton.styleFrom(
+      appBar: AppBar(
+        title: const Navbar(),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: paddingPadrao),
+            child: Expanded(
+              child: SizedBox(
+                height: paddingPadrao * 2.5,
+                child: FilledButton(
+                  onPressed: () {
+                    userName == '' ? Navigator.of(context).pushNamed('/login') : null;
+                  },
+                  style: FilledButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(paddingPadrao / 2)
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: paddingPadrao / 2)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (userName == '')...[
+                        const Text('Entrar'),
+                        Card.filled(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(paddingPadrao / 2)
+                            borderRadius: BorderRadius.circular(paddingPadrao),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: paddingPadrao)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            userName == ''
-                              ? const Text('Entrar')
-                              : Text('$userName'),
-                            Card.filled(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(paddingPadrao / 2),
-                              ),
-                              child: Container(
-                                width: 45,
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(paddingPadrao / 2),
-                                ),
-                                child: Icon(Icons.person, color: ref.watch(brightnessProvider) ? Colors.black : Colors.white),
-                              ),
+                          child: Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(paddingPadrao),
                             ),
-                          ],
-                        )
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: paddingPadrao * 7, left: paddingPadrao, bottom: paddingPadrao),
-                  child: SizedBox(
-                    height: paddingPadrao * 3.5,
-                    child: FilledButton.tonal(
-                      onPressed: () {
-                        ref.read(brightnessProvider.notifier).update((state) => !state);
-                      },
-                      style: FilledButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(paddingPadrao / 2)
-                        )
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Tema'),
-                          Icon(
-                            ref.watch(brightnessProvider)
-                            ? Icons.dark_mode
-                            : Icons.light_mode
+                            child: Icon(Icons.person, color: ref.watch(brightnessProvider) ? Colors.black : Colors.white),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        ),
+                      ]
+                      else Text('$userName'),
+                    ],
+                  )
                 ),
-                const Divider(),
-                const NavigationDrawerDestination(
-                  icon: Icon(FontAwesomeIcons.gavel),
-                  label: Text('Leilões')
-                ),
-                const NavigationDrawerDestination(
-                  icon: Icon(CupertinoIcons.globe),
-                  label: Text('Meus Domínios')
-                ),
-                const NavigationDrawerDestination(
-                  icon: Icon(Icons.person),
-                  label: Text('Perfil')
-                ),
-              ]
+              ),
             ),
           ),
-          Expanded(
-            child: PageTransitionSwitcher(
-              transitionBuilder: (child, animation, secondaryAnimation) {
-                return SharedAxisTransition(
-                  animation: animation,
-                  secondaryAnimation: secondaryAnimation,
-                  transitionType: SharedAxisTransitionType.horizontal,
-                  child: child,
-                );
-              },
-              child: [
-                const DomainsPage(),
-                const MyDomainsPage(),
-                const UserPage(),
-              ][currentPageIndex],
+          Padding(
+            padding: const EdgeInsets.only(right: paddingPadrao),
+            child: SizedBox(
+              height: paddingPadrao * 2.5,
+              width: paddingPadrao * 3,
+              child: IconButton.filledTonal(
+                onPressed: () {
+                  ref.read(brightnessProvider.notifier).update((state) => !state);
+                },
+                style: FilledButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(paddingPadrao / 2)
+                  )
+                ),
+                icon: Icon(
+                  ref.watch(brightnessProvider)
+                  ? Icons.dark_mode
+                  : Icons.light_mode
+                ),
+              ),
             ),
           ),
         ],
+        automaticallyImplyLeading: false,
+      ),
+      body: PageTransitionSwitcher(
+        transitionBuilder: (child, animation, secondaryAnimation) {
+          return SharedAxisTransition(
+            animation: animation,
+            secondaryAnimation: secondaryAnimation,
+            transitionType: SharedAxisTransitionType.horizontal,
+            child: child,
+          );
+        },
+        child: [
+          const DomainsPage(),
+          const MyDomainsPage(),
+          const UserPage(),
+        ][currentPageIndex],
+      ),
+      bottomNavigationBar: NavigationBar(
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget> [
+          NavigationDestination(
+            icon: Icon(FontAwesomeIcons.gavel),
+            label: 'Leilões'
+          ),
+          NavigationDestination(
+            icon: Icon(CupertinoIcons.globe),
+            label: 'Meus Domínios'
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person),
+            label: 'Perfil'
+          )
+        ]
       ),
     );
   }

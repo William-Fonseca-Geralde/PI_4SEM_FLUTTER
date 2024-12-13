@@ -76,7 +76,7 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               showCloseIcon: true,
-              width: MediaQuery.of(context).size.width / 4,
+              width: MediaQuery.of(context).size.width - 80,
               content: Text('Domínio ${domain.url} adicionado para Leilão!!!'),
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -89,7 +89,7 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             showCloseIcon: true,
-            width: MediaQuery.of(context).size.width / 4,
+            width: MediaQuery.of(context).size.width - 80,
             content: Text('Erro ao criar o domínio: $e'),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
@@ -110,7 +110,6 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
       image: logo_domain,
       forms: [
         Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             InputText(
               controller: _domainController,
@@ -119,42 +118,27 @@ class _AddDomainPageState extends ConsumerState<AddDomainPage> {
               typeText: 'domain',
               labelText: 'Domínio'
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(child: DaterangeInput(controller: _dateController)),
-                Expanded(
-                  child: InputText(
-                    controller: _priceController,
-                    prefixIcon: const Icon(Icons.attach_money),
-                    hintText: 'Ex: R\$ 99.99',
-                    typeText: 'price',
-                    labelText: 'Preço'
-                  ),
-                ),
-              ],
+            DaterangeInput(controller: _dateController),
+            InputText(
+              controller: _priceController,
+              prefixIcon: const Icon(Icons.attach_money),
+              hintText: 'Ex: R\$ 99.99',
+              typeText: 'price',
+              labelText: 'Preço'
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: StatusInput(
-                    status: const ['disponível', 'vendido', 'pausado'],
-                    onSelected: (value) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        setState(() {
-                          _selectedOption = value;
-                        });
-                      });
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: CategoryInput(
-                    dropdownMenuEntries: listaCategory,
-                    controller: _categoryController
-                  ),
-                ),
-              ],
+            StatusInput(
+              status: const ['disponível', 'vendido', 'pausado'],
+              onSelected: (value) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  setState(() {
+                    _selectedOption = value;
+                  });
+                });
+              },
+            ),
+            CategoryInput(
+              dropdownMenuEntries: listaCategory,
+              controller: _categoryController
             ),
           ],
         )

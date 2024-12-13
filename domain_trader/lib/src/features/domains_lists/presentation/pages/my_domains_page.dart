@@ -52,7 +52,7 @@ class _MyDomainsPageState extends ConsumerState<MyDomainsPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: MediaQuery.sizeOf(context).width / 4,
+                      width: MediaQuery.sizeOf(context).width - 60,
                       child: const UserLogin()
                     )
                   ],

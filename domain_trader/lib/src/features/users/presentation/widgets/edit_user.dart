@@ -51,7 +51,7 @@ class _EditUserState extends ConsumerState<EditUser> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             showCloseIcon: true,
-            width: MediaQuery.of(context).size.width / 4,
+            width: MediaQuery.of(context).size.width - 80,
             content: const Text('Usuário modificado'),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
@@ -83,27 +83,19 @@ class _EditUserState extends ConsumerState<EditUser> {
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: InputText(
-                    controller: _nameController,
-                    prefixIcon: const Icon(Icons.person),
-                    hintText: 'Jorge Amado', 
-                    typeText: 'nome',
-                    labelText: 'Nome do usuário'
-                  ),
-                ),
-                Expanded(
-                  child: InputText(
-                    controller: _tellController,
-                    prefixIcon: const Icon(Icons.phone), 
-                    hintText: '+55 (19) 97524-5417', 
-                    typeText: 'tell', 
-                    labelText: 'Telefone',
-                  ),
-                ),
-              ],
+            InputText(
+              controller: _nameController,
+              prefixIcon: const Icon(Icons.person),
+              hintText: 'Jorge Amado', 
+              typeText: 'nome',
+              labelText: 'Nome do usuário'
+            ),
+            InputText(
+              controller: _tellController,
+              prefixIcon: const Icon(Icons.phone), 
+              hintText: '+55 (19) 97524-5417', 
+              typeText: 'tell',
+              labelText: 'Telefone',
             ),
           ],
         ),

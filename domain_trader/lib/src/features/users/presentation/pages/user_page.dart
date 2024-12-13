@@ -48,7 +48,7 @@ class _UserPageState extends ConsumerState<UserPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: MediaQuery.sizeOf(context).width / 4,
+                    width: MediaQuery.sizeOf(context).width - 60,
                     child: userName == ''
                     ? const UserLogin()
                     : const UserSettings()

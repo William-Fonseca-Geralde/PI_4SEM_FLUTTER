@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:domain_trader/src/dialog_alert.dart';
 import 'package:domain_trader/src/features/core/constants/constants.dart';
 import 'package:domain_trader/src/features/core/providers/supabase_provider.dart';
@@ -9,10 +8,8 @@ import 'package:domain_trader/src/features/leiloes/data/repositories/leiloes_rep
 import 'package:domain_trader/src/features/users/presentation/widgets/user_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:emailjs/emailjs.dart' as emailjs;
-import 'package:efipay/efipay.dart';
 import 'package:domain_trader/src/features/core/providers/api_service.dart';
 
 class ListDomains extends ConsumerStatefulWidget {
@@ -38,7 +35,13 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
   };
 
   void _showDomainDetails(BuildContext context, String domain) {
-    DomainDetails(domain: domain);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return DomainDetails(domain: domain);
+      }
+    );
   }
 
   Future<void> _dominios() async {
@@ -87,7 +90,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             showCloseIcon: true,
-            width: MediaQuery.of(context).size.width / 4,
+            width: MediaQuery.of(context).size.width - 80,
             content: Text('Domínio $url deletado'),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
@@ -124,7 +127,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             showCloseIcon: true,
-            width: MediaQuery.of(context).size.width / 4,
+            width: MediaQuery.of(context).size.width - 80,
             content: Text('Enviado para o e-mail $email do usuário $nome'),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
@@ -138,7 +141,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           showCloseIcon: true,
-          width: MediaQuery.of(context).size.width / 4,
+          width: MediaQuery.of(context).size.width - 80,
           content: Text('Falha em enviar para o e-mail $email'),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
@@ -195,7 +198,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
         Card.filled(
           margin: const EdgeInsets.symmetric(vertical: paddingPadrao),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width / 3,
+            width: MediaQuery.of(context).size.width - 40,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -330,12 +333,7 @@ class _ListDomainsState extends ConsumerState<ListDomains> {
                                 ),
                                 
                                 onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return DomainDetails(domain: item['url']);
-                                    },
-                                  );
+                                  _showDomainDetails(context, item['url']);
                                 },
                               ),
                               const Divider(height: 0)

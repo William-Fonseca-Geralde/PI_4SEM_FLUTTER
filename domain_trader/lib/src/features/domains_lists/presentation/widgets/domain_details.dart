@@ -126,169 +126,169 @@ class _DomainDetailsState extends ConsumerState<DomainDetails> {
     final User? user = ref.read(supabaseProvider).auth.currentUser;
     final domainsNome = dados != null ? dados?.where((element) => element['url'] == widget.domain).toList() : List.empty();
 
-    return Dialog(
-      insetPadding: const EdgeInsets.symmetric(
-        horizontal: 450,
-        vertical: 100,
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Detalhes do Leilão',
-            style: Theme.of(context).textTheme.headlineLarge,
+    return Expanded(
+      child: FractionallySizedBox(
+        heightFactor: 0.65,
+        widthFactor: 1,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Detalhes do Leilão',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.close)
+            ),
           ),
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.close)
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(paddingPadrao/4),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  widget.domain,
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                const SizedBox(height: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(paddingPadrao),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Card.outlined(
-                            child: Padding(
-                              padding: const EdgeInsets.all(paddingPadrao),
-                              child: Column(
-                                children: [
-                                  if (nomeDono == null)
-                                    const Center(child: CircularProgressIndicator.adaptive())
-                                  else ... [
-                                    const CircleAvatar(
-                                      radius: 30,
-                                      child: Icon(Icons.person),
-                                    ),
-                                    const SizedBox(height: paddingPadrao),
-                                    Text('$nomeDono'),
-                                  ]
-                                ],
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(paddingPadrao/4),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.domain,
+                    style: Theme.of(context).textTheme.headlineMedium
+                  ),
+                  const SizedBox(height: 25),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(paddingPadrao),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Card.outlined(
+                              child: Padding(
+                                padding: const EdgeInsets.all(paddingPadrao),
+                                child: Column(
+                                  children: [
+                                    if (nomeDono == null)
+                                      const Center(child: CircularProgressIndicator.adaptive())
+                                    else ... [
+                                      const CircleAvatar(
+                                        radius: 30,
+                                        child: Icon(Icons.person),
+                                      ),
+                                      const SizedBox(height: paddingPadrao),
+                                      Text('$nomeDono'),
+                                    ]
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          if (userId != userIdDomain)...[
-                            const SizedBox(height: paddingPadrao),
-                            FilledButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context, 
-                                  builder: (BuildContext context) => LanceDialog(widget.domain)
-                                );
-                              },
-                              child: domainsNome == null || domainsNome.isEmpty ? const Text('Dar Lance') : const Text('Aumentar o Lance')
-                            ),
-                            const SizedBox(height: paddingPadrao),
-                            domainsNome == null || domainsNome.isEmpty
-                            ? const FilledButton.tonal(
-                              onPressed: null,
-                              child: Text('Desfazer aposta')
-                            )
-                            : FilledButton.tonal(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return DialogAlert(
-                                      title: 'Desfazer Aposta', 
-                                      content: const Text('Tem certeza de que deseja desfazer a aposta?'), 
-                                      actions: [
-                                        OutlinedButton(
-                                          onPressed: () {
-                                            _desfazerAposta();
-                                          },
-                                          child: const Text('Desfazer mesmo assim')
-                                        ),
-                                        const SizedBox(height: paddingPadrao),
-                                        FilledButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Não desfazer')
-                                        )
-                                      ]
-                                    );
-                                  },
-                                );
-                              }, 
-                              child: const Text('Desfazer aposta')
-                            )
-                          ]
-                        ],
+                            if (userId != userIdDomain)...[
+                              const SizedBox(height: paddingPadrao),
+                              FilledButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context, 
+                                    builder: (BuildContext context) => LanceDialog(widget.domain)
+                                  );
+                                },
+                                child: domainsNome == null || domainsNome.isEmpty ? const Text('Dar Lance') : const Text('Aumentar o Lance')
+                              ),
+                              const SizedBox(height: paddingPadrao),
+                              domainsNome == null || domainsNome.isEmpty
+                              ? const FilledButton.tonal(
+                                onPressed: null,
+                                child: Text('Desfazer aposta')
+                              )
+                              : FilledButton.tonal(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return DialogAlert(
+                                        title: 'Desfazer Aposta', 
+                                        content: const Text('Tem certeza de que deseja desfazer a aposta?'), 
+                                        actions: [
+                                          OutlinedButton(
+                                            onPressed: () {
+                                              _desfazerAposta();
+                                            },
+                                            child: const Text('Desfazer mesmo assim')
+                                          ),
+                                          const SizedBox(height: paddingPadrao),
+                                          FilledButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Não desfazer')
+                                          )
+                                        ]
+                                      );
+                                    },
+                                  );
+                                }, 
+                                child: const Text('Desfazer aposta')
+                              )
+                            ]
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: paddingPadrao),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Card.filled(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height / 2.5,
-                                    width: MediaQuery.of(context).size.width / 5,
-                                    child: dominios == null
-                                    ? const Center(child: CircularProgressIndicator.adaptive())
-                                    : dominios!.isNotEmpty
-                                      ? ListView.builder(
-                                        itemCount: dominios!.length,
-                                        itemBuilder: (context, index) {
-                                          final item = dominios?[index];
-                                      
-                                          return Column(
-                                            children: [
-                                              ListTile(
-                                                title: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      item?['nome'],
-                                                      style: Theme.of(context).textTheme.bodySmall,
-                                                    ),
-                                                    Text(
-                                                      'R\$ ${item?['valor'].toString()}',
-                                                      style: Theme.of(context).textTheme.bodySmall,
-                                                    )
-                                                  ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: paddingPadrao),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Card.filled(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: MediaQuery.of(context).size.height / 2.5,
+                                      width: MediaQuery.of(context).size.width / 2,
+                                      child: dominios == null
+                                      ? const Center(child: CircularProgressIndicator.adaptive())
+                                      : dominios!.isNotEmpty
+                                        ? ListView.builder(
+                                          itemCount: dominios!.length,
+                                          itemBuilder: (context, index) {
+                                            final item = dominios?[index];
+                                        
+                                            return Column(
+                                              children: [
+                                                ListTile(
+                                                  title: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        item?['nome'],
+                                                        style: Theme.of(context).textTheme.bodySmall,
+                                                      ),
+                                                      Text(
+                                                        'R\$ ${item?['valor'].toString()}',
+                                                        style: Theme.of(context).textTheme.bodySmall,
+                                                      )
+                                                    ],
+                                                  ),
+                                                  leading: item?['id'] == user?.id ? const Icon(Icons.star) : null,
                                                 ),
-                                                leading: item?['id'] == user?.id ? const Icon(Icons.star) : null,
-                                              ),
-                                              const Divider(height: 0)
-                                            ],
-                                          );
-                                        },
-                                      ) 
-                                      : const Center(child: Text('Não há participantes'))
-                                  )
-                                ],
+                                                const Divider(height: 0)
+                                              ],
+                                            );
+                                          },
+                                        ) 
+                                        : const Center(child: Text('Não há participantes'))
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                )
-              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
