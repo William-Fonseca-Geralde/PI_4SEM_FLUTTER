@@ -71,7 +71,7 @@ class _DaterangeInputState extends State<DaterangeInput> {
                 DateTime? newDate = await showDatePicker(
                   context: context,
                   initialDate: DateFormat('dd/MM/yyyy').parse(widget.controller!.text),
-                  firstDate: DateTime.now(),
+                  firstDate: DateTime(2024),
                   lastDate: DateTime(2030),
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
                 );
